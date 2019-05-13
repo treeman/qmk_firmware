@@ -1,0 +1,115 @@
+// right hand top row {{{
+COMB(C_CTRLSIX,   LCTL(KC_6),     MY_H,  MY_Y)
+COMB(C_ARING,     FI_ARNG,        MY_H,  MY_U)
+COMB(C_PLUS,      FI_PLUS,        MY_O,  MY_L)
+COMB(C_QUOT,      FI_QUOT,        MY_I,  MY_O)
+COMB(C_ASTERISK,  LSFT(FI_QUOT),  MY_I,  MY_O,  MY_P)
+COMB(C_ACUT,      FI_ACUT,        MY_L,  MY_I)
+
+COMB(C_DIAERESISR,  FI_DIAE,  MY_OE,  MY_P)
+
+//}}}
+// right hand home row {{{
+
+COMB(C_LESSTHAN,     FI_LABK,        MY_H,     MY_J)
+COMB(C_GREATERTHAN,  LSFT(FI_LABK),  MY_K,     MY_L)
+
+COMB(C_SLASH,        LSFT(KC_7),     MY_J,     MY_K)
+COMB(C_BACKSLASH,    RALT(FI_PLUS),  MY_THR2,  MY_J,  MY_K)
+
+COMB(C_QUESTION,         LSFT(FI_PLUS),  MY_THR2,  MY_L,  MY_OE)
+
+COMB(C_EQUALS,   LSFT(KC_0),  MY_L,  MY_OE)
+
+COMB(C_SQUAREBRACERIGHT,  RALT(KC_9),  MY_M,  MY_DOT)
+COMB(C_PARENRIGHT,        LSFT(KC_9),  MY_J,  MY_K,  MY_L)
+COMB(C_CURLYBRACERIGHT,   RALT(KC_0),  MY_J,  MY_L)
+
+COMB(C_WBAK,      KC_WBAK,        MY_THR2, MY_H)
+COMB(C_NEXTTAB,   CTRLTAB,        MY_THR2, MY_J)
+COMB(C_PREVTAB,   CSFTTAB,        MY_THR2, MY_K)
+COMB(C_WFWD,      KC_WFWD,        MY_THR2, MY_L)
+
+//}}}
+// right hand bottom row {{{
+COMB(C_SEMICOLON,    FI_SCLN,  MY_M,     MY_COMM)
+COMB(C_DOUBLECOLON,  FI_COLN,  MY_COMM,  MY_DOT)
+COMB(C_UNDERSCORE,   FI_UNDS,  MY_DOT,   MY_MINS)
+
+//}}}
+
+// left hand top row {{{
+COMB(C_WE_TAB,  LT(_FUNC,  KC_TAB),  MY_W,  MY_E)
+
+COMB(C_DIAERESIS,  FI_DIAE,  MY_G,  MY_T)
+COMB(C_SECT,       FI_SECT,  MY_A,  MY_Q)
+//}}}
+// left hand home row {{{
+COMB(C_EXCLAMATIONP,  FI_EXLM,  MY_A,  MY_S)
+COMB(C_DQUOTES,       LSFT(KC_2),  MY_S,  MY_D)
+COMB(C_HASH,          LSFT(KC_3),  MY_D,  MY_F)
+COMB(C_PERCENTG,      LSFT(KC_5),  MY_F,  MY_G)
+
+COMB(C_SQUAREBRACELEFT,  RALT(KC_8),  MY_X,  MY_V)
+COMB(C_PARENLEFT,        LSFT(KC_8),  MY_F,  MY_D,  MY_S)
+COMB(C_CURLYBRACELEFT,   RALT(KC_7),  MY_S,  MY_F)
+
+// thumbs
+COMB(C_THUMB_CTL_SFT,    LCTL(KC_LSFT),   MY_THL1, MY_S)
+COMB(C_THUMB_ALT_SFT,    LALT(KC_LSFT),   MY_THL2, MY_S)
+COMB(C_THUMB_ALT_CTL,    LALT(KC_LCTL),   MY_THL2, MY_A)
+
+//}}}
+// left hand bottow row {{{
+COMB(C_PIPE,     RALT(FI_LABK),  MY_X,     MY_Z)
+COMB(C_AT,       RALT(KC_2),     MY_X,     MY_C)
+COMB(C_DOLLAR,   RALT(KC_4),     MY_C,     MY_V)
+
+//}}}
+
+
+// both hands {{{
+COMB(C_SLEEP,  KC_SLEP,  MY_Q,     MY_P)
+COMB(C_WAKE,   KC_WAKE,  MY_W,     MY_O)
+
+COMB(C_RESET,RESET,    MY_V, MY_B, MY_N, MY_M)
+
+COMB(C_SQUAREBRACEBOTH,  MY_SQUAREBRACEBOTH,  MY_X,  MY_V,  MY_M,  MY_DOT)
+COMB(C_CURLYBRACEBOTH,   MY_CURLYBRACEBOTH,   MY_S,  MY_F,  MY_J,  MY_L)
+COMB(C_PARENSBOTH,       MY_PARENSBOTH,       MY_S,  MY_D,  MY_F,  MY_J,  MY_K,  MY_L)
+
+//}}}
+
+// randoms {{{
+COMB(C_MUTE,   KC_MUTE,  KC_VOLU,  KC_VOLD)
+
+COMB(C_VIM_S,   MY_VIM_S,   MY_THL3,  MY_S)
+COMB(C_VIM_C,   MY_VIM_C,   MY_THL3,  MY_C)
+COMB(C_VIM_CW,  MY_VIM_CW,  MY_THL3,  MY_C,  MY_W)
+COMB(C_VIM_V,   MY_VIM_V,   MY_THL3,  MY_V)
+
+COMB(C_ALTSHFT, ALTSHFT,   KC_LSFT, CTRLESC, KC_TAB)
+
+SUBS(C_GMAIL, "pete.sevander@gmail.com", MY_G, MY_M, MY_L)
+
+// tap dances {{{
+#ifdef TAP_DANCE_ENABLE
+COMB(C_PSCRINS,  TD(TD_PSCR_INS),   MY_COMM, MY_MINS)
+/* COMB(C_EXCLAMATIONP,  TD(TD_SEEND_EXLM),  MY_A,  MY_S) */
+/* COMB(C_QUESTION,         TD(TD_SEEND_QUES),  MY_THR2,  MY_L,  MY_OE) */
+#endif
+// }}}
+
+// alt + number for browser tabs and tmux {{{
+COMB(C_ALTN1,            LALT(KC_1),    MY_THL2,  MY_Q)
+COMB(C_ALTN2,            LALT(KC_2),    MY_THL2,  MY_W)
+COMB(C_ALTN3,            LALT(KC_3),    MY_THL2,  MY_E)
+COMB(C_ALTN4,            LALT(KC_4),    MY_THL2,  MY_R)
+COMB(C_ALTN5,            LALT(KC_5),    MY_THL2,  MY_T)
+COMB(C_ALTN6,            LALT(KC_6),    MY_THR2, MY_Y)
+COMB(C_ALTN7,            LALT(KC_7),    MY_THR2, MY_U)
+COMB(C_ALTN8,            LALT(KC_8),    MY_THR2, MY_I)
+COMB(C_ALTN9,            LALT(KC_9),    MY_THR2, MY_O)
+COMB(C_ALTN0,            LALT(KC_0),    MY_THR2, MY_P)
+//}}}
+//}}}
