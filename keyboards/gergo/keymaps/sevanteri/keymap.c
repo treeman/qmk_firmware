@@ -9,7 +9,6 @@
 
 #include QMK_KEYBOARD_H
 #include "sevanteri.h"
-#include "gergo.h"
 #include "wrappers.h"
 #include "keymap_finnish.h"
 #include "pointing_device.h"

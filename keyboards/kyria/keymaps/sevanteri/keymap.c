@@ -16,7 +16,6 @@
 #include QMK_KEYBOARD_H
 
 #include "sevanteri.h"
-#include "kyria.h"
 #include "wrappers.h"
 #include "keymap_finnish.h"
 
