@@ -247,6 +247,34 @@ bool get_combo_must_hold(uint16_t index, combo_t *combo) { // {{{
     return false;
 } // }}}
 
+
+#ifdef COMBO_PROCESS_KEY_RELEASE
+bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) {
+    switch (combo_index) {
+        case C_THUMB_CTL_SFT:
+        case C_THUMB_ALT_SFT:
+        case C_THUMB_ALT_CTL:
+            switch(keycode) {
+                case MY_A:
+                case MY_THL1:
+                    unregister_mods(MOD_MASK_CTRL);
+                    break;
+                case MY_S:
+                    unregister_mods(MOD_MASK_SHIFT);
+                    break;
+                case MY_THL2:
+                    unregister_mods(MOD_MASK_ALT);
+                    break;
+            }
+            break;
+        case C_GMAIL:
+            // true releases the combo immediately.
+            return true;
+    }
+    return false;
+}
+#endif
+
 #endif
 
 void trigger_tapping(void) {
