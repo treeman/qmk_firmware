@@ -96,28 +96,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
             if (!pressed) break;
             tap_code16(FI_LPRN);
             tap_code16(KC_ENT);
+            tap_code16(KC_END);
+            tap_code16(KC_ENT);
             tap_code16(FI_RPRN);
             tap_code16(KC_UP);
             tap_code16(KC_END);
-            tap_code16(KC_ENT);
             break;
         case MY_SQUAREBRACEBOTH:
             if (!pressed) break;
             tap_code16(FI_LBRC);
             tap_code16(KC_ENT);
+            tap_code16(KC_END);
+            tap_code16(KC_ENT);
             tap_code16(FI_RBRC);
             tap_code16(KC_UP);
             tap_code16(KC_END);
-            tap_code16(KC_ENT);
             break;
         case MY_CURLYBRACEBOTH:
             if (!pressed) break;
             tap_code16(FI_LCBR);
             tap_code16(KC_ENT);
+            tap_code16(KC_END);
+            tap_code16(KC_ENT);
             tap_code16(FI_RCBR);
             tap_code16(KC_UP);
             tap_code16(KC_END);
-            tap_code16(KC_ENT);
             break;
 #endif
     }
