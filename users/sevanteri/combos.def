@@ -18,6 +18,7 @@ COMB(C_SLASH,        LSFT(KC_7),     MY_J,     MY_K)
 COMB(C_BACKSLASH,    RALT(FI_PLUS),  MY_THR2,  MY_J,  MY_K)
 
 COMB(C_QUESTION,         LSFT(FI_PLUS),  MY_THR2,  MY_L,  MY_OE)
+COMB(C_QUESTION2,        LSFT(FI_PLUS),  MY_THR2,  MY_OE)
 
 COMB(C_EQUALS,   LSFT(KC_0),  MY_L,  MY_OE)
 
@@ -32,9 +33,13 @@ COMB(C_WFWD,      KC_WFWD,        MY_THR2, MY_L)
 
 //}}}
 // right hand bottom row {{{
+
+COMB(C_AMP,          FI_AMPR,  MY_N,     MY_M)
 COMB(C_SEMICOLON,    FI_SCLN,  MY_M,     MY_COMM)
 COMB(C_DOUBLECOLON,  FI_COLN,  MY_COMM,  MY_DOT)
 COMB(C_UNDERSCORE,   FI_UNDS,  MY_DOT,   MY_MINS)
+
+SUBS(C_DOTDOTSLASH,  "../",    MY_THR2,  MY_DOT)
 
 //}}}
 
@@ -90,7 +95,14 @@ COMB(C_VIM_V,   MY_VIM_V,   MY_THL3,  MY_V)
 
 COMB(C_ALTSHFT, ALTSHFT,   KC_LSFT, CTRLESC, KC_TAB)
 
-SUBS(C_GMAIL, "pete.sevander@gmail.com", MY_G, MY_M, MY_L)
+
+// string combos, always double handed: thumb2 plus letter from other hand {{{
+
+SUBS(C_GMAIL,  "pete.sevander@gmail.com",  MY_THR2,  MY_G)
+SUBS(C_PETE,   "Pete",                     MY_THL2,  MY_P)
+SUBS(C_SEVA,   "Sevander",                 MY_THR2,  MY_S)
+
+// }}}
 
 // tap dances {{{
 #ifdef TAP_DANCE_ENABLE
