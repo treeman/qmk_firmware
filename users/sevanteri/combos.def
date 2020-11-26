@@ -3,8 +3,8 @@ COMB(C_CTRLSIX,   LCTL(KC_6),     MY_H,  MY_Y)
 COMB(C_ARING,     FI_ARNG,        MY_H,  MY_U)
 COMB(C_PLUS,      FI_PLUS,        MY_O,  MY_L)
 COMB(C_QUOT,      FI_QUOT,        MY_I,  MY_O)
-COMB(C_ASTERISK,  LSFT(FI_QUOT),  MY_I,  MY_O,  MY_P)
-COMB(C_ACUT,      FI_ACUT,        MY_L,  MY_I)
+COMB(C_ASTERISK,  LSFT(FI_QUOT),  MY_U,  MY_I,  MY_O)
+COMB(C_ACUT,      FI_ACUT,        MY_O,  MY_P)
 
 COMB(C_DIAERESISR,  FI_DIAE,  MY_OE,  MY_P)
 
@@ -101,6 +101,14 @@ COMB(C_ALTSHFT, ALTSHFT,   KC_LSFT, CTRLESC, KC_TAB)
 SUBS(C_GMAIL,  "pete.sevander@gmail.com",  MY_THR2,  MY_G)
 SUBS(C_PETE,   "Pete",                     MY_THL2,  MY_P)
 SUBS(C_SEVA,   "Sevander",                 MY_THR2,  MY_S)
+
+SUBS(C_OULD,   "ould",    MY_THL2, MY_U)
+
+// python
+
+SUBS(C_IMPORT,  "import",  MY_THL2,  MY_I)
+SUBS(C_FROM,    "from",    MY_THR2,  MY_F)
+SUBS(C_class,   "class",   MY_THR2,  MY_C)
 
 // }}}
 
