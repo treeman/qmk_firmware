@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /******/ /******/ _______________QWERTY_R1_,
         /******/ /******/ _______________QWERTY_R2_,
         HOMEND,  XXXXXXX, _______________QWERTY_R3_,
-        MY_THR1, MY_THR2, MY_THR3, MY_THR4, PSCRINS
+        MY_THR1, MY_THR2, MY_THR3, MY_THR4, KC_PSCR
     ), // }}}
     [_FUNC] = LAYOUT_stack_wrapper( // {{{
         MO(_STUF),  _________________FUNCL_L1__________________,

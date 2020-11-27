@@ -114,7 +114,7 @@ SUBS(C_class,   "class",   MY_THR2,  MY_C)
 
 // tap dances {{{
 #ifdef TAP_DANCE_ENABLE
-COMB(C_PSCRINS,  TD(TD_PSCR_INS),   MY_COMM, MY_MINS)
+/* COMB(C_PSCRINS,  TD(TD_PSCR_INS),   MY_COMM, MY_MINS) */
 /* COMB(C_EXCLAMATIONP,  TD(TD_SEEND_EXLM),  MY_A,  MY_S) */
 /* COMB(C_QUESTION,         TD(TD_SEEND_QUES),  MY_THR2,  MY_L,  MY_OE) */
 #endif

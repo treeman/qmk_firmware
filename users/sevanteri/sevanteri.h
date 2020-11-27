@@ -39,7 +39,7 @@ extern uint8_t tb_brightness;
 #define  MY_THR1  LT(_FUNC, KC_ENT)
 #define  MY_THR2  RSFT_T(KC_SPC)
 #define  MY_THR3  MO(_SYMB)
-#define  MY_THR4  KC_RALT
+#define  MY_THR4  RALT_T(KC_INS)
 
 // basic alpha keys {{{
 #define  MY_Q  KC_Q
