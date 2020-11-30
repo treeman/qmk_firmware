@@ -101,3 +101,6 @@ enum tapdance_buttons {
 
 #include "action_tapping.h"
 void trigger_tapping(void);
+
+// SEND_STRING shortcuts
+#define SLEFT SS_TAP(X_LEFT)

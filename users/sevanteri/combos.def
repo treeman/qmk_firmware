@@ -63,6 +63,10 @@ COMB(C_CURLYBRACELEFT,   RALT(KC_7),  MY_S,  MY_F)
 COMB(C_THUMB_CTL_SFT,    LCTL(KC_LSFT),   MY_THL1, MY_S)
 COMB(C_THUMB_ALT_SFT,    LALT(KC_LSFT),   MY_THL2, MY_S)
 COMB(C_THUMB_ALT_CTL,    LALT(KC_LCTL),   MY_THL2, MY_A)
+// overlap with vim combos. rethink.
+/* COMB(C_THUMB_GUI_CTL,    LGUI(KC_LCTL),   MY_THL3, MY_A) */
+/* COMB(C_THUMB_GUI_SFT,    LGUI(KC_LSFT),   MY_THL3, MY_S) */
+/* COMB(C_THUMB_GUI_ALT,    LGUI(KC_LALT),   MY_THL3, MY_Z) */
 
 //}}}
 // left hand bottow row {{{
@@ -99,8 +103,6 @@ COMB(C_ALTSHFT, ALTSHFT,   KC_LSFT, CTRLESC, KC_TAB)
 // string combos, always double handed: thumb2 plus letter from other hand {{{
 
 SUBS(C_GMAIL,  "pete.sevander@gmail.com",  MY_THR2,  MY_G)
-SUBS(C_PETE,   "Pete",                     MY_THL2,  MY_P)
-SUBS(C_SEVA,   "Sevander",                 MY_THR2,  MY_S)
 
 SUBS(C_OULD,   "ould",    MY_THL2, MY_U)
 
@@ -109,6 +111,10 @@ SUBS(C_OULD,   "ould",    MY_THL2, MY_U)
 SUBS(C_IMPORT,  "import",  MY_THL2,  MY_I)
 SUBS(C_FROM,    "from",    MY_THR2,  MY_F)
 SUBS(C_class,   "class",   MY_THR2,  MY_C)
+SUBS(C_self,    "self",    MY_THR2,  MY_S)
+
+SUBS(C_def,     "def ():" SLEFT SLEFT SLEFT,  MY_THR2,  MY_D)
+SUBS(C_dunder,  "____" SLEFT SLEFT,           MY_THL2,  MY_MINS)
 
 // }}}
 
