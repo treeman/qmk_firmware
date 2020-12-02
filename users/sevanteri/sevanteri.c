@@ -71,6 +71,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
             trackball_set_brightness(tb_brightness|1);
             /* xprintf("%d\n",  tb_brightness); */
             return false;
+#endif
         case MY_VIM_V:
             if (!pressed) break;
             tap_code(KC_HOME);
@@ -122,7 +123,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
             tap_code16(KC_UP);
             tap_code16(KC_END);
             break;
-#endif
     }
 
 #ifdef POINTING_DEVICE_ENABLE

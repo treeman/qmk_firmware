@@ -89,22 +89,14 @@ COMB(C_PARENSBOTH,       MY_PARENSBOTH,       MY_S,  MY_D,  MY_F,  MY_J,  MY_K, 
 
 //}}}
 
-// randoms {{{
-COMB(C_MUTE,   KC_MUTE,  KC_VOLU,  KC_VOLD)
-
-COMB(C_VIM_S,   MY_VIM_S,   MY_THL3,  MY_S)
-COMB(C_VIM_C,   MY_VIM_C,   MY_THL3,  MY_C)
-COMB(C_VIM_CW,  MY_VIM_CW,  MY_THL3,  MY_C,  MY_W)
-COMB(C_VIM_V,   MY_VIM_V,   MY_THL3,  MY_V)
-
-COMB(C_ALTSHFT, ALTSHFT,   KC_LSFT, CTRLESC, KC_TAB)
-
-
 // string combos, always double handed: thumb2 plus letter from other hand {{{
 
 SUBS(C_GMAIL,  "pete.sevander@gmail.com",  MY_THR2,  MY_G)
 
 SUBS(C_OULD,   "ould",    MY_THL2, MY_U)
+SUBS(C_IAM,    "I'm ",     MY_I, MY_M)
+SUBS(C_IVE,    "I've ",     MY_I, MY_V)
+SUBS(C_ID,    "I'd ",     MY_I, MY_D)
 
 // python
 
@@ -117,6 +109,17 @@ SUBS(C_def,     "def ():" SLEFT SLEFT SLEFT,  MY_THR2,  MY_D)
 SUBS(C_dunder,  "____" SLEFT SLEFT,           MY_THL2,  MY_MINS)
 
 // }}}
+
+// randoms {{{
+COMB(C_MUTE,   KC_MUTE,  KC_VOLU,  KC_VOLD)
+
+COMB(C_VIM_S,   MY_VIM_S,   MY_THL3,  MY_S)
+COMB(C_VIM_C,   MY_VIM_C,   MY_THL3,  MY_C)
+COMB(C_VIM_CW,  MY_VIM_CW,  MY_THL3,  MY_C,  MY_W)
+COMB(C_VIM_V,   MY_VIM_V,   MY_THL3,  MY_V)
+
+COMB(C_ALTSHFT, ALTSHFT,   KC_LSFT, CTRLESC, KC_TAB)
+
 
 // tap dances {{{
 #ifdef TAP_DANCE_ENABLE
