@@ -1,3 +1,18 @@
+My master branch is my personal changes branch which you shouldn't use as a base for anything if you don't want stuff breaking.
+Instead, see below for the Combo branches.
+
+# Combos!
+
+If you're looking for my Combo improvements, here they are, in the [early_combo](https://github.com/sevanteri/qmk_firmware/tree/early_combo) branch. Pending Pull Request [here](https://github.com/qmk/qmk_firmware/pull/8591).
+
+The branch gets frequent force-pushes as does the `develop` branch. If that's a problem for you, the same changes can be found in the [combos_on_master](https://github.com/sevanteri/qmk_firmware/tree/combos_on_master) branch in which the changes are rebased on top the master branch.
+
+
+Personally, I've found that rebasing on top of either of these branches is the easiest way. If you're a master of git, do what ever you want.
+
+
+
+
 # Quantum Mechanical Keyboard Firmware
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
