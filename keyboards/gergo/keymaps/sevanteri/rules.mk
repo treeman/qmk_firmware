@@ -12,7 +12,7 @@ DEBUG_MATRIX		 = no
 UNICODE_ENABLE   = no  # Unicode
 SWAP_HANDS_ENABLE= no  # Allow swapping hands of keyboard
 
-TAP_DANCE_ENABLE = yes
+TAP_DANCE_ENABLE = no
 COMBO_ENABLE = yes
 LEADER_ENABLE = no
 

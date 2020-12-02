@@ -66,7 +66,7 @@
 #define ____FUNC_L4_____    _______,  MO(_STUF)
 
 
-#define ____QWERTY_R4___    MY_THR3,  PSCRINS
+#define ____QWERTY_R4___    MY_THR3,  MY_THR4
 #define ____SYMB_R4_____    _______,  SE_ACUT
 #define ____FUNC_R4_____    _______,  KC_RALT
 #define ____MOUS_R4_____    KC_BTN3,  _______

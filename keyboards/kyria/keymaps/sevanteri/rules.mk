@@ -4,7 +4,7 @@ RGBLIGHT_ENABLE = no      # Enable keyboard RGB underglow
 
 PIMORONI_TRACKBALL_ENABLE = yes
 
-TAP_DANCE_ENABLE = yes
+TAP_DANCE_ENABLE = no
 COMBO_ENABLE = yes
 LEADER_ENABLE = no
 

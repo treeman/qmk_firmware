@@ -3,7 +3,7 @@ SRC += sevanteri.c
 VPATH += keyboards/gboards/
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
-	SRC += tapdance.c
+    SRC += tapdance.c
 endif
 ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
     SRC += pimoroni_trackball.c
