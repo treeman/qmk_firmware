@@ -114,6 +114,8 @@ static int16_t mouse_auto_layer_timer = 0;
 #define MOUSE_TIMEOUT 600
 #define TRACKBALL_TIMEOUT 5
 
+#define SIGN(x) ((x > 0) - (x < 0))
+
 // user config EEPROM stuff {{{
 typedef union {
   uint32_t raw;
@@ -224,8 +226,10 @@ void pointing_device_task() {
                 x_offset += (newlen * cos(state.angle_rad));
                 y_offset += (newlen * sin(state.angle_rad));
 #else
-                x_offset += state.x;
-                y_offset += state.y;
+                uint8_t scale = 3;
+                if (mods & MOD_MASK_CTRL) scale = 2;
+                x_offset += state.x * state.x * SIGN(state.x) * scale;
+                y_offset += state.y * state.y * SIGN(state.y) * scale;
 #endif
 
             }
