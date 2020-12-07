@@ -140,12 +140,11 @@ void eeconfig_init_user(void) {
 // }}}
 
 void matrix_init_user() {
-    i2c_init();
     trackball_init();
 }
 
 void suspend_power_down_user(void) {
-    trackball_set_brightness(0);
+    /* trackball_set_brightness(0); */
     /* trackball_sleep(); */
 }
 
