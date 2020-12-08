@@ -87,6 +87,7 @@ clang
 -Itmk_core/common
 -Itmk_core/protocol/lufa
 -Ilib/lufa
+-includequantum/rgblight.h
 -includequantum/quantum.h
 -includetmk_core/common/avr/xprintf.h
 -includetmk_core/common/print.h

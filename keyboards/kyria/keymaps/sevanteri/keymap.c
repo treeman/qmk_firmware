@@ -126,16 +126,28 @@ typedef union {
 
 user_config_t user_config;
 
+
+static bool rgb_changed = false;
+static uint8_t rgb_hue = 0;
+static uint8_t rgb_brightness = 0;
+static uint8_t rgb_sat = 0;
+
 void keyboard_post_init_user(void) {
   user_config.raw = eeconfig_read_user();
   tb_brightness = user_config.tb_brightness;
   trackball_set_brightness(tb_brightness);
+
+  rgb_hue = rgblight_get_hue();
+  rgb_brightness = rgblight_get_val();
+  rgb_sat = rgblight_get_sat();
+
 }
 
 void eeconfig_init_user(void) {
   user_config.raw = 0;
   user_config.tb_brightness = 32;
   eeconfig_update_user(user_config.raw);
+  rgblight_sethsv(5, 5, 5);
 }
 // }}}
 
@@ -194,8 +206,23 @@ void pointing_device_task() {
         } else {
 
             if (layer_state_is(_STUF)) {
-                tb_brightness += state.y * 4;
-                trackball_set_brightness(tb_brightness | 1);
+
+                if (mods & MOD_MASK_CTRL) {
+                    rgb_hue += state.x % 256;
+                    int16_t new_brightness = rgb_brightness + state.y * 2;
+                    if (new_brightness < RGBLIGHT_LIMIT_VAL && new_brightness >= 0) {
+                        rgb_brightness = new_brightness;
+                    }
+                    rgb_changed = true;
+                    rgblight_sethsv_noeeprom(rgb_hue, rgb_sat, rgb_brightness);
+                } else if (mods & MOD_MASK_SHIFT) {
+                    rgb_sat += state.x % 256;
+                    rgb_changed = true;
+                    rgblight_sethsv_noeeprom(rgb_hue, rgb_sat, rgb_brightness);
+                } else {
+                    tb_brightness += state.y * 4;
+                    trackball_set_brightness(tb_brightness | 1);
+                }
 
             } else if (layer_state_is(_FUNC)) {
                 h_offset += state.x;
@@ -297,10 +324,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {/*{{{*/
     if (
             last_layer == _STUF
             && last_layer != layer
-            && tb_brightness != user_config.tb_brightness
        ) {
-        user_config.tb_brightness = tb_brightness;
-        eeconfig_update_user(user_config.raw);
+
+        if (tb_brightness != user_config.tb_brightness) {
+            user_config.tb_brightness = tb_brightness;
+            eeconfig_update_user(user_config.raw);
+        }
+
+        if (rgb_changed) {
+            rgblight_sethsv(rgb_hue, rgb_sat, rgb_brightness);
+            rgb_changed = false;
+        }
+
     }
 
     last_layer = layer;
