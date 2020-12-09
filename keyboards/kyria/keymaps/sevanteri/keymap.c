@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MY_THR1, MY_THR2, MY_THR3, MY_THR4, KC_PSCR
     ), // }}}
     [_FUNC] = LAYOUT_stack_wrapper( // {{{
-        MO(_STUF),  _________________FUNCL_L1__________________,
+        TG(_STUF),  _________________FUNCL_L1__________________,
         _______, _________________FUNCL_L2__________________,
         _______, _________________FUNCL_L3__________________, _______, _______,
                                    _______, _______, ___FUNC_THUMBLN_,
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           _________________FUNCL_R1__________________, _______,
                           _________________FUNCL_R2__________________, _______,
         _______, _______, _________________FUNCL_R3__________________, _______,
-        _______, _______, _______, _______, _______
+        _______, _______, _______, _______, TG(_STUF)
     ), // }}}
     [_SYMB] = LAYOUT_stack_wrapper( // {{{
         _SYMB_L1_________________,
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______
     ), // }}}
     [_STUF] = LAYOUT_stack_wrapper( // {{{
-        _______, _________________STUFF_L1__________________,
+        TG(_STUF), _________________STUFF_L1__________________,
         _______, _________________STUFF_L2__________________,
         _______, _________________STUFF_L3__________________, ________________,
                                    ___________________________________________,
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           _________________STUFF_L1__________________, _______,
                           _________________STUFF_L2__________________, _______,
         _______, _______, _________________STUFF_L3__________________, _______,
-        ___________________________________________
+        __________________________________, TG(_STUF)
     ), // }}}
     [_MOUS] = LAYOUT_stack_wrapper( // {{{
         _______, ___________________________________________,
@@ -116,51 +116,25 @@ static int16_t mouse_auto_layer_timer = 0;
 
 #define SIGN(x) ((x > 0) - (x < 0))
 
-// user config EEPROM stuff {{{
-typedef union {
-  uint32_t raw;
-  struct {
-    uint8_t tb_brightness :8;
-  };
-} user_config_t;
-
-user_config_t user_config;
-
-
 static bool rgb_changed = false;
-static uint8_t rgb_hue = 0;
-static uint8_t rgb_brightness = 0;
-static uint8_t rgb_sat = 0;
+static uint8_t rgb_hue = 1;
+static uint8_t rgb_brightness = 1;
+static uint8_t rgb_sat = 255;
 
 void keyboard_post_init_user(void) {
-  user_config.raw = eeconfig_read_user();
-  tb_brightness = user_config.tb_brightness;
-  trackball_set_brightness(tb_brightness);
-
-  rgb_hue = rgblight_get_hue();
-  rgb_brightness = rgblight_get_val();
-  rgb_sat = rgblight_get_sat();
-
+    rgb_hue = rgblight_get_hue();
+    rgb_brightness = rgblight_get_val();
+    rgb_sat = rgblight_get_sat();
+    trackball_set_hsv(rgb_hue, rgb_sat, rgb_brightness);
 }
 
 void eeconfig_init_user(void) {
-  user_config.raw = 0;
-  user_config.tb_brightness = 32;
-  eeconfig_update_user(user_config.raw);
-  rgblight_sethsv(5, 5, 5);
+  rgblight_sethsv(0, 255, 5);
 }
-// }}}
 
 void matrix_init_user() {
     trackball_init();
 }
-
-void suspend_power_down_user(void) {
-    /* trackball_set_brightness(0); */
-    /* trackball_sleep(); */
-}
-
-__attribute__((weak)) void pointing_device_init(void) { trackball_set_rgbw(0,0,0,tb_brightness); }
 
 void update_member(int8_t* member, int16_t* offset) {//{{{
     if (*offset > 127) {
@@ -207,7 +181,15 @@ void pointing_device_task() {
 
             if (layer_state_is(_STUF)) {
 
-                if (mods & MOD_MASK_CTRL) {
+                if (mods & MOD_MASK_SHIFT) {
+                    int16_t new_sat = rgb_sat + state.x * 2;
+                    if (new_sat > 0 && new_sat <= 255) {
+                        rgb_sat = new_sat;
+                        rgb_changed = true;
+                        rgblight_sethsv_noeeprom(rgb_hue, rgb_sat, rgb_brightness);
+                        trackball_set_hsv(rgb_hue, rgb_sat, rgb_brightness);
+                    }
+                } else {
                     rgb_hue += state.x % 256;
                     int16_t new_brightness = rgb_brightness + state.y * 2;
                     if (new_brightness < RGBLIGHT_LIMIT_VAL && new_brightness >= 0) {
@@ -215,13 +197,7 @@ void pointing_device_task() {
                     }
                     rgb_changed = true;
                     rgblight_sethsv_noeeprom(rgb_hue, rgb_sat, rgb_brightness);
-                } else if (mods & MOD_MASK_SHIFT) {
-                    rgb_sat += state.x % 256;
-                    rgb_changed = true;
-                    rgblight_sethsv_noeeprom(rgb_hue, rgb_sat, rgb_brightness);
-                } else {
-                    tb_brightness += state.y * 4;
-                    trackball_set_brightness(tb_brightness | 1);
+                    trackball_set_hsv(rgb_hue, rgb_sat, rgb_brightness);
                 }
 
             } else if (layer_state_is(_FUNC)) {
@@ -304,19 +280,24 @@ layer_state_t layer_state_set_user(layer_state_t state) {/*{{{*/
     uint8_t layer = get_highest_layer(state);
     switch(layer) {
         case _SYMB:
-            trackball_set_rgbw(0, 0, tb_brightness, 0);
+            trackball_set_rgbw(0, 0, rgb_brightness, 0);
+            /* rgblight_setrgb(0, 0, rgb_brightness); */
             break;
         case _FUNC:
-            trackball_set_rgbw(0, tb_brightness, 0, 0);
+            trackball_set_rgbw(0, rgb_brightness, 0, 0);
+            /* rgblight_setrgb(0, rgb_brightness, 0); */
             break;
         case _STUF:
-            trackball_set_rgbw(tb_brightness, 0, tb_brightness, 0);
+            trackball_set_rgbw(rgb_brightness, 0, rgb_brightness, 0);
+            /* rgblight_setrgb(rgb_brightness, 0, rgb_brightness); */
             break;
         case _MOUS:
-            trackball_set_rgbw(0, tb_brightness, tb_brightness, 0);
+            trackball_set_rgbw(0, rgb_brightness, rgb_brightness, 0);
+            /* rgblight_setrgb(0, rgb_brightness, rgb_brightness); */
             break;
         default:
-            trackball_set_rgbw(0, 0, 0, tb_brightness);
+            trackball_set_hsv(rgb_hue, rgb_sat, rgb_brightness);
+            /* rgblight_sethsv_noeeprom(rgb_hue, rgb_sat, rgb_brightness); */
             break;
     }
 
@@ -325,11 +306,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {/*{{{*/
             last_layer == _STUF
             && last_layer != layer
        ) {
-
-        if (tb_brightness != user_config.tb_brightness) {
-            user_config.tb_brightness = tb_brightness;
-            eeconfig_update_user(user_config.raw);
-        }
 
         if (rgb_changed) {
             rgblight_sethsv(rgb_hue, rgb_sat, rgb_brightness);

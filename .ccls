@@ -100,3 +100,4 @@ clang
 -includekeyboards/kyria/keymaps/sevanteri/config.h
 -includekeyboards/ergodox_infinity/config.h
 -includekeyboards/ergodox_infinity/keymaps/sevanteri/config.h
+-includequantum/color.h

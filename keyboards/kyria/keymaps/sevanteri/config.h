@@ -29,9 +29,8 @@
 
 #ifdef RGBLIGHT_ENABLE
   /* #define RGBLIGHT_ANIMATIONS */
-  /* #define TRACKBALL_NO_MATH */
-  /* #define RGBLIGHT_MODE_BREATHING */
-  #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+  /* #define RGBLIGHT_EFFECT_BREATHING */
+  /* #define RGBLIGHT_EFFECT_STATIC_GRADIENT */
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
@@ -44,3 +43,6 @@
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 /* #define SPLIT_USB_DETECT */
 /* #define NO_USB_STARTUP_CHECK */
+/* #undef RGBLED_SPLIT */
+
+#define RGBLIGHT_LIMIT_VAL 200

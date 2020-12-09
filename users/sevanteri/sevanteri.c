@@ -22,7 +22,7 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
 
 
 static uint16_t code_timer;
-uint8_t tb_brightness = 32;
+uint8_t tb_brightness = 42;
 
 static bool alt_sft = false;
 static bool alt_sft_state = false;
@@ -52,7 +52,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
             return false;
 #ifdef PIMORONI_TRACKBALL_ENABLE
         case RESET:
+#    ifdef RGBLIGHT_ENABLE
+            trackball_set_rgbw(rgblight_get_val(), 0, 0, 0);
+#    else
             trackball_set_rgbw(tb_brightness, 0, 0, 0);
+#    endif
             return true;
         case KC_SLEP:
             if (!pressed) return true;
