@@ -1,6 +1,7 @@
 #pragma once
 
 #include <quantum.h>
+#include "color.h"
 
 #ifndef TRACKBALL_ADDRESS
 #    define TRACKBALL_ADDRESS 0x0A
@@ -52,5 +53,6 @@ void trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w);
 void trackball_read_state(uint8_t* data, uint16_t size_of_data);
 void trackball_sleep(void);
 void trackball_set_brightness(uint8_t brightness);
+void trackball_set_hsv(uint8_t hue, uint8_t sat, uint8_t brightness);
 
 trackball_state_t trackball_get_state(void);
