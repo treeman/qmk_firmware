@@ -4,7 +4,7 @@ COMB(C_ARING,     FI_ARNG,        MY_H,  MY_U)
 COMB(C_PLUS,      FI_PLUS,        MY_O,  MY_L)
 COMB(C_QUOT,      FI_QUOT,        MY_I,  MY_O)
 COMB(C_ASTERISK,  LSFT(FI_QUOT),  MY_U,  MY_I,  MY_O)
-COMB(C_ACUT,      FI_ACUT,        MY_O,  MY_P)
+COMB(C_ACUT,      FI_ACUT,        MY_I,  MY_L)
 
 COMB(C_DIAERESISR,  FI_DIAE,  MY_OE,  MY_P)
 

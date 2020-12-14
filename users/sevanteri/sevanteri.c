@@ -227,8 +227,9 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
 
     switch(index) {
         case C_QUOT:
-        case C_ACUT:
             return 20;
+        case C_ACUT:
+            return 15;
     }
 
     // Longer term for THUMB+alpha
