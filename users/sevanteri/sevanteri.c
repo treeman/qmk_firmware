@@ -172,8 +172,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
 
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) { // {{{
     switch (keycode) {
-        case LSFT_T(KC_X):
-        case LT(_FUNC, KC_X):
         case LCTL_T(KC_ESC):
         case MY_THL1:
         case MY_THL2:
@@ -227,6 +225,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
 
     switch(index) {
         case C_QUOT:
+        case C_WE_TAB:
             return 20;
         case C_ACUT:
             return 15;
@@ -252,7 +251,7 @@ bool get_combo_must_hold(uint16_t index, combo_t *combo) { // {{{
     return false;
 } // }}}
 
-
+// process_combo_key_release {{{
 #ifdef COMBO_PROCESS_KEY_RELEASE
 bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) {
     switch (combo_index) {
@@ -279,7 +278,7 @@ bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key
     return false;
 }
 #endif
-
+// }}}
 #endif
 
 void trigger_tapping(void) {
