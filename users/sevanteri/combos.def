@@ -44,7 +44,7 @@ SUBS(C_DOTDOTSLASH,  "../",    MY_THR2,  MY_DOT)
 //}}}
 
 // left hand top row {{{
-COMB(C_WE_TAB,  LT(_FUNC,  KC_TAB),  MY_W,  MY_E)
+COMB(C_WE_TAB,  KC_TAB,  MY_W,  MY_E)
 
 COMB(C_DIAERESIS,  FI_DIAE,  MY_G,  MY_T)
 COMB(C_SECT,       FI_SECT,  MY_A,  MY_Q)
