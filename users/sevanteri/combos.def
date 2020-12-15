@@ -51,7 +51,7 @@ COMB(C_SECT,       FI_SECT,  MY_A,  MY_Q)
 //}}}
 // left hand home row {{{
 COMB(C_EXCLAMATIONP,  FI_EXLM,  MY_A,  MY_S)
-COMB(C_DQUOTES,       LSFT(KC_2),  MY_S,  MY_D)
+COMB(C_DQUOTES,       TD(TD_FUNC_DQUOTES),  MY_S,  MY_D)
 COMB(C_HASH,          LSFT(KC_3),  MY_D,  MY_F)
 COMB(C_PERCENTG,      LSFT(KC_5),  MY_F,  MY_G)
 
