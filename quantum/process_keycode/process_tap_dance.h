@@ -42,6 +42,7 @@ typedef struct {
         qk_tap_dance_user_fn_t on_each_tap;
         qk_tap_dance_user_fn_t on_dance_finished;
         qk_tap_dance_user_fn_t on_reset;
+        qk_tap_dance_user_fn_t on_each_release;
     } fn;
     qk_tap_dance_state_t state;
     uint16_t             custom_tapping_term;
