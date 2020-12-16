@@ -45,4 +45,4 @@
 /* #define NO_USB_STARTUP_CHECK */
 /* #undef RGBLED_SPLIT */
 
-#define RGBLIGHT_LIMIT_VAL 200
+/* #define RGBLIGHT_LIMIT_VAL 200 */

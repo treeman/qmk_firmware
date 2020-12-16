@@ -183,7 +183,7 @@ void pointing_device_task() {
 
                 if (mods & MOD_MASK_SHIFT) {
                     int16_t new_sat = rgb_sat + state.x * 2;
-                    if (new_sat > 0 && new_sat <= 255) {
+                    if (new_sat > 100 && new_sat <= 255) {
                         rgb_sat = new_sat;
                         rgb_changed = true;
                         rgblight_sethsv_noeeprom(rgb_hue, rgb_sat, rgb_brightness);
