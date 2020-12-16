@@ -10,7 +10,6 @@ void sentence_end_tap(qk_tap_dance_state_t *state, void *user_data) {
 }
 void sentence_end_fin(qk_tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
-
         // Double tapping produces
         // "<key> <one-shot-shift>" i.e. dot, space and capitalize next letter.
         // This helps to quickly end a sentence and begin another one
@@ -34,10 +33,8 @@ typedef struct {
     bool held;
 } layer_tap_t;
 void ltRelease(qk_tap_dance_state_t* state, void* user_data) {
-    /* layer_tap_t *data = (layer_tap_t*)user_data; */
     if (state->count == 1) {
         state->finished = true;
-        /* tap_code16(data->keycode); */
     }
 }
 void ltFin(qk_tap_dance_state_t* state, void* user_data) {
@@ -56,7 +53,7 @@ void ltReset(qk_tap_dance_state_t* state, void* user_data) {
         tap_code16(data->keycode);
     }
 }
-#define ACTION_TAP_DANCE_LAYER_TAP(_keycode, _layer) \
+#define ACTION_TAP_DANCE_LAYER_TAP(_layer, _keycode) \
     { .fn = {NULL, ltFin, ltReset, ltRelease}, .user_data = (void*)&((layer_tap_t){.keycode=_keycode, .layer=_layer})}
 
 
@@ -68,5 +65,5 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   /* [TD_SEEND_DOT] = ACTION_TAP_DANCE_FN_ADVANCED_USER(sentence_end_tap, sentence_end_fin, NULL, FI_DOT), */
   /* [TD_SEEND_QUES] = ACTION_TAP_DANCE_FN_ADVANCED_USER(sentence_end_tap, sentence_end_fin, NULL, FI_QUES), */
   /* [TD_SEEND_EXLM] = ACTION_TAP_DANCE_FN_ADVANCED_USER(sentence_end_tap, sentence_end_fin, NULL, FI_EXLM), */
-    [TD_FUNC_DQUOTES] = ACTION_TAP_DANCE_LAYER_TAP(FI_DQUO, _FUNC),
+    [TD_FUNC_DQUOTES] = ACTION_TAP_DANCE_LAYER_TAP(_FUNC, FI_DQUO),
 };
