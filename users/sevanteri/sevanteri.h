@@ -92,7 +92,9 @@ enum tapdance_buttons {
     TD_SEEND_DOT,
     TD_SEEND_QUES,
     TD_SEEND_EXLM,
+
     TD_FUNC_DQUOTES,
+    TD_LCTL_SLASH,
 };
 #define HOMEND TD(TD_HOME_END)
 #define PSCRINS TD(TD_PSCR_INS)
