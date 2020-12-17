@@ -1,4 +1,5 @@
 void tapRelease(qk_tap_dance_state_t* state, void* user_data) {
+    // immediately finish TD on first release.
     state->finished = true;
 }
 
@@ -8,6 +9,7 @@ typedef struct {
     bool held;
 } mod_tap_t;
 void mtFin(qk_tap_dance_state_t* state, void* user_data) {
+    // TAPPING_TERM has passed, register mods.
     mod_tap_t *data = (mod_tap_t*)user_data;
     if (state->pressed) {
         data->held = true;
@@ -15,6 +17,7 @@ void mtFin(qk_tap_dance_state_t* state, void* user_data) {
     }
 }
 void mtReset(qk_tap_dance_state_t* state, void* user_data) {
+    // key was released, tap keycode or unregister mods.
     mod_tap_t *data = (mod_tap_t*)user_data;
     if (data->held) {
         data->held = false;
@@ -33,6 +36,7 @@ typedef struct {
     bool held;
 } layer_tap_t;
 void ltFin(qk_tap_dance_state_t* state, void* user_data) {
+    // TAPPING_TERM has passed, activate layer.
     layer_tap_t *data = (layer_tap_t*)user_data;
     if (state->pressed) {
         data->held = true;
@@ -40,6 +44,7 @@ void ltFin(qk_tap_dance_state_t* state, void* user_data) {
     }
 }
 void ltReset(qk_tap_dance_state_t* state, void* user_data) {
+    // key was released, tap keycode or deactivate layer.
     layer_tap_t *data = (layer_tap_t*)user_data;
     if (data->held) {
         data->held = false;
