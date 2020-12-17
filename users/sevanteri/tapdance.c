@@ -91,4 +91,5 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   /* [TD_SEEND_EXLM] = ACTION_TAP_DANCE_FN_ADVANCED_USER(sentence_end_tap, sentence_end_fin, NULL, FI_EXLM), */
     [TD_FUNC_DQUOTES] = ACTION_TAP_DANCE_LAYER_TAP(_FUNC, FI_DQUO),
     [TD_LCTL_SLASH] = ACTION_TAP_DANCE_MOD_TAP(MOD_MASK_CTRL, FI_SLSH),
+    [TD_LGUI_RABK] = ACTION_TAP_DANCE_MOD_TAP(MOD_MASK_GUI, FI_RABK),
 };

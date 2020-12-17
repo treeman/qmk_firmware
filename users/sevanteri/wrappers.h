@@ -73,7 +73,7 @@
 
 #define _QWERTY_THUMBLN_    MY_THL1,   MY_THL2,  MY_THL3
 #define ___SYMB_THUMBLN_    CODEBLK,   KC_DOT,   _______
-#define ___FUNC_THUMBLN_    MO(_STUF),  _______,  KC_DEL
+#define ___FUNC_THUMBLN_    _______,   _______,  KC_DEL
 #define ___MOUS_THUMBLN_    _______,   _______,  _______
 
 #define _QWERTY_THUMBRN_    MY_THR3, MY_THR2, MY_THR1

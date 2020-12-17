@@ -95,6 +95,7 @@ enum tapdance_buttons {
 
     TD_FUNC_DQUOTES,
     TD_LCTL_SLASH,
+    TD_LGUI_RABK,
 };
 #define HOMEND TD(TD_HOME_END)
 #define PSCRINS TD(TD_PSCR_INS)

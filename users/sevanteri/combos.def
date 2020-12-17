@@ -11,8 +11,9 @@ COMB(C_DIAERESISR,  FI_DIAE,  MY_OE,  MY_P)
 //}}}
 // right hand home row {{{
 
-COMB(C_LESSTHAN,     FI_LABK,        MY_H,     MY_J)
-COMB(C_GREATERTHAN,  LSFT(FI_LABK),  MY_K,     MY_L)
+COMB(C_LESSTHAN,     FI_LABK,           MY_H,  MY_J)
+COMB(C_GREATERTHAN,  TD(TD_LGUI_RABK),  MY_K,  MY_L)
+/* COMB(C_GREATERTHAN,  FI_RABK,           MY_K,  MY_L) */
 
 /* COMB(C_SLASH,      LSFT(KC_7),         MY_J,     MY_K) */
 COMB(C_SLASH,      TD(TD_LCTL_SLASH),  MY_J,     MY_K)
@@ -94,10 +95,8 @@ COMB(C_PARENSBOTH,       MY_PARENSBOTH,       MY_S,  MY_D,  MY_F,  MY_J,  MY_K, 
 
 SUBS(C_GMAIL,  "pete.sevander@gmail.com",  MY_THR2,  MY_G)
 
-SUBS(C_OULD,   "ould",    MY_THL2, MY_U)
-/* SUBS(C_IAM,    "I'm ",     MY_I, MY_M) // didn't work nicely with 'vim'... */
-SUBS(C_IVE,    "I've ",     MY_I, MY_V)
-SUBS(C_ID,    "I'd ",     MY_I, MY_D)
+SUBS(C_OULD,  "ould",  MY_THL2,  MY_U)
+SUBS(C_IAPO,  "I'",  MY_THR2, MY_I, MY_O)
 
 // python
 
