@@ -73,6 +73,7 @@ clang
 -Ikeyboards/kyria
 -Ikeyboards/gboards/gergoplex
 -Ikeyboards/gboards/
+-Ikeyboards/ergodox_infinity/
 -I.
 -Itmk_core
 -Iquantum
@@ -98,6 +99,7 @@ clang
 -includekeyboards/kyria/kyria.h
 -includekeyboards/kyria/rev1/kyria.h
 -includekeyboards/kyria/keymaps/sevanteri/config.h
+-includekeyboards/ergodox_infinity/ergodox_infinity.h
 -includekeyboards/ergodox_infinity/config.h
 -includekeyboards/ergodox_infinity/keymaps/sevanteri/config.h
 -includequantum/color.h

@@ -1,3 +1,5 @@
+// merge/cherry-pick this first: https://github.com/sevanteri/qmk_firmware/commit/861cbd20303f5d93537a7904879a3f9f7e1ea5c5
+
 void tapRelease(qk_tap_dance_state_t* state, void* user_data) {
     // immediately finish TD on first release.
     state->finished = true;

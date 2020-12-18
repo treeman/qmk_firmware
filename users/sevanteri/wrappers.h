@@ -71,12 +71,12 @@
 #define ____FUNC_R4_____    _______,  KC_RALT
 #define ____MOUS_R4_____    KC_BTN3,  _______
 
-#define _QWERTY_THUMBLN_    MY_THL1,   MY_THL2,  MY_THL3
+#define _QWERTY_THUMBLN_    MY_THL3,   MY_THL2,  MY_THL1
 #define ___SYMB_THUMBLN_    CODEBLK,   KC_DOT,   _______
 #define ___FUNC_THUMBLN_    _______,   _______,  KC_DEL
 #define ___MOUS_THUMBLN_    _______,   _______,  _______
 
-#define _QWERTY_THUMBRN_    MY_THR3, MY_THR2, MY_THR1
+#define _QWERTY_THUMBRN_    MY_THR1, MY_THR2, MY_THR3
 #define ___SYMB_THUMBRN_    _______, _______, _______
 #define ___FUNC_THUMBRN_    _______, _______, _______
 #define ___MOUS_THUMBRN_    KC_BTN1, _______, _______
