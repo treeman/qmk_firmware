@@ -554,6 +554,12 @@ enum quantum_keycodes {
     JS_BUTTON31,
     JS_BUTTON_MAX = JS_BUTTON31,
 
+#ifdef KEY_OVERRIDE_ENABLE
+    KEY_OVERRIDE_TOGGLE,
+    KEY_OVERRIDE_ON,
+    KEY_OVERRIDE_OFF,
+#endif
+
 #if defined(SEQUENCER_ENABLE)
     SQ_ON,
     SQ_OFF,
