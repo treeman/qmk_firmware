@@ -86,6 +86,7 @@ static inline void _process_tap_dance_action_fn(qk_tap_dance_state_t *state, voi
 }
 
 static inline void process_tap_dance_action_on_each_tap(qk_tap_dance_action_t *action) { _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_each_tap); }
+static inline void process_tap_dance_action_on_each_release(qk_tap_dance_action_t *action) { _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_each_release); }
 
 static inline void process_tap_dance_action_on_dance_finished(qk_tap_dance_action_t *action) {
     if (action->state.finished) return;
@@ -147,6 +148,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
 
                 last_td = keycode;
             } else {
+                process_tap_dance_action_on_each_release(action);
                 if (action->state.count && action->state.finished) {
                     reset_tap_dance(&action->state);
                 }

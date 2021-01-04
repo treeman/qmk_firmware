@@ -1,3 +1,18 @@
+My master branch is my personal changes branch which you shouldn't use as a base for anything if you don't want stuff breaking.
+Instead, see below for the Combo branches.
+
+# Combos!
+
+If you're looking for my Combo improvements, here they are, in the [early_combo](https://github.com/sevanteri/qmk_firmware/tree/early_combo) branch. Pending Pull Request [here](https://github.com/qmk/qmk_firmware/pull/8591).
+
+The branch gets frequent force-pushes as does the `develop` branch. If that's a problem for you, the same changes can be found in the [combos_on_master](https://github.com/sevanteri/qmk_firmware/tree/combos_on_master) branch in which the changes are rebased on top the master branch.
+
+
+Personally, I've found that rebasing on top of either of these branches is the easiest way. If you're a master of git, do what ever you want.
+
+
+
+
 # Quantum Mechanical Keyboard Firmware
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
@@ -6,6 +21,12 @@
 [![Docs Status](https://img.shields.io/badge/docs-ready-orange.svg)](https://docs.qmk.fm)
 [![GitHub contributors](https://img.shields.io/github/contributors/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/pulse/monthly)
 [![GitHub forks](https://img.shields.io/github/forks/qmk/qmk_firmware.svg?style=social&label=Fork)](https://github.com/qmk/qmk_firmware/)
+
+# THIS IS THE DEVELOP BRANCH
+
+Warning- This is the `develop` branch of QMK Firmware. You may encounter broken code here. Please see [Breaking Changes](https://docs.qmk.fm/#/breaking_changes) for more information.
+
+# Original readme continues
 
 This is a keyboard firmware based on the [tmk\_keyboard firmware](https://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR and ARM controllers, and more specifically, the [OLKB product line](https://olkb.com), the [ErgoDox EZ](https://ergodox-ez.com) keyboard, and the [Clueboard product line](https://clueboard.co).
 
