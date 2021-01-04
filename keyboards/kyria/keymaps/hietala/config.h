@@ -39,6 +39,10 @@
 // Apply the modifier on keys that are tapped during a short hold of a modtap
 #define PERMISSIVE_HOLD
 
+// Auto shift stuff
+#define RETRO_SHIFT
+#define AUTO_SHIFT_TIMEOUT 150
+
 #define LEADER_TIMEOUT 250
 #define LEADER_PER_KEY_TIMING
 
