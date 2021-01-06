@@ -31,7 +31,7 @@
 
 // Home-row mods: https://precondition.github.io/home-row-mods#tap-hold-configuration-settings
 // Configure the global tapping term (default: 200ms)
-#define TAPPING_TERM 220
+#define TAPPING_TERM 250
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #define IGNORE_MOD_TAP_INTERRUPT
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
@@ -41,7 +41,7 @@
 
 // Auto shift stuff
 #define RETRO_SHIFT
-#define AUTO_SHIFT_TIMEOUT 150
+#define AUTO_SHIFT_TIMEOUT 200
 
 #define LEADER_TIMEOUT 250
 #define LEADER_PER_KEY_TIMING
