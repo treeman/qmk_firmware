@@ -1,17 +1,11 @@
-My master branch is my personal changes branch which you shouldn't use as a base for anything if you don't want stuff breaking.
-Instead, see below for the Combo branches.
+# Merged things
 
-# Combos!
+My personal branch with weird things.
 
-If you're looking for my Combo improvements, here they are, in the [early_combo](https://github.com/sevanteri/qmk_firmware/tree/early_combo) branch. Pending Pull Request [here](https://github.com/qmk/qmk_firmware/pull/8591).
+Merged things:
 
-The branch gets frequent force-pushes as does the `develop` branch. If that's a problem for you, the same changes can be found in the [combos_on_master](https://github.com/sevanteri/qmk_firmware/tree/combos_on_master) branch in which the changes are rebased on top the master branch.
-
-
-Personally, I've found that rebasing on top of either of these branches is the easiest way. If you're a master of git, do what ever you want.
-
-
-
+* The [early_combo](https://github.com/sevanteri/qmk_firmware/tree/early_combo) branch from Sevanteri. Pull Request [here](https://github.com/qmk/qmk_firmware/pull/8591).
+* The [retro-shift](https://github.com/manna-harbour/qmk_firmware/tree/retro-shift) branch from manna-harbour.
 
 # Quantum Mechanical Keyboard Firmware
 
