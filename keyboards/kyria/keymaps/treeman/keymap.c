@@ -18,6 +18,7 @@
 #include "keycodes.h"
 #include "status.h"
 
+#include "keymap_swedish.h"
 #include "sendstring_swedish.h"
 
 #ifdef ENCODER_ENABLE
@@ -54,6 +55,71 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+#define THUMB_TERM 20
+#define INDEX_TERM -20
+#define MIDDLE_TERM 0
+#define RING_TERM 50
+#define PINKY_TERM 100
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MY_SPC:
+        case MY_E:
+            return TAPPING_TERM + THUMB_TERM;
+        case MY_H:
+        case MY_N:
+            return TAPPING_TERM + INDEX_TERM;
+        case MY_T:
+        case MY_A:
+            return TAPPING_TERM + MIDDLE_TERM;
+        case MY_S:
+        case MY_I:
+            return TAPPING_TERM + RING_TERM;
+        case MY_R:
+        case MY_O:
+            return TAPPING_TERM + PINKY_TERM;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
+// ) -> Å
+const key_override_t arng_override = ko_make_basic(MOD_MASK_CTRL, SE_RPRN, SE_ARNG);
+// ( -> Ä
+const key_override_t adia_override = ko_make_basic(MOD_MASK_CTRL, SE_LPRN, SE_ADIA);
+// . -> Ö
+const key_override_t odia_override = ko_make_basic(MOD_MASK_CTRL, SE_DOT, SE_ODIA);
+
+// : -> ?
+const key_override_t coln_override = ko_make_basic(MOD_MASK_SHIFT, SE_COLN, SE_QUES);
+// . -> %
+const key_override_t dot_override = ko_make_basic(MOD_MASK_SHIFT, SE_DOT, SE_PERC);
+// / -> !
+const key_override_t slsh_override = ko_make_basic(MOD_MASK_SHIFT, SE_SLSH, SE_EXLM);
+// , -> &
+const key_override_t comm_override = ko_make_basic(MOD_MASK_SHIFT, SE_COMM, SE_AMPR);
+// ) -> #
+const key_override_t rprn_override = ko_make_basic(MOD_MASK_SHIFT, SE_RPRN, SE_HASH);
+// ( -> *
+const key_override_t lprn_override = ko_make_basic(MOD_MASK_SHIFT, SE_LPRN, SE_ASTR);
+// _ -> ~
+// FIXME this doesn't register
+const key_override_t unds_override = ko_make_basic(MOD_MASK_SHIFT, SE_UNDS, MY_TILD);
+
+const key_override_t **key_overrides = (const key_override_t *[]){
+    &arng_override,
+    &adia_override,
+    &odia_override,
+    &coln_override,
+    &dot_override,
+    &slsh_override,
+    &comm_override,
+    &rprn_override,
+    &lprn_override,
+    &unds_override,
+    NULL
+};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 #ifdef ENCODER_ENABLE
@@ -88,6 +154,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
       return true;
+    case MY_TILD:
+      SEND_STRING("~");
+      return false;
     /* case TO_BASE: */
     /*   layer_clear(); */
     /*   clear_oneshot_mods(); */

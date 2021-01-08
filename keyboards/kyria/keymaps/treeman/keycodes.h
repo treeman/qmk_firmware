@@ -13,7 +13,8 @@ enum layers {
 
 enum custom_keycodes {
     L_ENCM = SAFE_RANGE,
-    R_ENCM
+    R_ENCM,
+    MY_TILD
 };
 
 #define xxxxxxx KC_NO
