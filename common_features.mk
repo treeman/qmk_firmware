@@ -154,17 +154,37 @@ else
   endif
 endif
 
+RGBLIGHT_ENABLE ?= no
+VALID_RGBLIGHT_TYPES := WS2812 APA102 custom
+
+ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
+    RGBLIGHT_DRIVER ?= custom
+endif
+
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
-    POST_CONFIG_H += $(QUANTUM_DIR)/rgblight_post_config.h
-    OPT_DEFS += -DRGBLIGHT_ENABLE
-    SRC += $(QUANTUM_DIR)/color.c
-    SRC += $(QUANTUM_DIR)/rgblight.c
-    CIE1931_CURVE := yes
-    RGB_KEYCODES_ENABLE := yes
-    ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
-        OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
+    RGBLIGHT_DRIVER ?= WS2812
+
+    ifeq ($(filter $(RGBLIGHT_DRIVER),$(VALID_RGBLIGHT_TYPES)),)
+        $(error RGBLIGHT_DRIVER="$(RGBLIGHT_DRIVER)" is not a valid RGB type)
     else
+        POST_CONFIG_H += $(QUANTUM_DIR)/rgblight_post_config.h
+        OPT_DEFS += -DRGBLIGHT_ENABLE
+        SRC += $(QUANTUM_DIR)/color.c
+        SRC += $(QUANTUM_DIR)/rgblight.c
+        CIE1931_CURVE := yes
+        RGB_KEYCODES_ENABLE := yes
+    endif
+
+    ifeq ($(strip $(RGBLIGHT_DRIVER)), WS2812)
         WS2812_DRIVER_REQUIRED := yes
+    endif
+
+    ifeq ($(strip $(RGBLIGHT_DRIVER)), APA102)
+        APA102_DRIVER_REQUIRED := yes
+    endif
+
+    ifeq ($(strip $(RGBLIGHT_DRIVER)), custom)
+        OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
     endif
 endif
 
@@ -243,6 +263,11 @@ endif
         WS2812_DRIVER_REQUIRED := yes
     endif
 
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), APA102)
+        OPT_DEFS += -DAPA102
+        APA102_DRIVER_REQUIRED := yes
+    endif
+
     ifeq ($(strip $(RGB_MATRIX_CUSTOM_KB)), yes)
         OPT_DEFS += -DRGB_MATRIX_CUSTOM_KB
     endif
@@ -260,6 +285,11 @@ ifeq ($(strip $(PRINTING_ENABLE)), yes)
     OPT_DEFS += -DPRINTING_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c
     SRC += $(TMK_DIR)/protocol/serial_uart.c
+endif
+
+ifeq ($(strip $(KEY_OVERRIDE_ENABLE)), yes)
+    OPT_DEFS += -DKEY_OVERRIDE_ENABLE
+    SRC += $(QUANTUM_DIR)/key_override.c
 endif
 
 ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
@@ -343,6 +373,11 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
     ifeq ($(strip $(WS2812_DRIVER)), i2c)
         QUANTUM_LIB_SRC += i2c_master.c
     endif
+endif
+
+ifeq ($(strip $(APA102_DRIVER_REQUIRED)), yes)
+    COMMON_VPATH += $(DRIVER_PATH)/apa102
+    SRC += apa102.c
 endif
 
 ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
