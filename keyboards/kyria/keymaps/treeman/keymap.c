@@ -97,16 +97,15 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-// FIXME maybe add negmods to these?
-
+// Swedish symbols from base
 // ) -> Å
-const key_override_t base_arng_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, SE_RPRN, SE_ARNG, ~0, MOD_MASK_AG);
+const key_override_t base_arng_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, SE_RPRN, SE_ARNG, ~(1 << _SWE), MOD_MASK_AG);
 // ( -> Ä
-const key_override_t base_adia_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, SE_LPRN, SE_ADIA, ~0, MOD_MASK_AG);
+const key_override_t base_adia_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, SE_LPRN, SE_ADIA, ~(1 << _SWE), MOD_MASK_AG);
 // . -> Ö
-const key_override_t base_odia_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, SE_DOT, SE_ODIA, ~0, MOD_MASK_AG);
+const key_override_t base_odia_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, SE_DOT, SE_ODIA, ~(1 << _SWE), MOD_MASK_AG);
 
-// On the swedish layer
+// Go back to symbols on the swedish layer
 // Å -> )
 const key_override_t swe_arng_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, SE_ARNG, SE_RPRN, 1 << _SWE, MOD_MASK_AG);
 // Ä -> )
@@ -129,6 +128,29 @@ const key_override_t lprn_override = ko_make_basic(MOD_MASK_SHIFT, SE_LPRN, SE_A
 // _ -> ~
 // FIXME this doesn't register
 const key_override_t unds_override = ko_make_basic(MOD_MASK_SHIFT, SE_UNDS, MY_TILD);
+
+/*  */
+/* // FIXME  this doesn't work either :( */
+/* bool send_tild(bool key_down, void *args) { */
+/*     if (key_down) { */
+/*         SEND_STRING("~"); */
+/*     } */
+/*  */
+/*     return false; */
+/* } */
+/*  */
+/* const key_override_t unds_override = { */
+/*     .trigger_modifiers = MOD_MASK_SHIFT, */
+/*     .layers = 0, */
+/*     .suppressed_mods = MOD_MASK_SHIFT, */
+/*     .options = ko_options_default, */
+/*     .negative_modifier_mask = MOD_MASK_CAG, */
+/*     .custom_action = send_tild, */
+/*     .context = NULL, */
+/*     .trigger = SE_UNDS, */
+/*     .replacement = SE_UNDS, */
+/*     .enabled = NULL */
+/* }; */
 
 const key_override_t **key_overrides = (const key_override_t *[]){
     &base_arng_override,
@@ -182,6 +204,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return true;
     case MY_TILD:
+      // FIXME even this doesn't work
+      if (record->event.pressed) {
+          register_code(SE_DOT);
+      } else {
+          unregister_code(SE_DOT);
+      }
+      return true;
+
       SEND_STRING("~");
       return false;
     /* case TO_BASE: */
