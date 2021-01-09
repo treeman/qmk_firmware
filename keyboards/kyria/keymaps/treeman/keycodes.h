@@ -5,6 +5,7 @@
 
 enum layers {
     _BASE = 0,
+    _SWE,
     _NUM,
     _FUN,
     _MISC,

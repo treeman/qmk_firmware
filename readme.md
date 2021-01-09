@@ -6,6 +6,7 @@ Merged things:
 
 * The [early_combo](https://github.com/sevanteri/qmk_firmware/tree/early_combo) branch from Sevanteri. Pull Request [here](https://github.com/qmk/qmk_firmware/pull/8591).
 * The [retro-shift](https://github.com/manna-harbour/qmk_firmware/tree/retro-shift) branch from manna-harbour.
+* [Key overrides](https://github.com/qmk/qmk_firmware/pull/11422).
 
 # Quantum Mechanical Keyboard Firmware
 

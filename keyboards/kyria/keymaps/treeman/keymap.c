@@ -41,6 +41,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       xxxxxxx, SE_SLSH, SE_V,    SE_G,    SE_P,    SE_B,    xxxxxxx, MY_LCTL, MY_RCTL, xxxxxxx, SE_COMM, SE_L,    SE_RPRN, SE_LPRN, SE_UNDS, xxxxxxx,
                                  L_ENCM,  KC_LEAD, xxxxxxx, MY_SPC,  MY_LSFT, MY_RSFT, MY_E,    MY_NUM,  KC_LEAD, R_ENCM
     ),
+    [_SWE] = LAYOUT(
+      xxxxxxx, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, SE_ODIA, xxxxxxx,
+      xxxxxxx, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, xxxxxxx,
+      xxxxxxx, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, SE_ARNG, SE_ADIA, _______, xxxxxxx,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ 
+    ),
     [_NUM] = LAYOUT(
       xxxxxxx, _______, SE_6,    SE_5,    SE_4,    _______,                                     _______, _______, _______, _______, _______, xxxxxxx,
       xxxxxxx, SE_3,    SE_2,    SE_1,    SE_0,    xxxxxxx,                                     _______, _______, _______, _______, _______, xxxxxxx,
@@ -53,6 +59,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       xxxxxxx, xxxxxxx, KC_F9,   KC_F8,   KC_F7,   KC_F10,  _______, _______, _______, _______, _______, _______, _______, _______, _______, xxxxxxx,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     )
+    /*
+    [_BLANK] = LAYOUT(
+      xxxxxxx, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, xxxxxxx,
+      xxxxxxx, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, xxxxxxx,
+      xxxxxxx, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, xxxxxxx,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ 
+    ),
+    */
 };
 
 #define THUMB_TERM 20
@@ -83,12 +97,22 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+// FIXME maybe add negmods to these?
+
 // ) -> Å
-const key_override_t arng_override = ko_make_basic(MOD_MASK_CTRL, SE_RPRN, SE_ARNG);
+const key_override_t base_arng_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, SE_RPRN, SE_ARNG, ~0, MOD_MASK_AG);
 // ( -> Ä
-const key_override_t adia_override = ko_make_basic(MOD_MASK_CTRL, SE_LPRN, SE_ADIA);
+const key_override_t base_adia_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, SE_LPRN, SE_ADIA, ~0, MOD_MASK_AG);
 // . -> Ö
-const key_override_t odia_override = ko_make_basic(MOD_MASK_CTRL, SE_DOT, SE_ODIA);
+const key_override_t base_odia_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, SE_DOT, SE_ODIA, ~0, MOD_MASK_AG);
+
+// On the swedish layer
+// Å -> )
+const key_override_t swe_arng_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, SE_ARNG, SE_RPRN, 1 << _SWE, MOD_MASK_AG);
+// Ä -> )
+const key_override_t swe_adia_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, SE_ADIA, SE_LPRN, 1 << _SWE, MOD_MASK_AG);
+// Ö -> .
+const key_override_t swe_odia_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, SE_ODIA, SE_DOT, 1 << _SWE, MOD_MASK_AG);
 
 // : -> ?
 const key_override_t coln_override = ko_make_basic(MOD_MASK_SHIFT, SE_COLN, SE_QUES);
@@ -107,9 +131,12 @@ const key_override_t lprn_override = ko_make_basic(MOD_MASK_SHIFT, SE_LPRN, SE_A
 const key_override_t unds_override = ko_make_basic(MOD_MASK_SHIFT, SE_UNDS, MY_TILD);
 
 const key_override_t **key_overrides = (const key_override_t *[]){
-    &arng_override,
-    &adia_override,
-    &odia_override,
+    &base_arng_override,
+    &base_adia_override,
+    &base_odia_override,
+    &swe_arng_override,
+    &swe_adia_override,
+    &swe_odia_override,
     &coln_override,
     &dot_override,
     &slsh_override,
