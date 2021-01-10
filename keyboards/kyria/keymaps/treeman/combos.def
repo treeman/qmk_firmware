@@ -1,0 +1,2 @@
+COMB(to_swe,            TO_SWE,        SE_L, SE_RPRN, SE_LPRN)
+COMB(from_swe,          FROM_SWE,      SE_L, SE_ARNG, SE_ADIA)

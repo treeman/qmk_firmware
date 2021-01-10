@@ -6,6 +6,10 @@ TAP_DANCE_ENABLE = no      # Enable tap dance
 WPM_ENABLE = yes           # Enable wpm
 AUTO_SHIFT_ENABLE = yes    # Enable auto-shift, yeah!
 KEY_OVERRIDE_ENABLE = yes  # Enable key overrides
+COMBO_ENABLE = yes         # Enable combos
+
+# Easy definition of combos
+VPATH +=  keyboards/gboards/
 
 # Saves a bunch of memory
 EXTRAFLAGS += -flto

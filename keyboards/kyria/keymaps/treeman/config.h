@@ -43,9 +43,13 @@
 // Auto shift stuff
 #define RETRO_SHIFT
 #define AUTO_SHIFT_TIMEOUT 200
-#define NO_AUTO_SHIFT_SPECIAL
+#undef NO_AUTO_SHIFT_SPECIAL
 #define NO_AUTO_SHIFT_NUMERIC
 #undef AUTO_SHIFT_MODIFIERS
+
+// Combos
+#undef COMBO_TERM
+#define COMBO_TERM 30
 
 #define LEADER_TIMEOUT 250
 #define LEADER_PER_KEY_TIMING

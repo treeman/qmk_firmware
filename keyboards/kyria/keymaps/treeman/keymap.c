@@ -20,6 +20,7 @@
 
 #include "keymap_swedish.h"
 #include "sendstring_swedish.h"
+#include "g/keymap_combo.h"
 
 #ifdef ENCODER_ENABLE
 #    include "encoder_utils.h"
@@ -126,17 +127,14 @@ const key_override_t rprn_override = ko_make_basic(MOD_MASK_SHIFT, SE_RPRN, SE_H
 // ( -> *
 const key_override_t lprn_override = ko_make_basic(MOD_MASK_SHIFT, SE_LPRN, SE_ASTR);
 // _ -> ~
-// FIXME this doesn't register
-const key_override_t unds_override = ko_make_basic(MOD_MASK_SHIFT, SE_UNDS, MY_TILD);
+// FIXME this is a dead key
+const key_override_t unds_override = ko_make_basic(MOD_MASK_SHIFT, SE_UNDS, SE_TILD);
 
 /*  */
 /* // FIXME  this doesn't work either :( */
 /* bool send_tild(bool key_down, void *args) { */
-/*     if (key_down) { */
-/*         SEND_STRING("~"); */
-/*     } */
-/*  */
-/*     return false; */
+/*     SEND_STRING("~"); */
+/*     return true; */
 /* } */
 /*  */
 /* const key_override_t unds_override = { */
@@ -213,6 +211,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
 
       SEND_STRING("~");
+      return false;
+    case TO_SWE:
+      layer_on(_SWE);
+      return false;
+    case FROM_SWE:
+      layer_off(_SWE);
       return false;
     /* case TO_BASE: */
     /*   layer_clear(); */
