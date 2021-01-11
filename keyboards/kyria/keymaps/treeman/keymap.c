@@ -50,13 +50,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_NUM] = LAYOUT(
       xxxxxxx, _______, SE_6,    SE_5,    SE_4,    _______,                                     _______, _______, _______, _______, _______, xxxxxxx,
-      xxxxxxx, SE_3,    SE_2,    SE_1,    SE_0,    xxxxxxx,                                     _______, _______, _______, _______, _______, xxxxxxx,
+      xxxxxxx, SE_3,    SE_2,    SE_1,    SE_0,    xxxxxxx,                                     _______, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI, xxxxxxx,
       xxxxxxx, xxxxxxx, SE_9,    SE_8,    SE_7,    xxxxxxx, _______, _______, _______, _______, _______, _______, _______, _______, _______, xxxxxxx,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
     [_FUN] = LAYOUT(
       xxxxxxx, _______, KC_F6,   KC_F5,   KC_F4,   KC_F12,                                      _______, _______, _______, _______, _______, xxxxxxx,
-      xxxxxxx, KC_F3,   KC_F2,   KC_F1,   xxxxxxx, KC_F11,                                      _______, _______, _______, _______, _______, xxxxxxx,
+      xxxxxxx, KC_F3,   KC_F2,   KC_F1,   xxxxxxx, KC_F11,                                      _______, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI, xxxxxxx,
       xxxxxxx, xxxxxxx, KC_F9,   KC_F8,   KC_F7,   KC_F10,  _______, _______, _______, _______, _______, _______, _______, _______, _______, xxxxxxx,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),

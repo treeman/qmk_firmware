@@ -40,6 +40,9 @@ void render_layers(void) {
         case _BASE:
             oled_write_P(PSTR("Base\n"), false);
             break;
+        case _SWE:
+            oled_write_P(PSTR("Swe\n"), false);
+            break;
         case _NUM:
             oled_write_P(PSTR("Num\n"), false);
             break;
@@ -62,13 +65,9 @@ void render_mods(void) {
 
     oled_write_P(PSTR("Mods: "), false);
     oled_write_P((modifiers & MOD_MASK_SHIFT) ? PSTR("S ") : PSTR("  "), false);
-    oled_write_P((modifiers & MOD_MASK_GUI) ? PSTR("G ") : PSTR("  "), false);
     oled_write_P((modifiers & MOD_MASK_CTRL) ? PSTR("C ") : PSTR("  "), false);
     oled_write_P((modifiers & MOD_MASK_ALT) ? PSTR("A ") : PSTR("  "), false);
-
-    /* static char mod_str[10]; */
-    /* sprintf(mod_str, "\nRAW: %03d", modifiers); */
-    /* oled_write(mod_str, false); */
+    oled_write_P((modifiers & MOD_MASK_GUI) ? PSTR("G ") : PSTR("  "), false);
 
     oled_write_ln("", false);
 }
@@ -91,21 +90,19 @@ void render_caps(void) {
 }
 
 void render_master_status(void) {
-    render_keymap_version();
-    oled_write_ln("", false);
 #ifdef ENCODER_ENABLE
     render_left_rotary_state();
     oled_write_ln("", false);
 #endif
-    render_wpm();
-}
-
-void render_slave_status(void) {
     render_layers();
     oled_write_ln("", false);
     render_mods();
     oled_write_ln("", false);
     render_caps();
+}
+
+void render_slave_status(void) {
+    render_keymap_version();
     oled_write_ln("", false);
     render_wpm();
 }
