@@ -127,27 +127,25 @@ Processing combos has two buffers, one for the key presses, another for the comb
 | `#define COMBO_BUFFER_LENGTH 4`     | 4                                                    |
 
 ## Modifier Combos
-If a combo resolves to a Modifier, the window for processing the combo can be extended independently from normal combos. By default, this is disabled but can be enabled with `#define COMBO_MUST_HOLD_MODS`, and the time window can be configured with `#define COMBO_MOD_TERM 150` (default: 200). With `COMBO_MUST_HOLD_MODS`, you cannot tap the combo any more which makes the combo less prone to misfires.
+If a combo resolves to a Modifier, the window for processing the combo can be extended independently from normal combos. By default, this is disabled but can be enabled with `#define COMBO_MUST_HOLD_MODS`, and the time window can be configured with `#define COMBO_HOLD_TERM 150` (default: `TAPPING_TERM`). With `COMBO_MUST_HOLD_MODS`, you cannot tap the combo any more which makes the combo less prone to misfires.
 
-## Per Combo Timing and Holding
-Instead of using a blanket `COMBO_TERM` window for every combo, per-combo timings can be set. In order to use this feature, the following configuration options and functions need to be defined. Coming up with useful timings and configuration is left as an exercise for the reader.
+## Per Combo Timing, Holding and Tapping
+For each combo, it is possible to configure the time window it has to pressed in, if it needs to be held down, or if it needs to be tapped.
 
-| Config Flag                 | Function                                                  | Description                                                                                          |
-|-----------------------------|-----------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| `COMBO_MUST_HOLD_PER_COMBO` | bool get_combo_must_hold(uint16_t index, combo_t \*combo) | Controls if a given combo should fire immediately on tap or if it needs to be held. (default: False) |
-| `COMBO_TERM_PER_COMBO`      | uint16_t get_combo_term(uint16_t index, combo_t \*combo)  | Optional per-combo timeout window. (default: COMBO_TERM)                                             |
+For example, tap-only combos are useful if any (or all) of the underlying keys is a Mod-Tap or a Layer-Tap key. When you tap the combo, you get the combo result. When you press the combo and hold it down, the combo doesn't actually activate. Instead the keys are processed separately as if the combo wasn't even there.
 
-If you set either of these options but would like to keep the Modifier Combo settings, you have to define those yourself in the function.
+In order to use these features, the following configuration options and functions need to be defined. Coming up with useful timings and configuration is left as an exercise for the reader.
+
+| Config Flag                 | Function                                                  | Description                                                                                            |
+|-----------------------------|-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| `COMBO_TERM_PER_COMBO`      | uint16_t get_combo_term(uint16_t index, combo_t \*combo)  | Optional per-combo timeout window. (default: `COMBO_TERM`)                                             |
+| `COMBO_MUST_HOLD_PER_COMBO` | bool get_combo_must_hold(uint16_t index, combo_t \*combo) | Controls if a given combo should fire immediately on tap or if it needs to be held. (default: `false`) |
+| `COMBO_MUST_TAP_PER_COMBO`  | bool get_combo_must_tap(uint16_t index, combo_t \*combo)  | Controls if a given combo should fire only if tapped within `COMBO_HOLD_TERM`. (default: `false`)      |
 
 Examples:
 ```c
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     // decide by combo->keycode
-    if (KEYCODE_IS_MOD(combo->keycode)) {
-        // you have to config this yourself if you're using COMBO_TERM_PER_COMBO
-        return COMBO_MOD_TERM;
-    }
-
     switch (combo->keycode) {
         case KC_X:
             return 50;
@@ -173,7 +171,9 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
 bool get_combo_must_hold(uint16_t index, combo_t *combo) {
     // Same as above, decide by keycode, the combo index, or by the keys in the chord.
 
-    if (KEYCODE_IS_MOD(combo->keycode)) {
+    if (KEYCODE_IS_MOD(combo->keycode) || 
+        (combo->keycode >= QK_MOMENTARY && combo->keycode <= QK_MOMENTARY_MAX) // MO(kc) keycodes
+        ) {
         return true;
     }
 
@@ -183,6 +183,26 @@ bool get_combo_must_hold(uint16_t index, combo_t *combo) {
     }
 
     return false;
+}
+
+bool get_combo_must_tap(uint16_t index, combo_t *combo) {
+    // If you want all combos to be tap-only, just uncomment the next line
+    // return true
+
+    // If you want *all* combos, that have Mod-Tap/Layer-Tap/Momentary keys in its chord, to be tap-only, this is for you:
+    uint16_t key;
+    uint8_t idx = 0;
+    while ((key = pgm_read_word(&combo->keys[idx])) != COMBO_END) {
+        switch (key) {
+            case QK_MOD_TAP...QK_MOD_TAP_MAX:
+            case QK_LAYER_TAP...QK_LAYER_TAP_MAX:
+            case QK_MOMENTARY...QK_MOMENTARY_MAX:
+                return true;
+        }
+        idx += 1;
+    }
+    return false;
+
 }
 ```
 
@@ -219,7 +239,7 @@ This also disables the "must hold" functionalities as they just wouldn't work at
 
 ## Customizable key releases
 
-By defining `COMBO_PROCESS_KEY_RELEASE` and implementing the function `bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode)`, you can run your custom code on each key release after a combo was activated. For example you could change the RGB colors, run activate haptics, or alter the modifiers.
+By defining `COMBO_PROCESS_KEY_RELEASE` and implementing the function `bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode)`, you can run your custom code on each key release after a combo was activated. For example you could change the RGB colors, activate haptics, or alter the modifiers.
 
 You can also release a combo early by returning `true` from the function.
 
@@ -269,7 +289,7 @@ In addition to the keycodes, there are a few functions that you can use to set t
 # Dictionary Management
 
 Having 3 places to update when adding new combos or altering old ones does become cumbersome when you have a lot of combos. We can alleviate this with some magic! ... If you consider C macros magic.
-First, you need to add `VPATH += keyboards/gboards` to your `rules.mk`. Next, include the file `keymap_combo.h` in your `keymap.c`.
+First, you need to add `VPATH += keyboards/gboards` to your `rules.mk`. Next, include the file `g/keymap_combo.h` in your `keymap.c`.
 
 Then, write your combos in `combos.def` file in the following manner:
 

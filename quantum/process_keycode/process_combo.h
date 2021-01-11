@@ -58,12 +58,12 @@ typedef struct {
 #ifndef COMBO_TERM
 #    define COMBO_TERM 50
 #endif
-#ifndef COMBO_MOD_TERM
-#    define COMBO_MOD_TERM 200
+#ifndef COMBO_HOLD_TERM
+#    define COMBO_HOLD_TERM TAPPING_TERM
 #endif
 
 /* check if keycode is only modifiers */
-#define KEYCODE_IS_MOD(code) (IS_MOD(code) || ((code & 0xFF00) >= QK_MODS && (code & 0xFF00) <= QK_MODS_MAX && !(code & 0xFF)))
+#define KEYCODE_IS_MOD(code) (IS_MOD(code) || (code >= QK_MODS && code <= QK_MODS_MAX && !(code & QK_BASIC_MAX)))
 
 /* check if keycode is only modifiers */
 #define KEYCODE_IS_MOD(code) (IS_MOD(code) || ((code & 0xFF00) >= QK_MODS && (code & 0xFF00) <= QK_MODS_MAX && !(code & 0xFF)))
