@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       xxxxxxx, SE_K,    SE_C,    SE_Y,    SE_F,    SE_J,                                        SE_X,    SE_W,    SE_COLN, SE_U,    SE_DOT,  xxxxxxx,
       xxxxxxx, MY_R,    MY_S,    MY_T,    MY_H,    SE_D,                                        SE_M,    MY_N,    MY_A,    MY_I,    MY_O,    xxxxxxx,
       xxxxxxx, SE_SLSH, SE_V,    SE_G,    SE_P,    SE_B,    xxxxxxx, MY_LCTL, MY_RCTL, xxxxxxx, SE_COMM, SE_L,    SE_RPRN, SE_LPRN, SE_UNDS, xxxxxxx,
-                                 L_ENCM,  KC_LEAD, xxxxxxx, MY_SPC,  MY_LSFT, MY_RSFT, MY_E,    MY_NUM,  KC_LEAD, R_ENCM
+                                 L_ENCM,  xxxxxxx, xxxxxxx, MY_SPC,  MY_LSFT, MY_RSFT, MY_E,    MY_NUM,  MY_FUN,  R_ENCM
     ),
     [_SWE] = LAYOUT(
       xxxxxxx, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, SE_ODIA, xxxxxxx,
@@ -59,6 +59,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       xxxxxxx, KC_F3,   KC_F2,   KC_F1,   xxxxxxx, KC_F11,                                      _______, _______, _______, _______, _______, xxxxxxx,
       xxxxxxx, xxxxxxx, KC_F9,   KC_F8,   KC_F7,   KC_F10,  _______, _______, _______, _______, _______, _______, _______, _______, _______, xxxxxxx,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+    [_SPEC] = LAYOUT(
+      xxxxxxx, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, xxxxxxx,
+      xxxxxxx, _______, _______, _______, _______, _______,                                     SE_DIAE, SE_GRV, SE_CIRC , SE_ACUT, SE_TILD, xxxxxxx,
+      xxxxxxx, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, xxxxxxx,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ 
+    ),
+    [_MOVE] = LAYOUT(
+      xxxxxxx, _______, KC_PGDN, KC_UP,   KC_PGUP, KC_HOME,                                     _______, _______, _______, _______, _______, xxxxxxx,
+      xxxxxxx, _______, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END,                                     _______, _______, _______, _______, _______, xxxxxxx,
+      xxxxxxx, _______, KC_BTN1, xxxxxxx, KC_BTN5, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, xxxxxxx,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ 
     )
     /*
     [_BLANK] = LAYOUT(
@@ -130,25 +142,27 @@ const key_override_t lprn_override = ko_make_basic(MOD_MASK_SHIFT, SE_LPRN, SE_A
 // FIXME this is a dead key
 const key_override_t unds_override = ko_make_basic(MOD_MASK_SHIFT, SE_UNDS, SE_TILD);
 
-/*  */
-/* // FIXME  this doesn't work either :( */
-/* bool send_tild(bool key_down, void *args) { */
-/*     SEND_STRING("~"); */
-/*     return true; */
-/* } */
-/*  */
-/* const key_override_t unds_override = { */
-/*     .trigger_modifiers = MOD_MASK_SHIFT, */
-/*     .layers = 0, */
-/*     .suppressed_mods = MOD_MASK_SHIFT, */
-/*     .options = ko_options_default, */
-/*     .negative_modifier_mask = MOD_MASK_CAG, */
-/*     .custom_action = send_tild, */
-/*     .context = NULL, */
-/*     .trigger = SE_UNDS, */
-/*     .replacement = SE_UNDS, */
-/*     .enabled = NULL */
-/* }; */
+
+/*
+// FIXME  this doesn't work either :(
+bool send_tild(bool key_down, void *args) {
+    SEND_STRING("~");
+    return false;
+}
+
+const key_override_t unds_override = {
+    .trigger_modifiers = MOD_MASK_SHIFT,
+    .layers = 0,
+    .suppressed_mods = MOD_MASK_SHIFT,
+    .options = ko_options_default,
+    .negative_modifier_mask = MOD_MASK_CAG,
+    .custom_action = send_tild,
+    .context = NULL,
+    .trigger = SE_UNDS,
+    .replacement = KC_NO,
+    .enabled = NULL
+};
+*/
 
 const key_override_t **key_overrides = (const key_override_t *[]){
     &base_arng_override,
@@ -201,17 +215,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
       return true;
-    case MY_TILD:
-      // FIXME even this doesn't work
-      if (record->event.pressed) {
-          register_code(SE_DOT);
-      } else {
-          unregister_code(SE_DOT);
-      }
-      return true;
-
-      SEND_STRING("~");
-      return false;
     case TO_SWE:
       layer_on(_SWE);
       return false;
@@ -284,6 +287,7 @@ void swap_caps_esc(void) {
 #   endif
 }
 
+/*
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
@@ -315,4 +319,4 @@ void leader_start(void) {
 void leader_end(void) {
     inside_leader = false;
 }
-
+*/

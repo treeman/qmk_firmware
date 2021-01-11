@@ -1,2 +1,16 @@
-COMB(to_swe,            TO_SWE,        SE_L, SE_RPRN, SE_LPRN)
-COMB(from_swe,          FROM_SWE,      SE_L, SE_ARNG, SE_ADIA)
+// Left top row
+COMB(tab,               KC_TAB,         SE_K, SE_C)
+COMB(q_comb,            SE_Q,           SE_C, SE_Y)
+COMB(z_comb,            SE_Z,           SE_Y, SE_F)
+// Right top row
+COMB(backspace,         KC_BSPC,        SE_U, SE_DOT)
+
+// Left home row
+COMB(escape,            KC_ESC,         MY_S, MY_T)
+// Right home row
+COMB(enter,             KC_ENT,         MY_A, MY_I)
+
+// Left bottom row
+// Right bottom row
+COMB(to_swe,            TO_SWE,         SE_L, SE_RPRN, SE_LPRN)
+COMB(from_swe,          FROM_SWE,       SE_L, SE_ARNG, SE_ADIA)

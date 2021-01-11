@@ -8,7 +8,7 @@ enum layers {
     _SWE,
     _NUM,
     _FUN,
-    _MISC,
+    _SPEC,
     _MOVE
 };
 
@@ -44,7 +44,7 @@ enum custom_keycodes {
 // #define MY_O SE_O
 
 #define MY_SPC KC_SPACE
-#define MY_E SE_E
+#define MY_E LT(_MOVE, SE_E)
 
 #define MY_ESC KC_ESC
 #define MY_ENT KC_ENTER

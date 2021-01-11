@@ -46,8 +46,8 @@ void render_layers(void) {
         case _FUN:
             oled_write_P(PSTR("Fun\n"), false);
             break;
-        case _MISC:
-            oled_write_P(PSTR("Misc\n"), false);
+        case _SPEC:
+            oled_write_P(PSTR("Spec\n"), false);
             break;
         case _MOVE:
             oled_write_P(PSTR("Move\n"), false);
