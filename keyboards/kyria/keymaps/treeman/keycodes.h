@@ -16,6 +16,8 @@ enum custom_keycodes {
     L_ENCM = SAFE_RANGE,
     R_ENCM,
     MY_TILD,
+    MY_GRV,
+    MY_CIRC,
     TO_SWE,
     FROM_SWE
 };
@@ -54,7 +56,8 @@ enum custom_keycodes {
 #define MY_LCTL OSM(MOD_LCTL)
 #define MY_RCTL OSM(MOD_RCTL)
 
-#define MY_NUM OSL(_NUM)
-#define MY_FUN OSL(_FUN)
+#define NUM OSL(_NUM)
+#define FUN OSL(_FUN)
+#define SPEC OSL(_SPEC)
 
 

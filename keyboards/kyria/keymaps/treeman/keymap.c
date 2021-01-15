@@ -33,14 +33,14 @@
 bool inside_leader;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/*
- * Base Layer: Modified RSTHD
- */
+    /*
+    * Base Layer: Modified RSTHD
+    */
     [_BASE] = LAYOUT(
-      xxxxxxx, SE_K,    SE_C,    SE_Y,    SE_F,    SE_J,                                        SE_X,    SE_W,    SE_COLN, SE_U,    SE_DOT,  xxxxxxx,
-      xxxxxxx, MY_R,    MY_S,    MY_T,    MY_H,    SE_D,                                        SE_M,    MY_N,    MY_A,    MY_I,    MY_O,    xxxxxxx,
-      xxxxxxx, SE_SLSH, SE_V,    SE_G,    SE_P,    SE_B,    xxxxxxx, MY_LCTL, MY_RCTL, xxxxxxx, SE_COMM, SE_L,    SE_RPRN, SE_LPRN, SE_UNDS, xxxxxxx,
-                                 L_ENCM,  xxxxxxx, xxxxxxx, MY_SPC,  MY_LSFT, MY_RSFT, MY_E,    MY_NUM,  MY_FUN,  R_ENCM
+      xxxxxxx, SE_K,    SE_C,    SE_Y,    SE_D,    SE_J,                                        SE_X,    SE_W,    SE_COLN, SE_U,    SE_DOT,  xxxxxxx,
+      xxxxxxx, MY_R,    MY_S,    MY_T,    MY_H,    SE_F,                                        SE_M,    MY_N,    MY_A,    MY_I,    MY_O,    xxxxxxx,
+      xxxxxxx, SE_SLSH, SE_V,    SE_G,    SE_P,    SE_B,    SPEC,    MY_LCTL, MY_RCTL, xxxxxxx, SE_COMM, SE_L,    SE_RPRN, SE_LPRN, SE_UNDS, xxxxxxx,
+                                 L_ENCM,  xxxxxxx, KC_BSPC, MY_SPC,  MY_LSFT, MY_RSFT, MY_E,    NUM,  FUN,  R_ENCM
     ),
     [_SWE] = LAYOUT(
       xxxxxxx, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, SE_ODIA, xxxxxxx,
@@ -110,6 +110,22 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
+    switch (combo_index) {
+        case backspace: return false;
+        default: return true;
+    }
+}
+
+bool tap_undead_key(bool key_down, uint16_t code) {
+    if (key_down) {
+        // This is so weird, but it works
+        tap_code16(code);
+        tap_code16(code);
+    }
+    return false;
+}
+
 // Swedish symbols from base
 // ) -> Å
 const key_override_t base_arng_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, SE_RPRN, SE_ARNG, ~(1 << _SWE), MOD_MASK_AG);
@@ -121,7 +137,7 @@ const key_override_t base_odia_override = ko_make_with_layers_and_negmods(MOD_MA
 // Go back to symbols on the swedish layer
 // Å -> )
 const key_override_t swe_arng_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, SE_ARNG, SE_RPRN, 1 << _SWE, MOD_MASK_AG);
-// Ä -> )
+// Ä -> (
 const key_override_t swe_adia_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, SE_ADIA, SE_LPRN, 1 << _SWE, MOD_MASK_AG);
 // Ö -> .
 const key_override_t swe_odia_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, SE_ODIA, SE_DOT, 1 << _SWE, MOD_MASK_AG);
@@ -138,31 +154,62 @@ const key_override_t comm_override = ko_make_basic(MOD_MASK_SHIFT, SE_COMM, SE_A
 const key_override_t rprn_override = ko_make_basic(MOD_MASK_SHIFT, SE_RPRN, SE_HASH);
 // ( -> *
 const key_override_t lprn_override = ko_make_basic(MOD_MASK_SHIFT, SE_LPRN, SE_ASTR);
+
 // _ -> ~
-// FIXME this is a dead key
-const key_override_t unds_override = ko_make_basic(MOD_MASK_SHIFT, SE_UNDS, SE_TILD);
-
-
-/*
-// FIXME  this doesn't work either :(
 bool send_tild(bool key_down, void *args) {
-    SEND_STRING("~");
-    return false;
+    return tap_undead_key(key_down, SE_TILD);
 }
-
 const key_override_t unds_override = {
     .trigger_modifiers = MOD_MASK_SHIFT,
-    .layers = 0,
+    .layers = ~0,
     .suppressed_mods = MOD_MASK_SHIFT,
     .options = ko_options_default,
-    .negative_modifier_mask = MOD_MASK_CAG,
+    .negative_modifier_mask = 0,
     .custom_action = send_tild,
     .context = NULL,
     .trigger = SE_UNDS,
     .replacement = KC_NO,
     .enabled = NULL
 };
-*/
+
+void swap_caps_esc(void) {
+    swap_caps_escape = !swap_caps_escape;
+#   ifdef OLED_DRIVER_ENABLE
+        oled_on();
+#   endif
+}
+
+bool ko_swap_esc(bool key_down, void *args) {
+    if (key_down) {
+        swap_caps_esc();
+    }
+    return false;
+}
+
+const key_override_t swap_caps_override1 = {
+    .trigger_modifiers = MOD_MASK_CSAG,
+    .layers = ~0,
+    .suppressed_mods = MOD_MASK_CSAG,
+    .options = ko_options_default,
+    .negative_modifier_mask = 0,
+    .custom_action = ko_swap_esc,
+    .context = NULL,
+    .trigger = KC_ESC,
+    .replacement = KC_NO,
+    .enabled = NULL
+};
+const key_override_t swap_caps_override2 = {
+    .trigger_modifiers = MOD_MASK_CSAG,
+    .layers = ~0,
+    .suppressed_mods = MOD_MASK_CSAG,
+    .options = ko_options_default,
+    .negative_modifier_mask = 0,
+    .custom_action = ko_swap_esc,
+    .context = NULL,
+    .trigger = KC_CAPS,
+    .replacement = KC_NO,
+    .enabled = NULL
+};
 
 const key_override_t **key_overrides = (const key_override_t *[]){
     &base_arng_override,
@@ -178,6 +225,8 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &rprn_override,
     &lprn_override,
     &unds_override,
+    &swap_caps_override1,
+    &swap_caps_override2,
     NULL
 };
 
@@ -280,13 +329,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
-void swap_caps_esc(void) {
-    swap_caps_escape = !swap_caps_escape;
-#   ifdef OLED_DRIVER_ENABLE
-        oled_on();
-#   endif
-}
-
 /*
 LEADER_EXTERNS();
 
@@ -320,3 +362,4 @@ void leader_end(void) {
     inside_leader = false;
 }
 */
+

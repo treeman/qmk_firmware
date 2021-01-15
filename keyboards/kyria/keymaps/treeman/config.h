@@ -50,6 +50,7 @@
 // Combos
 #undef COMBO_TERM
 #define COMBO_TERM 30
+#define COMBO_MUST_TAP_PER_COMBO
 
 #define LEADER_TIMEOUT 250
 #define LEADER_PER_KEY_TIMING

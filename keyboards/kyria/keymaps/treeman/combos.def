@@ -9,8 +9,11 @@ COMB(backspace,         KC_BSPC,        SE_U, SE_DOT)
 COMB(escape,            KC_ESC,         MY_S, MY_T)
 // Right home row
 COMB(enter,             KC_ENT,         MY_A, MY_I)
+// Mixed
+COMB(caps,              KC_CAPS,        MY_H, MY_N)
 
 // Left bottom row
 // Right bottom row
 COMB(to_swe,            TO_SWE,         SE_L, SE_RPRN, SE_LPRN)
 COMB(from_swe,          FROM_SWE,       SE_L, SE_ARNG, SE_ADIA)
+
