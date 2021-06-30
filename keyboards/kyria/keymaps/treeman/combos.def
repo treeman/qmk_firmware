@@ -1,4 +1,5 @@
 // Left top row
+COMB(qu_comb,           QU,             SE_J, SE_C)
 COMB(q_comb,            SE_Q,           SE_C, SE_Y)
 COMB(z_comb,            SE_Z,           SE_Y, SE_F)
 COMB(del,               KC_DEL,         SE_C, SE_Y, SE_F)
