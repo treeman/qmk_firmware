@@ -5,9 +5,9 @@ COMB(del,               KC_DEL,         SE_C, SE_Y, SE_F)
 // Right top row
 SUBS(el_str_int,        "#{}"SS_TAP(X_LEFT),  SE_X, SE_W)
 COMB(eql,               SE_EQL,         SE_W, SE_U)
-COMB(backsp,            KC_BSPC,        SE_U, SE_DOT)
-COMB(wbacksp,           C(SE_W),        SE_W, SE_U, SE_DOT)
-COMB(rev_rep,           REV_REP,        SE_DOT, REPEAT)
+COMB(backsp,            KC_BSPC,        SE_U, REPEAT)
+COMB(wbacksp,           C(SE_W),        SE_W, SE_U, REPEAT)
+COMB(rev_rep,           REV_REP,        REPEAT, SE_DOT)
 
 // Left home row
 COMB(tab,               KC_TAB,         SE_S, SE_T)
@@ -15,10 +15,10 @@ COMB(escape,            KC_ESC,         SE_T, SE_H)
 COMB(dquo,              SE_DQUO,        SE_S, SE_H)
 COMB(scln,              SE_SCLN,        SE_S, SE_T, SE_H)
 // Right home row
-COMB(coln,              SE_COLN,        SE_N, SE_A)
-COMB(enter,             KC_ENT,         SE_A, SE_I)
-COMB(quot,              SE_QUOT,        SE_N, SE_I)
-COMB(save_vim,          SAVE_VIM,       SE_N, SE_A, SE_I)
+COMB(coln,              SE_COLN,        SE_N, SE_I)
+COMB(enter,             KC_ENT,         SE_I, SE_A)
+COMB(quot,              SE_QUOT,        SE_N, SE_A)
+COMB(save_vim,          SAVE_VIM,       SE_N, SE_I, SE_A)
 // Mixed
 COMB(capsword,          CAPSWORD,       SE_T, SE_I)
 
@@ -36,7 +36,7 @@ SUBS(lt_eq,             "<=",           SE_F, SE_H)
 // Vertical top right
 SUBS(large_right_arrow, "=>",           SE_W, SE_N)
 SUBS(small_right_arrow, "->",           SE_U, SE_I)
-SUBS(pipe_to,           "|>",           SE_DOT, SE_A)
+SUBS(pipe_to,           "|>",           REPEAT, SE_A)
 // Vertical bottom left
 COMB(sp,                VIM_SP,         SE_S, SE_V)
 SUBS(gt_eq,             ">=",           SE_H, SE_D)
