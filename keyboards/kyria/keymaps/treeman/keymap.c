@@ -77,8 +77,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, xxxxxxx, FUN,     _______, xxxxxxx, xxxxxxx, CLEAR,  _______, xxxxxxx, _______
     ),
     [_WNAV] = LAYOUT(
-      xxxxxxx, xxxxxxx, G(SE_C), G(SE_K), xxxxxxx, G(SE_J),                                     xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx, xxxxxxx,
-      xxxxxxx, G(SE_6), G(SE_4), G(SE_0), G(SE_2), xxxxxxx,                                     xxxxxxx, G(SE_3), G(SE_1), G(SE_5), G(SE_7), xxxxxxx,
+      xxxxxxx, G(SE_J), G(SE_C), xxxxxxx, xxxxxxx, xxxxxxx,                                     xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx, xxxxxxx,
+      xxxxxxx, G(SE_6), G(SE_4), G(SE_0), G(SE_2), G(SE_K),                                     xxxxxxx, G(SE_3), G(SE_1), G(SE_5), G(SE_7), xxxxxxx,
       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, G(SE_8), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, G(SE_9), G(SE_H), G(SE_L), xxxxxxx, xxxxxxx,
                                  _______, xxxxxxx, _______, G(KC_SPC),xxxxxxx,xxxxxxx, CLEAR,   _______, xxxxxxx, _______
     ),
@@ -248,6 +248,7 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case del:
         case backsp:
         case q_comb:
+        case qu_comb:
         case z_comb:
         case num:
         case sp_ampr:
@@ -450,6 +451,7 @@ bool tap_hold(uint16_t keycode) {
         case LPRN_ARNG:
         case RPRN_ADIA:
         case UNDS_ODIA:
+        case QU:
             return true;
         default:
             return false;
@@ -515,6 +517,9 @@ void tap_hold_send_hold(uint16_t keycode) {
                 tap16_repeatable(S(SE_ODIA));
             }
             return;
+        case QU:
+            send_string("qu");
+            return;
         default:
             tap16_repeatable(S(keycode));
     }
@@ -546,6 +551,9 @@ void tap_hold_send_tap(uint16_t keycode) {
                 tap16_repeatable(SE_ODIA);
             }
             return;
+        case QU:
+            send_string("Qu");
+            return;
         default:
             tap16_repeatable(keycode);
     }
@@ -573,6 +581,8 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case SE_DOT:
         case SE_RPRN:
         case RPRN_ADIA:
+        case SE_Q:
+        case QU:
             return 105;
         // Middle
         case SE_Y:
@@ -582,6 +592,7 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case SE_I:
         case SE_LPRN:
         case LPRN_ARNG:
+        case SE_Z:
             return 100;
         // Index
         default:

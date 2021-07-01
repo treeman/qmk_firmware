@@ -27,10 +27,12 @@ enum custom_keycodes {
     GRV,
     CIRC,
 
+    // Misc
     SAVE_VIM,
     CLOSE_VIM,
     VIM_VS,
     VIM_SP,
+    QU,
 
     // Custom keycodes for instant processing for NUMWORD
     NUM_G,
