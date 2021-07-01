@@ -274,6 +274,11 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
     }
 }
 
+bool combo_should_trigger(uint16_t combo_index, combo_t *combo) {
+    // FIXME this doesn't seem to work?
+    return true;
+}
+
 // Tapping terms
 
 #ifdef TAPPING_TERM_PER_KEY
@@ -303,6 +308,7 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
         // Keycodes to ignore (don't disable caps word)
         case SE_A ... KC_Z:
         case SE_1 ... KC_0:
+        case QU:
         case SE_MINS:
         case SE_UNDS:
         case KC_BSPC:
@@ -459,6 +465,8 @@ bool tap_hold(uint16_t keycode) {
 }
 
 void tap_hold_send_hold(uint16_t keycode) {
+    disable_caps_word();
+
     switch (keycode) {
         case SE_AMPR:
         case SE_PIPE:
@@ -518,7 +526,7 @@ void tap_hold_send_hold(uint16_t keycode) {
             }
             return;
         case QU:
-            send_string("qu");
+            send_string("Qu");
             return;
         default:
             tap16_repeatable(S(keycode));
@@ -552,7 +560,7 @@ void tap_hold_send_tap(uint16_t keycode) {
             }
             return;
         case QU:
-            send_string("Qu");
+            send_string("qu");
             return;
         default:
             tap16_repeatable(keycode);
@@ -561,7 +569,6 @@ void tap_hold_send_tap(uint16_t keycode) {
 
 uint16_t tap_hold_timeout(uint16_t keycode) {
     switch (keycode) {
-        // FIXME workspace keys as well
         // Thumb
         case SE_E:
             return 120;
@@ -571,6 +578,10 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case SE_O:
         case SE_UNDS:
         case UNDS_ODIA:
+        case SE_6:
+        case G(SE_6):
+        case SE_7:
+        case G(SE_7):
             return 135;
         // Ring
         case SE_J:
@@ -583,6 +594,12 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case RPRN_ADIA:
         case SE_Q:
         case QU:
+        case SE_4:
+        case G(SE_4):
+        case SE_5:
+        case G(SE_5):
+        case G(SE_J):
+        case G(SE_R):
             return 105;
         // Middle
         case SE_Y:
@@ -593,6 +610,10 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case SE_LPRN:
         case LPRN_ARNG:
         case SE_Z:
+        case SE_0:
+        case G(SE_0):
+        case SE_1:
+        case G(SE_1):
             return 100;
         // Index
         default:

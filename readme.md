@@ -6,7 +6,7 @@ Merged things:
 
 * The [early_combo](https://github.com/sevanteri/qmk_firmware/tree/early_combo) branch from Sevanteri. Pull Request [here](https://github.com/qmk/qmk_firmware/pull/8591).
 * [`HOLD_ON_OTHER_KEY_PRESS`](https://github.com/qmk/qmk_firmware/pull/9404)
-* [Auto shift for Swedish characters](https://github.com/treeman/qmk_firmware/tree/auto-shift)
+* [`combo_should_trigger`](https://github.com/sevanteri/qmk_firmware/commit/7c8b88e2e99ae5018fdb11cfda59bbe71360380b)
 
 # Quantum Mechanical Keyboard Firmware
 
