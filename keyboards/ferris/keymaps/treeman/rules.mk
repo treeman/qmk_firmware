@@ -1,7 +1,5 @@
-OLED_DRIVER_ENABLE = no    # OLED displays
-ENCODER_ENABLE = no        # One or more encoders
-AUTO_SHIFT_ENABLE = no
 COMBO_ENABLE = yes
+RGBLIGHT_ENABLE = no        # Keyboard RGB underglow
 
 # Easy definition of combos
 VPATH +=  keyboards/gboards/
@@ -13,8 +11,7 @@ MOUSEKEY_ENABLE = no        # Them mouse keys yo
 KEY_OVERRIDE_ENABLE = no
 LEADER_ENABLE = no
 TAP_DANCE_ENABLE = no
-RGBLIGHT_ENABLE = no        # Keyboard RGB underglow
-RGB_MATRIX_ENABLE = no      # Disable RGB, not used on Kyria
+RGB_MATRIX_ENABLE = no      # Disable per key RGB
 
 # Saves a bunch of memory
 EXTRAFLAGS += -flto
@@ -31,11 +28,3 @@ SRC += layermodes.c
 SRC += casemodes.c
 SRC += tap_hold.c
 SRC += repeat.c
-
-ifeq ($(strip $(ENCODER_ENABLE)), yes)
-	SRC += encoder_utils.c
-endif
-
-ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
-	SRC += oled_utils.c
-endif

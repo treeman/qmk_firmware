@@ -27,14 +27,6 @@
 #include "sendstring_swedish.h"
 #include "g/keymap_combo.h"
 
-#ifdef ENCODER_ENABLE
-#    include "encoder_utils.h"
-#endif
-
-#ifdef OLED_DRIVER_ENABLE
-#    include "oled_utils.h"
-#endif
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
     * Base Layer: Modified RSTHD
@@ -774,28 +766,3 @@ void matrix_scan_user(void) {
     tap_hold_matrix_scan();
 }
 
-#ifdef OLED_DRIVER_ENABLE
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_180;
-}
-
-void oled_task_user(void) {
-    render_status();
-}
-#endif
-
-#ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        action_left_encoder(clockwise);
-#    ifdef OLED_DRIVER_ENABLE
-        oled_on();
-#    endif
-    } else if (index == 1) {
-        action_right_encoder(clockwise);
-#    ifdef OLED_DRIVER_ENABLE
-        oled_on();
-#    endif
-    }
-}
-#endif
