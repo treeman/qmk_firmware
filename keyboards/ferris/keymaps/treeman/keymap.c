@@ -41,26 +41,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______,      _______, _______, SE_ARNG, SE_ADIA, SE_ODIA,
-                                 _______, xxxxxxx,      xxxxxxx, _______
+                                 _______, _______,      _______, _______
     ),
     [_NUM] = LAYOUT(
       SE_J,    SE_PLUS, SE_ASTR, SE_PERC, xxxxxxx,      xxxxxxx, xxxxxxx, xxxxxxx, REPEAT,  SE_DOT,
       SE_6,    SE_4,    SE_0,    SE_2,    SE_K,         xxxxxxx, SE_3,    SE_1,    SE_5,    SE_7,
       SE_COMM, xxxxxxx, NUM_G,   SE_8,    xxxxxxx,      SE_SLSH, SE_9,    SE_LPRN, SE_RPRN, SE_UNDS,
-                                 _______, xxxxxxx,      CANCEL,  _______
+                                 _______, _______,      CANCEL,  _______
     ),
     [_NAV] = LAYOUT(
       SC_TAB,  C_TAB,   KC_UP,   KC_PGUP, KC_HOME,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), REV_REP,
       xxxxxxx, KC_LEFT, DN_CTRL, KC_RGHT, KC_ENT,       xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
       xxxxxxx, xxxxxxx, xxxxxxx, KC_PGDN, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-                                 _______, xxxxxxx,      WNAV,    _______
+                                 _______, _______,      WNAV,    _______
     ),
     // Important that the symbols on the base layer have the same positions as these symbols
     [_LMOD] = LAYOUT(
       OPT,     C(SE_A), C(SE_W), xxxxxxx, xxxxxxx,      xxxxxxx, SE_HASH, SE_AT,   REPEAT,  SE_DOT,
       OS_ALT,  OS_SHFT, OS_CTRL, OS_GUI,  xxxxxxx,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, xxxxxxx,
       C(SE_Z), C(SE_X), xxxxxxx, xxxxxxx, xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS,
-                                 _______, xxxxxxx,      CLEAR,   FUN
+                                 _______, _______,      CLEAR,   FUN
     ),
     [_RMOD] = LAYOUT(
       TILD,    SE_PLUS, SE_ASTR, SE_PERC, xxxxxxx,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SPEC,
