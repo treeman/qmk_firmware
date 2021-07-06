@@ -290,6 +290,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
     switch (keycode) {
         // Keycodes to ignore (don't disable caps word)
+        case REPEAT:
+        case REV_REP:
+            return false;
         case SE_A ... KC_Z:
         case SE_1 ... KC_0:
         case QU:
