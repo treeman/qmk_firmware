@@ -32,7 +32,10 @@ enum custom_keycodes {
     CLOSE_VIM,
     VIM_VS,
     VIM_SP,
+
+    // Multiple chars
     QU,
+    SC,
 
     // Custom keycodes for instant processing for NUMWORD
     NUM_G,

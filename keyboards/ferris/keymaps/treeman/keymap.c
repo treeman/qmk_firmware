@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "quantum.h"
 #include QMK_KEYBOARD_H
 
 #include "keycodes.h"
@@ -231,22 +232,18 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
     switch (index) {
         case del:
         case backsp:
+        case wbacksp:
         case q_comb:
         case qu_comb:
+        case sc_comb:
         case z_comb:
         case num:
-        case sp_ampr:
-        case sp_pipe:
-        case sp_plus:
-        case sp_astr:
-        case sp_mins:
         case sp_perc:
         case sp_grv:
         case sp_labk:
         case sp_rabk:
         case sp_lcbr:
-        case sp_bsls:
-        case sp_hash:
+        case sp_at:
         case rev_rep:
         case lprn_arng:
         case rprn_adia:
@@ -296,6 +293,7 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
         case SE_A ... KC_Z:
         case SE_1 ... KC_0:
         case QU:
+        case SC:
         case SE_MINS:
         case SE_UNDS:
         case KC_BSPC:
@@ -401,22 +399,12 @@ void process_oneshot_post(uint16_t keycode, keyrecord_t *record) {
 bool tap_hold(uint16_t keycode) {
     switch (keycode) {
         case SE_DQUO:
-        case SE_AMPR:
-        case SE_PIPE:
-        case SE_PLUS:
-        case SE_ASTR:
-        case SE_MINS:
-        case SE_UNDS:
         case SE_LABK:
         case SE_RABK:
-        case SE_HASH:
-        case SE_BSLS:
-        case SE_SLSH:
         case SE_DOT:
-        case SE_EQL:
-        case SE_EXLM:
         case SE_PERC:
         case GRV:
+        case SE_AT:
         case SE_LPRN:
         case SE_LCBR:
         case SE_LBRC:
@@ -445,6 +433,7 @@ bool tap_hold(uint16_t keycode) {
         case RPRN_ADIA:
         case UNDS_ODIA:
         case QU:
+        case SC:
             return true;
         default:
             return false;
@@ -455,18 +444,8 @@ void tap_hold_send_hold(uint16_t keycode) {
     disable_caps_word();
 
     switch (keycode) {
-        case SE_AMPR:
-        case SE_PIPE:
-        case SE_PLUS:
-        case SE_ASTR:
-        case SE_MINS:
-        case SE_UNDS:
         case SE_LABK:
         case SE_RABK:
-        case SE_HASH:
-        case SE_BSLS:
-        case SE_SLSH:
-        case SE_EQL:
             double_tap(keycode);
             return;
         case SE_DQUO:
@@ -481,6 +460,10 @@ void tap_hold_send_hold(uint16_t keycode) {
             tap_undead_key(true, SE_GRV);
             tap_undead_key(true, SE_GRV);
             tap_undead_key(true, SE_GRV);
+            return;
+        case SE_AT:
+            tap_code16(SE_AT);
+            tap16_repeatable(SE_U);
             return;
         case SE_LPRN:
             double_parens_left(keycode, SE_RPRN);
@@ -515,6 +498,9 @@ void tap_hold_send_hold(uint16_t keycode) {
         case QU:
             send_string("Qu");
             return;
+        case SC:
+            send_string("Sc");
+            return;
         default:
             tap16_repeatable(S(keycode));
     }
@@ -548,6 +534,9 @@ void tap_hold_send_tap(uint16_t keycode) {
             return;
         case QU:
             send_string("qu");
+            return;
+        case SC:
+            send_string("sc");
             return;
         default:
             tap16_repeatable(keycode);
@@ -616,6 +605,9 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
     if (!process_tap_hold(keycode, record)) {
+        // Extra register here to allow fast rolls without waiting for tap hold,
+        // (which will also overwrite this).
+        register_key_to_repeat(keycode);
         return false;
     }
 

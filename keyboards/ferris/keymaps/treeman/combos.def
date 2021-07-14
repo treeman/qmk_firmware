@@ -32,6 +32,7 @@ COMB(dlr,               SE_DLR,         SE_LPRN, SE_RPRN)
 COMB(swe,               TG(_SWE),       SE_L, SE_LPRN, SE_RPRN)
 
 // Vertical top left
+COMB(sc_comb,           SC,             SE_C, SE_S)
 SUBS(small_left_arrow,  "<-",           SE_Y, SE_T)
 SUBS(lt_eq,             "<=",           SE_F, SE_H)
 // Vertical top right

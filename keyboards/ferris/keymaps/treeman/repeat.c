@@ -6,6 +6,10 @@ uint16_t last_keycode = KC_NO;
 
 bool tap_undead_key(bool key_down, uint16_t code);
 
+uint16_t last_key(void) {
+    return last_keycode;
+}
+
 void register_key_to_repeat(uint16_t keycode) {
     // Get the base keycode of a mod or layer tap key
     switch (keycode) {
@@ -45,6 +49,9 @@ void update_repeat_key(keyrecord_t *record) {
             break;
         case CIRC:
             tap_undead_key(record->event.pressed, SE_CIRC);
+            break;
+        case SE_U:
+            update_key(SE_I, record);
             break;
         default:
             update_key(last_keycode, record);
