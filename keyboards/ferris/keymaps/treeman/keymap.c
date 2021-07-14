@@ -220,6 +220,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
         case small_right_arrow:
         case pipe_to:
         case sp:
+        case sc_comb:
         case gt_eq:
             return COMBO_TERM + 55;
         // Regular combos, slightly relaxed
