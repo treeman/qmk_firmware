@@ -731,6 +731,8 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case REPEAT:
+            // Enable fast UI rolls with repeat key
+            end_tap_hold();
             update_repeat_key(record);
             return false;
         case REV_REP:

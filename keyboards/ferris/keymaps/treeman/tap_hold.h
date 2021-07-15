@@ -7,6 +7,8 @@
 bool process_tap_hold(uint16_t keycode, const keyrecord_t *record);
 // Matrix scan, place in matrix_scan_user()
 void tap_hold_matrix_scan(void);
+// End tap hold
+void end_tap_hold(void);
 
 // User can override this to do whatever tap action they want.
 void tap_hold_send_tap(uint16_t keycode);

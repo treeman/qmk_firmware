@@ -10,18 +10,14 @@ bool process_tap_hold(uint16_t keycode, const keyrecord_t *record) {
     if (!tap_hold(keycode)) return true;
 
     if (record->event.pressed) {
-        if (in_progress) {
-            in_progress = false;
-            tap_hold_send_tap(lastkey);
-        }
+        end_tap_hold();
         in_progress = true;
         timer = timer_read();
         lastkey = keycode;
         hold_timeout = tap_hold_timeout(keycode);
     } else {
         if (in_progress && keycode == lastkey && timer_elapsed(timer) < hold_timeout) {
-            in_progress = false;
-            tap_hold_send_tap(keycode);
+            end_tap_hold();
         }
     }
 
@@ -35,9 +31,21 @@ void tap_hold_matrix_scan() {
     }
 }
 
+void end_tap_hold() {
+    if (in_progress) {
+        in_progress = false;
+        tap_hold_send_tap(lastkey);
+    }
+}
+
 __attribute__ ((weak))
 void tap_hold_send_tap(uint16_t keycode) {
     tap_code16(keycode);
+}
+
+__attribute__ ((weak))
+void tap_hold_send_hold(uint16_t keycode) {
+    tap_code16(S(keycode));
 }
 
 __attribute__ ((weak))
