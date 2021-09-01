@@ -1,0 +1,92 @@
+// Left top row
+COMB(q_comb,            SE_Q,           SE_J, SE_C)
+COMB(qu_comb,           QU,             SE_C, SE_Y)
+COMB(z_comb,            SE_Z,           SE_Y, SE_F)
+COMB(del,               KC_DEL,         SE_C, SE_Y, SE_F)
+// Right top row
+SUBS(el_str_int,        "#{}"SS_TAP(X_LEFT),  SE_X, SE_W)
+COMB(eql,               SE_EQL,         SE_W, SE_U)
+COMB(backsp,            KC_BSPC,        SE_U, REPEAT)
+COMB(wbacksp,           C(SE_W),        SE_W, SE_U, REPEAT)
+COMB(rev_rep,           REV_REP,        REPEAT, SE_DOT)
+
+// Left home row
+COMB(tab,               KC_TAB,         SE_S, SE_T)
+COMB(escape,            KC_ESC,         SE_T, SE_H)
+COMB(dquo,              SE_DQUO,        SE_S, SE_H)
+COMB(scln,              SE_SCLN,        SE_S, SE_T, SE_H)
+// Right home row
+COMB(coln,              SE_COLN,        SE_N, SE_I)
+COMB(enter,             KC_ENT,         SE_I, SE_A)
+COMB(quot,              SE_QUOT,        SE_N, SE_A)
+COMB(save_vim,          SAVE_VIM,       SE_N, SE_I, SE_A)
+// Mixed
+COMB(capsword,          CAPSWORD,       SE_T, SE_I)
+
+// Left bottom row
+COMB(vsp,               VIM_VS,         SE_V, SE_G)
+COMB(close_vim,         CLOSE_VIM,      SE_V, SE_G, SE_D)
+// Right bottom row
+COMB(circ,              CIRC,           SE_L, SE_LPRN)
+COMB(dlr,               SE_DLR,         SE_LPRN, SE_RPRN)
+COMB(swe,               TG(_SWE),       SE_L, SE_LPRN, SE_RPRN)
+
+// Vertical top left
+COMB(sc_comb,           SC,             SE_C, SE_S)
+SUBS(small_left_arrow,  "<-",           SE_Y, SE_T)
+SUBS(lt_eq,             "<=",           SE_F, SE_H)
+// Vertical top right
+SUBS(large_right_arrow, "=>",           SE_W, SE_N)
+SUBS(small_right_arrow, "->",           SE_U, SE_I)
+SUBS(pipe_to,           "|>",           REPEAT, SE_A)
+// Vertical bottom left
+COMB(sp,                VIM_SP,         SE_S, SE_V)
+SUBS(gt_eq,             ">=",           SE_H, SE_D)
+
+// Thumbs
+COMB(num,               NUMWORD,        MT_SPC, SE_E)
+
+// Thumb numbers
+COMB(e_6,               SE_6,           SE_E, SE_R)
+COMB(e_4,               SE_4,           SE_E, SE_S)
+COMB(e_0,               SE_0,           SE_E, SE_T)
+COMB(e_2,               SE_2,           SE_E, SE_H)
+COMB(e_8,               SE_8,           SE_E, SE_D)
+COMB(e_9,               SE_9,           SE_E, SE_L)
+COMB(e_3,               SE_3,           SE_E, SE_N)
+COMB(e_1,               SE_1,           SE_E, SE_I)
+COMB(e_5,               SE_5,           SE_E, SE_A)
+COMB(e_7,               SE_7,           SE_E, SE_O)
+
+// Thumb symbols
+// Upper
+COMB(sp_tild,            TILD,           MT_SPC, SE_J)
+COMB(sp_plus,            SE_PLUS,        MT_SPC, SE_C)
+COMB(sp_astr,            SE_ASTR,        MT_SPC, SE_Y)
+COMB(sp_perc,            SE_PERC,        MT_SPC, SE_F)
+COMB(sp_hash,            SE_HASH,        MT_SPC, SE_W)
+COMB(sp_at,              SE_AT,          MT_SPC, SE_U)
+// Home-row
+COMB(sp_pipe,            SE_PIPE,        MT_SPC, SE_R)
+COMB(sp_lcbr,            SE_LCBR,        MT_SPC, SE_S)
+COMB(sp_rcbr,            SE_RCBR,        MT_SPC, SE_T)
+COMB(sp_mins,            SE_MINS,        MT_SPC, SE_H)
+COMB(sp_bsls,            SE_BSLS,        MT_SPC, SE_K)
+COMB(sp_grv,             GRV,            MT_SPC, SE_M)
+COMB(sp_ques,            SE_QUES,        MT_SPC, SE_N)
+COMB(sp_lbrc,            SE_LBRC,        MT_SPC, SE_I)
+COMB(sp_rbrc,            SE_RBRC,        MT_SPC, SE_A)
+// Lower
+COMB(sp_labk,            SE_LABK,        MT_SPC, SE_V)
+COMB(sp_rabk,            SE_RABK,        MT_SPC, SE_G)
+COMB(sp_exlm,            SE_EXLM,        MT_SPC, SE_D)
+COMB(sp_ampr,            SE_AMPR,        MT_SPC, SE_L)
+COMB(lprn_arng,          LPRN_ARNG,      MT_SPC, SE_LPRN)
+COMB(rprn_adia,          RPRN_ADIA,      MT_SPC, SE_RPRN)
+COMB(unds_odia,          UNDS_ODIA,      MT_SPC, SE_UNDS)
+
+// Special symbols
+SUBS(https,             "https://",             MT_SPC, SE_SLSH)
+//SUBS(turbofish,         "::<>"SS_TAP(X_LEFT),   MT_SPC, SE_COMM)
+//SUBS(rust_debug,        "{:?}",                 MT_SPC, SE_LPRN)
+//SUBS(rust_vdebug,       "{:#?}",                MT_SPC, SE_RPRN)
