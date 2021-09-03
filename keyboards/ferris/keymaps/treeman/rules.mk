@@ -1,5 +1,5 @@
 COMBO_ENABLE = yes
-# RGBLIGHT_ENABLE = no        # Keyboard RGB underglow
+RGBLIGHT_ENABLE = no        # Keyboard RGB underglow
 
 # Easy definition of combos
 VPATH +=  keyboards/gboards/

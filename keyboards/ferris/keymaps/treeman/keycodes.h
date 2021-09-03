@@ -36,6 +36,7 @@ enum custom_keycodes {
     // Multiple chars
     QU,
     SC,
+    REP_A,
 
     // Custom keycodes for instant processing for NUMWORD
     NUM_G,

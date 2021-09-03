@@ -306,6 +306,7 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
         case SE_1 ... KC_0:
         case QU:
         case SC:
+        case REP_A:
         case SE_MINS:
         case SE_UNDS:
         case KC_BSPC:
@@ -770,6 +771,12 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case REV_REP:
             update_reverse_repeat_key(record);
+            return false;
+        case REP_A:
+            if (record->event.pressed) {
+                tap_code16(last_key());
+                tap_code16(SE_A);
+            }
             return false;
     }
 

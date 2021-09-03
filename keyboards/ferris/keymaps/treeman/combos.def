@@ -25,11 +25,18 @@ COMB(capsword,          CAPSWORD,       SE_T, SE_I)
 
 // Left bottom row
 COMB(vsp,               VIM_VS,         SE_V, SE_G)
+COMB(gui_combo_l,       OS_GUI,            SE_G, SE_D)
 COMB(close_vim,         CLOSE_VIM,      SE_V, SE_G, SE_D)
 // Right bottom row
 COMB(circ,              CIRC,           SE_L, SE_LPRN)
+//COMB(gui_combo_r,       OS_GUI,      SE_L, SE_LPRN)
 COMB(dlr,               SE_DLR,         SE_LPRN, SE_RPRN)
 COMB(swe,               TG(_SWE),       SE_L, SE_LPRN, SE_RPRN)
+
+// Left home bottom
+COMB(ctrl_combo_l,      OS_CTRL,           SE_H, SE_D)
+// Right home bottom
+COMB(ctrl_combo_r,      OS_CTRL,           SE_L, SE_I)
 
 // Vertical top left
 COMB(sc_comb,           SC,             SE_C, SE_S)
@@ -38,10 +45,12 @@ SUBS(lt_eq,             "<=",           SE_F, SE_H)
 // Vertical top right
 SUBS(large_right_arrow, "=>",           SE_W, SE_N)
 SUBS(small_right_arrow, "->",           SE_U, SE_I)
-SUBS(pipe_to,           "|>",           REPEAT, SE_A)
+COMB(rep_a,             REP_A,          REPEAT, SE_A)
 // Vertical bottom left
 COMB(sp,                VIM_SP,         SE_S, SE_V)
 SUBS(gt_eq,             ">=",           SE_H, SE_D)
+// Vertical bottom right
+SUBS(pipe_to,           "|>",           SE_N, SE_L)
 
 // Thumbs
 COMB(num,               NUMWORD,        MT_SPC, SE_E)
@@ -87,6 +96,3 @@ COMB(unds_odia,          UNDS_ODIA,      MT_SPC, SE_UNDS)
 
 // Special symbols
 SUBS(https,             "https://",             MT_SPC, SE_SLSH)
-//SUBS(turbofish,         "::<>"SS_TAP(X_LEFT),   MT_SPC, SE_COMM)
-//SUBS(rust_debug,        "{:?}",                 MT_SPC, SE_LPRN)
-//SUBS(rust_vdebug,       "{:#?}",                MT_SPC, SE_RPRN)
