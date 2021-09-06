@@ -23,6 +23,7 @@
 #include "layermodes.h"
 #include "tap_hold.h"
 #include "repeat.h"
+#include "roll.h"
 
 #include "keymap_swedish.h"
 #include "sendstring_swedish.h"
@@ -261,6 +262,9 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case rprn_adia:
         case unds_odia:
         case eql:
+        case gui_combo_l:
+        case ctrl_combo_l:
+        case ctrl_combo_r:
             return false;
         default:
             return true;
@@ -630,11 +634,25 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
     }
 }
 
+uint16_t roll_override(uint16_t lastkey, uint16_t keycode) {
+    if (lastkey == REPEAT && keycode == SE_U) {
+        return SE_A;
+    }
+    if (lastkey == SE_U && keycode == REPEAT) {
+        return SE_I;
+    }
+
+    return KC_NO;
+}
+
 bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_num_word(keycode, record)) {
         return false;
     }
     if (!process_case_modes(keycode, record)) {
+        return false;
+    }
+    if (!process_roll(keycode, record)) {
         return false;
     }
     if (!process_tap_hold(keycode, record)) {

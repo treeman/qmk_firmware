@@ -28,3 +28,4 @@ SRC += layermodes.c
 SRC += casemodes.c
 SRC += tap_hold.c
 SRC += repeat.c
+SRC += roll.c

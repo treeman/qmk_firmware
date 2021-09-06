@@ -46,7 +46,6 @@ enum custom_keycodes {
     RPRN_ADIA,
     UNDS_ODIA,
 
-
     // Instant oneshot mods
     OS_SHFT,
     OS_CTRL,

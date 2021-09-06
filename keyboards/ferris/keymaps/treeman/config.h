@@ -30,6 +30,7 @@
 // Only for thumbs
 #define TAPPING_TERM 220
 #endif
+
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #define IGNORE_MOD_TAP_INTERRUPT
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
@@ -38,18 +39,6 @@
 #define PERMISSIVE_HOLD
 // Immediately turn on layer if key is pressed quickly
 #define HOLD_ON_OTHER_KEY_PRESS
-// Don't fire mods on the same side
-//#define BILATERAL_COMBINATIONS 400
-
-// Auto shift stuff
-//#define RETRO_SHIFT
-// #define AUTO_SHIFT_NO_AUTO_REPEAT
-// #define AUTO_SHIFT_TIMEOUT 135
-// #define NO_AUTO_SHIFT_SPECIAL
-// #define NO_AUTO_SHIFT_NUMERIC
-// #undef AUTO_SHIFT_MODIFIERS
-// #define AUTO_SHIFT_NO_SETUP
-// #define AUTO_SHIFT_SWEDISH
 
 // Combos
 #undef COMBO_TERM

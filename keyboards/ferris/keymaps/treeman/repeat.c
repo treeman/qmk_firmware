@@ -50,9 +50,6 @@ void update_repeat_key(keyrecord_t *record) {
         case CIRC:
             tap_undead_key(record->event.pressed, SE_CIRC);
             break;
-        case SE_U:
-            update_key(SE_I, record);
-            break;
         default:
             update_key(last_keycode, record);
     }
@@ -81,14 +78,5 @@ void update_reverse_repeat_key(keyrecord_t *record) {
 
     update_reverse_key_pairs(S(KC_W), S(KC_B), record);
     update_reverse_key_pairs(SE_U, C(SE_R), record);
-
-    switch (last_keycode) {
-        case SE_A ... SE_Z:
-            if (record->event.pressed) {
-                tap_code16(last_keycode);
-                tap_code16(SE_A);
-            }
-            break;
-    }
 }
 

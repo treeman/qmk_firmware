@@ -2,8 +2,8 @@
 
 #include QMK_KEYBOARD_H
 
-
 // Process tap hold, place in process_record_user().
+// If this returns false, we should also return false from process_record_user().
 bool process_tap_hold(uint16_t keycode, const keyrecord_t *record);
 // Matrix scan, place in matrix_scan_user()
 void tap_hold_matrix_scan(void);
