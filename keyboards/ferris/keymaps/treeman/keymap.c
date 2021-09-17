@@ -635,9 +635,6 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
 }
 
 uint16_t roll_override(uint16_t lastkey, uint16_t keycode) {
-    if (lastkey == REPEAT && keycode == SE_U) {
-        return SE_A;
-    }
     if (lastkey == SE_U && keycode == REPEAT) {
         return SE_I;
     }
