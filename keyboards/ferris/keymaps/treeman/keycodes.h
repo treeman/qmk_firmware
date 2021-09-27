@@ -10,12 +10,11 @@ enum layers {
     _BASE = 0,
     _SWE,
     _NUM,
-    _GAME,
-    _GAME2,
     _NAV,
     _WNAV,
     _LMOD,
     _RMOD,
+    _SHRT,
     _FUN,
     _OPT,
     _SPEC
@@ -51,6 +50,19 @@ enum custom_keycodes {
     OS_CTRL,
     OS_ALT,
     OS_GUI,
+    OS_CTRL_SHFT,
+
+    // Shortcut keys
+    SHRT_A,
+    SHRT_W,
+    SHRT_F,
+    SHRT_R,
+    SHRT_S,
+    SHRT_T,
+    SHRT_Z,
+    SHRT_X,
+    SHRT_C,
+    SHRT_V,
 
     // Smart caps lock and layers that turn off on certain keys
     CAPSWORD,
@@ -60,7 +72,6 @@ enum custom_keycodes {
     CANCEL, // Cancel SYMWORD and NUMWORD
     CLEAR, // Clear all WORD, one-shots and reset to BASE
 
-    TO_GAME,
     TO_NUM,
 
     // Repeat keys
