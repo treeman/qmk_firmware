@@ -255,7 +255,8 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case ctrl_combo_r:
         case ctrl_s_combo_l:
         case ctrl_s_combo_r:
-        case shift_combo:
+        case shift_combo_l:
+        case shift_combo_r:
         case close_win:
             return false;
         default:
@@ -440,6 +441,7 @@ bool tap_hold(uint16_t keycode) {
         case SE_LCBR:
         case SE_LBRC:
         case SE_EQL:
+        case SE_UNDS:
         case SE_0:
         case G(SE_0):
         case G(SE_1):
@@ -551,6 +553,9 @@ void tap_hold_send_hold(uint16_t keycode) {
             } else {
                 tap16_repeatable(S(SE_ODIA));
             }
+            return;
+        case SE_UNDS:
+            send_string("__");
             return;
         case QU:
             send_string("Qu");
@@ -668,21 +673,14 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case C(SE_T):
         case C(SE_C):
             return 100;
+        // Slow index
+        case SE_P:
+        case SE_X:
+            return 105;
         // Index
         default:
             return 100;
     }
-}
-
-uint16_t roll_override(uint16_t lastkey, uint16_t keycode) {
-    /* if (lastkey == REPEAT && keycode == SE_U) { */
-    /*     return SE_A; */
-    /* } */
-    /* if (lastkey == SE_U && keycode == REPEAT) { */
-    /*     return SE_I; */
-    /* } */
-
-    return KC_NO;
 }
 
 bool _process_record_user(uint16_t keycode, keyrecord_t *record) {

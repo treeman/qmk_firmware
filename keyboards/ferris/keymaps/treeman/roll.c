@@ -48,5 +48,13 @@ bool process_roll(uint16_t keycode, const keyrecord_t *record) {
 
 __attribute__ ((weak))
 uint16_t roll_override(uint16_t lastkey, uint16_t keycode) {
+    // Add overrides like this:
+    /* if (lastkey == REPEAT && keycode == SE_U) { */
+    /*     return SE_A; */
+    /* } */
+    /* if (lastkey == SE_U && keycode == REPEAT) { */
+    /*     return SE_I; */
+    /* } */
+
     return KC_NO;
 }
