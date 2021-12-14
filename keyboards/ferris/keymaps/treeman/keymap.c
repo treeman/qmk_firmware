@@ -46,35 +46,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, _______,      _______, _______
     ),
     [_NUM] = LAYOUT(
-      SE_J,    SE_PLUS, SE_ASTR, SE_PERC, SE_P,         _______, _______, _______, REPEAT,  _______,
+      SE_J,    SE_PLUS, SE_ASTR, SE_PERC, SE_P,         SE_X,    _______, _______, REPEAT,  _______,
       SE_6,    SE_4,    SE_0,    SE_2,    SE_K,         _______, SE_3,    SE_1,    SE_5,    SE_7,
       SE_COMM, _______, NUM_G,   SE_8,    _______,      _______, SE_9,    SE_LPRN, SE_RPRN, SE_UNDS,
                                  _______, _______,      CANCEL,  _______
     ),
     [_NAV] = LAYOUT(
-      SC_TAB,  C_TAB,   KC_UP,   KC_PGUP, KC_HOME,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), REV_REP,
-      xxxxxxx, KC_LEFT, DN_CTRL, KC_RGHT, KC_ENT,       xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-      xxxxxxx, xxxxxxx, xxxxxxx, KC_PGDN, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+      G(SE_J), C_TAB,   KC_UP,   KC_PGUP, KC_HOME,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), REV_REP,
+      SC_TAB,  KC_LEFT, DN_CTRL, KC_RGHT, G(SE_K),      xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
+      KC_ENT,  xxxxxxx, xxxxxxx, KC_PGDN, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
                                  _______, _______,      WNAV,    _______
     ),
     // Important that the symbols on the base layer have the same positions as these symbols
     [_LMOD] = LAYOUT(
-      OPT,     xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,      xxxxxxx, SE_HASH, SE_AT,   CIRC,    SE_DOT,
-      OS_ALT,  OS_SHFT, OS_CTRL, OS_GUI,  xxxxxxx,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, REPEAT,
-      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS,
+      C(SE_A), xxxxxxx, C(SE_W), C(SE_F), xxxxxxx,      xxxxxxx, SE_HASH, SE_AT,   CIRC,    SE_DOT,
+      C(SE_R), C(SE_S), C(SE_T), xxxxxxx, xxxxxxx,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, REPEAT,
+      C(SE_Z), C(SE_X), C(SE_C), C(SE_V), xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS,
                                  _______, _______,      CLEAR,   FUN
     ),
     [_RMOD] = LAYOUT(
-      TILD,    SE_PLUS, SE_ASTR, SE_PERC, xxxxxxx,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SPEC,
+      TILD,    SE_PLUS, SE_ASTR, SE_PERC, xxxxxxx,      xxxxxxx, xxxxxxx, xxxxxxx, OPT,     SPEC,
       SE_PIPE, SE_LCBR, SE_RCBR, SE_MINS, SE_BSLS,      xxxxxxx, OS_GUI,  OS_CTRL, OS_SHFT, OS_ALT,
       SE_COMM, SE_LABK, SE_RABK, SE_EXLM, xxxxxxx,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MY_RALT,
                                  FUN,     _______,      CLEAR,  _______
-    ),
-    [_SHRT] = LAYOUT(
-      SHRT_A,  _______, SHRT_W,  SHRT_F,  _______,      _______, _______, _______, _______, _______,
-      SHRT_R,  SHRT_S,  SHRT_T,  _______, _______,      _______, _______, _______, _______, _______,
-      SHRT_Z,  SHRT_X,  SHRT_C,  SHRT_V,  _______,      _______, _______, _______, _______, _______,
-                                 _______, _______,      CANCEL,  _______
     ),
     [_WNAV] = LAYOUT(
       G(SE_J), G(SE_C), xxxxxxx, xxxxxxx, xxxxxxx,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx,
@@ -95,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, _______,      _______, _______
     ),
     [_SPEC] = LAYOUT(
-      SE_TILD, _______, _______, _______, _______,      _______, _______, _______, SE_DIAE, _______,
+      SE_TILD, _______, _______, _______, _______,      _______, _______, _______, SE_CIRC, SE_DIAE,
       _______, _______, _______, _______, SE_ACUT,      SE_GRV,  SYM_LFT, SYM_DWN, SYM_UP,  SYM_RHT,
       _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
                                  _______, _______,      _______, _______
@@ -109,7 +103,7 @@ bool in_linux(void) {
     return linux_mode;
 }
 
-static bool swap_caps_escape = true;
+static bool swap_caps_escape = false;
 bool is_caps_swapped(void) {
     return swap_caps_escape;
 }
@@ -261,6 +255,8 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case ctrl_combo_r:
         case ctrl_s_combo_l:
         case ctrl_s_combo_r:
+        case shift_combo:
+        case close_win:
             return false;
         default:
             return true;
@@ -414,7 +410,7 @@ void process_oneshot_key(uint16_t keycode, keyrecord_t *record) {
         keycode, record
     );
     update_oneshot_post(
-        &os_shft_state, KC_LSFT, OS_SHFT,
+        &os_ctrl_state, KC_LCTL, OS_CTRL,
         keycode, record
     );
 }
@@ -470,16 +466,17 @@ bool tap_hold(uint16_t keycode) {
         case UNDS_ODIA:
         case QU:
         case SC:
-        case SHRT_A:
-        case SHRT_W:
-        case SHRT_F:
-        case SHRT_R:
-        case SHRT_S:
-        case SHRT_T:
-        case SHRT_Z:
-        case SHRT_X:
-        case SHRT_C:
-        case SHRT_V:
+        case CLOSE_WIN:
+        case C(SE_A):
+        case C(SE_W):
+        case C(SE_F):
+        case C(SE_R):
+        case C(SE_S):
+        case C(SE_T):
+        case C(SE_Z):
+        case C(SE_X):
+        case C(SE_C):
+        case C(SE_V):
             return true;
         default:
             return false;
@@ -561,20 +558,8 @@ void tap_hold_send_hold(uint16_t keycode) {
         case SC:
             send_string("Sc");
             return;
-        case SHRT_S:
-            tap16_repeatable(S(C(SE_S)));
-            return;
-        case SHRT_T:
-            tap16_repeatable(S(C(SE_T)));
-            return;
-        case SHRT_C:
+        case CLOSE_WIN:
             tap16_repeatable(S(G(SE_C)));
-            return;
-        case SHRT_V:
-            tap16_repeatable(S(C(SE_V)));
-            return;
-        case SHRT_Z:
-            tap16_repeatable(S(C(SE_Z)));
             return;
         default:
             tap16_repeatable(S(keycode));
@@ -613,35 +598,11 @@ void tap_hold_send_tap(uint16_t keycode) {
         case SC:
             send_string("sc");
             return;
-        case SHRT_A:
-            tap16_repeatable(C(SE_A));
-            return;
-        case SHRT_W:
-            tap16_repeatable(C(SE_W));
-            return;
-        case SHRT_F:
-            tap16_repeatable(C(SE_F));
-            return;
-        case SHRT_R:
-            tap16_repeatable(C(SE_R));
-            return;
-        case SHRT_S:
-            tap16_repeatable(C(SE_S));
-            return;
-        case SHRT_T:
-            tap16_repeatable(C(SE_T));
-            return;
-        case SHRT_X:
-            tap16_repeatable(C(SE_X));
-            return;
-        case SHRT_C:
-            tap16_repeatable(C(SE_C));
-            return;
-        case SHRT_V:
-            tap16_repeatable(C(SE_V));
-            return;
-        case SHRT_Z:
-            tap16_repeatable(C(SE_Z));
+        case CLOSE_WIN:
+            tap_escape();
+            tap_code16(SE_COLN);
+            tap_code(SE_Q);
+            tap_code(KC_ENT);
             return;
         default:
             tap16_repeatable(keycode);
@@ -650,6 +611,9 @@ void tap_hold_send_tap(uint16_t keycode) {
 
 uint16_t tap_hold_timeout(uint16_t keycode) {
     switch (keycode) {
+        // Extra
+        case CLOSE_WIN:
+            return 160;
         // Thumb
         case SE_E:
             return 120;
@@ -663,6 +627,8 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case G(SE_6):
         case SE_7:
         case G(SE_7):
+        case C(SE_R):
+        case C(SE_Z):
             return 135;
         // Ring
         case SE_J:
@@ -681,6 +647,9 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case G(SE_5):
         case G(SE_J):
         case G(SE_R):
+        case C(SE_A):
+        case C(SE_S):
+        case C(SE_X):
             return 105;
         // Middle
         case SE_Y:
@@ -695,6 +664,9 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case G(SE_0):
         case SE_1:
         case G(SE_1):
+        case C(SE_W):
+        case C(SE_T):
+        case C(SE_C):
             return 100;
         // Index
         default:
@@ -703,12 +675,12 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
 }
 
 uint16_t roll_override(uint16_t lastkey, uint16_t keycode) {
-    if (lastkey == REPEAT && keycode == SE_U) {
-        return SE_A;
-    }
-    if (lastkey == SE_U && keycode == REPEAT) {
-        return SE_I;
-    }
+    /* if (lastkey == REPEAT && keycode == SE_U) { */
+    /*     return SE_A; */
+    /* } */
+    /* if (lastkey == SE_U && keycode == REPEAT) { */
+    /*     return SE_I; */
+    /* } */
 
     return KC_NO;
 }
@@ -758,14 +730,8 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             register_key_to_repeat(TILD);
             return tap_undead_key(record->event.pressed, SE_TILD);
         case CIRC:
-            switch (get_highest_layer(layer_state)) {
-                case _SPEC:
-                    tap_code16(SE_CIRC);
-                    return false;
-                default:
-                    register_key_to_repeat(CIRC);
-                    return tap_undead_key(record->event.pressed, SE_CIRC);
-            }
+            register_key_to_repeat(CIRC);
+            return tap_undead_key(record->event.pressed, SE_CIRC);
         case TO_NUM:
             layer_on(_NUM);
             return false;
@@ -782,14 +748,6 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_escape();
                 tap_code16(SE_COLN);
                 tap_code(SE_W);
-                tap_code(KC_ENT);
-            }
-            return false;
-        case CLOSE_VIM:
-            if (record->event.pressed) {
-                tap_escape();
-                tap_code16(SE_COLN);
-                tap_code(SE_Q);
                 tap_code(KC_ENT);
             }
             return false;
@@ -879,17 +837,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // If `false` was returned, then we did something special and should register that manually.
     // Otherwise register it here by default.
-    if (res) {
-        if (keycode == MT_SPC) {
-            // Register Space explicitly on up to not interfere with NAV toggling.
-            if (!record->event.pressed) {
-                register_key_to_repeat(KC_SPC);
-            }
-        } else {
-            if (record->event.pressed) {
-                register_key_to_repeat(keycode);
-            }
-        }
+    // Ignore Space to not interfere with NAV toggling.
+    if (res && record->event.pressed && keycode != MT_SPC) {
+        register_key_to_repeat(keycode);
     }
 
     process_oneshot_post(keycode, record);
