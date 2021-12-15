@@ -6,9 +6,9 @@ COMB(del,               KC_DEL,         SE_C, SE_Y, SE_F)
 // Right top row
 SUBS(el_str_int,        "#{}"SS_TAP(X_LEFT),  SE_X, SE_W)
 COMB(eql,               SE_EQL,         SE_W, SE_U)
-COMB(backsp,            KC_BSPC,        SE_U, REPEAT)
-COMB(wbacksp,           C(SE_W),        SE_W, SE_U, REPEAT)
-COMB(rev_rep,           REV_REP,        REPEAT, SE_DOT)
+COMB(backsp,            KC_BSPC,        SE_U, SE_O)
+COMB(wbacksp,           C(SE_W),        SE_W, SE_U, SE_O)
+COMB(rev_rep,           REV_REP,        SE_O, SE_DOT)
 
 // Left home row
 COMB(tab,               KC_TAB,         SE_S, SE_T)
@@ -25,18 +25,21 @@ COMB(capsword,          CAPSWORD,       SE_T, SE_I)
 
 // Left bottom row
 COMB(vsp,               VIM_VS,         SE_V, SE_G)
-COMB(gui_combo_l,       OS_GUI,            SE_G, SE_D)
-COMB(close_vim,         CLOSE_VIM,      SE_V, SE_G, SE_D)
+COMB(gui_combo_l,       OS_GUI,         SE_G, SE_D)
+COMB(close_win,         CLOSE_WIN,      SE_V, SE_G, SE_D)
+COMB(shift_combo_l,     OS_SHFT,        SE_D, SE_B)
 // Right bottom row
-COMB(circ,              CIRC,           SE_L, SE_LPRN)
-//COMB(gui_combo_r,       OS_GUI,      SE_L, SE_LPRN)
+COMB(shift_combo_r,     OS_SHFT,        SE_SLSH, SE_L)
+COMB(gui_combo_r,       OS_GUI,         SE_L, SE_LPRN)
 COMB(dlr,               SE_DLR,         SE_LPRN, SE_RPRN)
 COMB(swe,               TG(_SWE),       SE_L, SE_LPRN, SE_RPRN)
 
 // Left home bottom
-COMB(ctrl_combo_l,      OS_CTRL,           SE_T, SE_D)
+COMB(ctrl_combo_l,      OS_CTRL,        SE_T, SE_D)
+COMB(ctrl_s_combo_l,    OS_CTRL_SHFT,   SE_S, SE_T, SE_D)
 // Right home bottom
-COMB(ctrl_combo_r,      OS_CTRL,           SE_L, SE_I)
+COMB(ctrl_combo_r,      OS_CTRL,        SE_L, SE_I)
+COMB(ctrl_s_combo_r,    OS_CTRL_SHFT,   SE_L, SE_I, SE_A)
 
 // Vertical top left
 COMB(sc_comb,           SC,             SE_C, SE_S)
@@ -45,7 +48,7 @@ SUBS(lt_eq,             "<=",           SE_F, SE_H)
 // Vertical top right
 SUBS(large_right_arrow, "=>",           SE_W, SE_N)
 SUBS(small_right_arrow, "->",           SE_U, SE_I)
-SUBS(pipe_to,           "|>",           REPEAT, SE_A)
+SUBS(pipe_to,           "|>",           SE_O, SE_A)
 // Vertical bottom left
 COMB(sp,                VIM_SP,         SE_S, SE_V)
 SUBS(gt_eq,             ">=",           SE_H, SE_D)
@@ -63,7 +66,7 @@ COMB(e_9,               SE_9,           SE_E, SE_L)
 COMB(e_3,               SE_3,           SE_E, SE_N)
 COMB(e_1,               SE_1,           SE_E, SE_I)
 COMB(e_5,               SE_5,           SE_E, SE_A)
-COMB(e_7,               SE_7,           SE_E, SE_O)
+COMB(e_7,               SE_7,           SE_E, REPEAT)
 
 // Thumb symbols
 // Upper
@@ -73,6 +76,7 @@ COMB(sp_astr,            SE_ASTR,        MT_SPC, SE_Y)
 COMB(sp_perc,            SE_PERC,        MT_SPC, SE_F)
 COMB(sp_hash,            SE_HASH,        MT_SPC, SE_W)
 COMB(sp_at,              SE_AT,          MT_SPC, SE_U)
+COMB(sp_circ,            CIRC,           MT_SPC, SE_O)
 // Home-row
 COMB(sp_pipe,            SE_PIPE,        MT_SPC, SE_R)
 COMB(sp_lcbr,            SE_LCBR,        MT_SPC, SE_S)

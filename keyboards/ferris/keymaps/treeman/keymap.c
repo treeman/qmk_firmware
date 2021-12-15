@@ -34,8 +34,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * Base Layer: Modified RSTHD
     */
     [_BASE] = LAYOUT(
-      SE_J,    SE_C,    SE_Y,    SE_F,    SE_P,         SE_X,    SE_W,    SE_U,    REPEAT,  SE_DOT,
-      SE_R,    SE_S,    SE_T,    SE_H,    SE_K,         SE_M,    SE_N,    SE_I,    SE_A,    SE_O,
+      SE_J,    SE_C,    SE_Y,    SE_F,    SE_P,         SE_X,    SE_W,    SE_U,    SE_O,    SE_DOT,
+      SE_R,    SE_S,    SE_T,    SE_H,    SE_K,         SE_M,    SE_N,    SE_I,    SE_A,    REPEAT,
       SE_COMM, SE_V,    SE_G,    SE_D,    SE_B,         SE_SLSH, SE_L,    SE_LPRN, SE_RPRN, SE_UNDS,
                                  LMOD,    MT_SPC,       SE_E,    RMOD
     ),
@@ -46,26 +46,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, _______,      _______, _______
     ),
     [_NUM] = LAYOUT(
-      SE_J,    SE_PLUS, SE_ASTR, SE_PERC, SE_P,         _______, _______, _______, _______, _______,
+      SE_J,    SE_PLUS, SE_ASTR, SE_PERC, SE_P,         SE_X,    _______, _______, REPEAT,  _______,
       SE_6,    SE_4,    SE_0,    SE_2,    SE_K,         _______, SE_3,    SE_1,    SE_5,    SE_7,
       SE_COMM, _______, NUM_G,   SE_8,    _______,      _______, SE_9,    SE_LPRN, SE_RPRN, SE_UNDS,
                                  _______, _______,      CANCEL,  _______
     ),
     [_NAV] = LAYOUT(
-      SC_TAB,  C_TAB,   KC_UP,   KC_PGUP, KC_HOME,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), REV_REP,
-      xxxxxxx, KC_LEFT, DN_CTRL, KC_RGHT, KC_ENT,       xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-      xxxxxxx, xxxxxxx, xxxxxxx, KC_PGDN, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+      G(SE_J), C_TAB,   KC_UP,   KC_PGUP, KC_HOME,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), REV_REP,
+      SC_TAB,  KC_LEFT, DN_CTRL, KC_RGHT, G(SE_K),      xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
+      KC_ENT,  xxxxxxx, xxxxxxx, KC_PGDN, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
                                  _______, _______,      WNAV,    _______
     ),
     // Important that the symbols on the base layer have the same positions as these symbols
     [_LMOD] = LAYOUT(
-      OPT,     C(SE_A), C(SE_W), xxxxxxx, xxxxxxx,      xxxxxxx, SE_HASH, SE_AT,   REPEAT,  SE_DOT,
-      OS_ALT,  OS_SHFT, OS_CTRL, OS_GUI,  xxxxxxx,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, xxxxxxx,
-      C(SE_Z), C(SE_X), xxxxxxx, xxxxxxx, xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS,
+      C(SE_A), xxxxxxx, C(SE_W), C(SE_F), xxxxxxx,      xxxxxxx, SE_HASH, SE_AT,   CIRC,    SE_DOT,
+      C(SE_R), C(SE_S), C(SE_T), xxxxxxx, xxxxxxx,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, REPEAT,
+      C(SE_Z), C(SE_X), C(SE_C), C(SE_V), xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS,
                                  _______, _______,      CLEAR,   FUN
     ),
     [_RMOD] = LAYOUT(
-      TILD,    SE_PLUS, SE_ASTR, SE_PERC, xxxxxxx,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SPEC,
+      TILD,    SE_PLUS, SE_ASTR, SE_PERC, xxxxxxx,      xxxxxxx, xxxxxxx, xxxxxxx, OPT,     SPEC,
       SE_PIPE, SE_LCBR, SE_RCBR, SE_MINS, SE_BSLS,      xxxxxxx, OS_GUI,  OS_CTRL, OS_SHFT, OS_ALT,
       SE_COMM, SE_LABK, SE_RABK, SE_EXLM, xxxxxxx,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MY_RALT,
                                  FUN,     _______,      CLEAR,  _______
@@ -85,25 +85,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_OPT] = LAYOUT(
       _______, TG_CAPS, _______, _______, _______,      _______, TG_NIX,  _______, _______, _______,
       _______, _______, KC_CAPS, _______, _______,      _______, TO_NUM,  _______, _______, _______,
-      _______, _______, TO_GAME, _______, _______,      _______, _______, _______, _______, _______,
-                                 _______, _______,      _______, _______
-    ),
-    [_SPEC] = LAYOUT(
-      SE_TILD, _______, _______, _______, _______,      _______, _______, _______, SE_DIAE, _______,
-      _______, _______, _______, _______, SE_ACUT,      SE_GRV,  SYM_LFT, SYM_DWN, SYM_UP,  SYM_RHT,
       _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
                                  _______, _______,      _______, _______
     ),
-    [_GAME] = LAYOUT(
-      KC_ENT,  SE_Q,    SE_W,    SE_E,    SE_R,         SE_T,    SE_Y,    SE_U,    SE_I,    SE_O,
-      KC_LSFT, SE_A,    SE_S,    SE_D,    SE_F,         SE_G,    SE_H,    SE_J,    SE_K,    SE_L,
-      KC_LCTL, SE_Z,    SE_X,    SE_C,    SE_V,         SE_B,    SE_N,    SE_M,    xxxxxxx, xxxxxxx,
-                                 GAME2,   MT_SPC,       CANCEL,  _______
-    ),
-    [_GAME2] = LAYOUT(
-      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,      _______, _______, _______, _______, _______,
-      SE_1,    SE_2,    SE_3,    SE_4,    SE_5,         _______, _______, _______, _______, _______,
-      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,      _______, _______, _______, _______, _______,
+    [_SPEC] = LAYOUT(
+      SE_TILD, _______, _______, _______, _______,      _______, _______, _______, SE_CIRC, SE_DIAE,
+      _______, _______, _______, _______, SE_ACUT,      SE_GRV,  SYM_LFT, SYM_DWN, SYM_UP,  SYM_RHT,
+      _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
                                  _______, _______,      _______, _______
     )
 };
@@ -115,7 +103,7 @@ bool in_linux(void) {
     return linux_mode;
 }
 
-static bool swap_caps_escape = true;
+static bool swap_caps_escape = false;
 bool is_caps_swapped(void) {
     return swap_caps_escape;
 }
@@ -177,12 +165,12 @@ void tap_escape(void) {
 
 void enable_gaming(void) {
     /* autoshift_disable(); */
-    layer_on(_GAME);
+    /* layer_on(_GAME); */
 }
 void disable_gaming(void) {
     /* autoshift_enable(); */
-    layer_off(_GAME);
-    layer_off(_GAME2);
+    /* layer_off(_GAME); */
+    /* layer_off(_GAME2); */
 }
 
 void tap_space_shift(uint16_t key, bool key_down) {
@@ -216,7 +204,6 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
         case coln:
         case enter:
         case quot:
-        case circ:
         case dlr:
         case vsp:
             return COMBO_TERM;
@@ -263,8 +250,14 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case unds_odia:
         case eql:
         case gui_combo_l:
+        case gui_combo_r:
         case ctrl_combo_l:
         case ctrl_combo_r:
+        case ctrl_s_combo_l:
+        case ctrl_s_combo_r:
+        case shift_combo_l:
+        case shift_combo_r:
+        case close_win:
             return false;
         default:
             return true;
@@ -357,7 +350,8 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     switch (keycode) {
         case CLEAR:
         case LMOD:
-        case RMOD: 
+        case RMOD:
+        case OS_CTRL_SHFT:
         case OS_SHFT:
         case OS_CTRL:
         case OS_ALT:
@@ -411,6 +405,22 @@ void process_oneshot_post(uint16_t keycode, keyrecord_t *record) {
     );
 }
 
+void process_oneshot_key(uint16_t keycode, keyrecord_t *record) {
+    update_oneshot_pre(
+        &os_shft_state, KC_LSFT, OS_SHFT,
+        keycode, record
+    );
+    update_oneshot_post(
+        &os_ctrl_state, KC_LCTL, OS_CTRL,
+        keycode, record
+    );
+}
+
+void process_ctrl_shift(keyrecord_t *record) {
+    process_oneshot_key(OS_SHFT, record);
+    process_oneshot_key(OS_CTRL, record);
+}
+
 // Tap hold
 
 bool tap_hold(uint16_t keycode) {
@@ -431,6 +441,7 @@ bool tap_hold(uint16_t keycode) {
         case SE_LCBR:
         case SE_LBRC:
         case SE_EQL:
+        case SE_UNDS:
         case SE_0:
         case G(SE_0):
         case G(SE_1):
@@ -457,6 +468,17 @@ bool tap_hold(uint16_t keycode) {
         case UNDS_ODIA:
         case QU:
         case SC:
+        case CLOSE_WIN:
+        case C(SE_A):
+        case C(SE_W):
+        case C(SE_F):
+        case C(SE_R):
+        case C(SE_S):
+        case C(SE_T):
+        case C(SE_Z):
+        case C(SE_X):
+        case C(SE_C):
+        case C(SE_V):
             return true;
         default:
             return false;
@@ -532,11 +554,17 @@ void tap_hold_send_hold(uint16_t keycode) {
                 tap16_repeatable(S(SE_ODIA));
             }
             return;
+        case SE_UNDS:
+            send_string("__");
+            return;
         case QU:
             send_string("Qu");
             return;
         case SC:
             send_string("Sc");
+            return;
+        case CLOSE_WIN:
+            tap16_repeatable(S(G(SE_C)));
             return;
         default:
             tap16_repeatable(S(keycode));
@@ -575,6 +603,12 @@ void tap_hold_send_tap(uint16_t keycode) {
         case SC:
             send_string("sc");
             return;
+        case CLOSE_WIN:
+            tap_escape();
+            tap_code16(SE_COLN);
+            tap_code(SE_Q);
+            tap_code(KC_ENT);
+            return;
         default:
             tap16_repeatable(keycode);
     }
@@ -582,6 +616,9 @@ void tap_hold_send_tap(uint16_t keycode) {
 
 uint16_t tap_hold_timeout(uint16_t keycode) {
     switch (keycode) {
+        // Extra
+        case CLOSE_WIN:
+            return 160;
         // Thumb
         case SE_E:
             return 120;
@@ -595,6 +632,8 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case G(SE_6):
         case SE_7:
         case G(SE_7):
+        case C(SE_R):
+        case C(SE_Z):
             return 135;
         // Ring
         case SE_J:
@@ -613,6 +652,9 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case G(SE_5):
         case G(SE_J):
         case G(SE_R):
+        case C(SE_A):
+        case C(SE_S):
+        case C(SE_X):
             return 105;
         // Middle
         case SE_Y:
@@ -627,19 +669,18 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case G(SE_0):
         case SE_1:
         case G(SE_1):
+        case C(SE_W):
+        case C(SE_T):
+        case C(SE_C):
             return 100;
+        // Slow index
+        case SE_P:
+        case SE_X:
+            return 105;
         // Index
         default:
             return 100;
     }
-}
-
-uint16_t roll_override(uint16_t lastkey, uint16_t keycode) {
-    if (lastkey == SE_U && keycode == REPEAT) {
-        return SE_I;
-    }
-
-    return KC_NO;
 }
 
 bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -687,14 +728,8 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             register_key_to_repeat(TILD);
             return tap_undead_key(record->event.pressed, SE_TILD);
         case CIRC:
-            switch (get_highest_layer(layer_state)) {
-                case _SPEC:
-                    tap_code16(SE_CIRC);
-                    return false;
-                default:
-                    register_key_to_repeat(CIRC);
-                    return tap_undead_key(record->event.pressed, SE_CIRC);
-            }
+            register_key_to_repeat(CIRC);
+            return tap_undead_key(record->event.pressed, SE_CIRC);
         case TO_NUM:
             layer_on(_NUM);
             return false;
@@ -711,14 +746,6 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_escape();
                 tap_code16(SE_COLN);
                 tap_code(SE_W);
-                tap_code(KC_ENT);
-            }
-            return false;
-        case CLOSE_VIM:
-            if (record->event.pressed) {
-                tap_escape();
-                tap_code16(SE_COLN);
-                tap_code(SE_Q);
                 tap_code(KC_ENT);
             }
             return false;
@@ -743,13 +770,13 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_off(_NUM);
             layer_off(_LMOD);
             layer_off(_RMOD);
-            disable_gaming();
+            //disable_gaming();
             return false;
-        case TO_GAME:
-            if (record->event.pressed) {
-                enable_gaming();
-            }
-            return false;
+        /* case TO_GAME: */
+        /*     if (record->event.pressed) { */
+        /*         enable_gaming(); */
+        /*     } */
+        /*     return false; */
         case KC_TAB:
             if (record->event.pressed) {
                 switch (get_highest_layer(layer_state)) {
@@ -779,6 +806,9 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+        case OS_CTRL_SHFT:
+            process_ctrl_shift(record);
+            return false;
         case REPEAT:
             // Enable fast UI rolls with repeat key
             end_tap_hold();
@@ -805,7 +835,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // If `false` was returned, then we did something special and should register that manually.
     // Otherwise register it here by default.
-    // Skip Space to not interfere with NAV toggling.
+    // Ignore Space to not interfere with NAV toggling.
     if (res && record->event.pressed && keycode != MT_SPC) {
         register_key_to_repeat(keycode);
     }

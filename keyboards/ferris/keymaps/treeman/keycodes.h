@@ -10,8 +10,6 @@ enum layers {
     _BASE = 0,
     _SWE,
     _NUM,
-    _GAME,
-    _GAME2,
     _NAV,
     _WNAV,
     _LMOD,
@@ -29,9 +27,9 @@ enum custom_keycodes {
 
     // Misc
     SAVE_VIM,
-    CLOSE_VIM,
     VIM_VS,
     VIM_SP,
+    CLOSE_WIN,
 
     // Multiple chars
     QU,
@@ -51,6 +49,7 @@ enum custom_keycodes {
     OS_CTRL,
     OS_ALT,
     OS_GUI,
+    OS_CTRL_SHFT,
 
     // Smart caps lock and layers that turn off on certain keys
     CAPSWORD,
@@ -60,7 +59,6 @@ enum custom_keycodes {
     CANCEL, // Cancel SYMWORD and NUMWORD
     CLEAR, // Clear all WORD, one-shots and reset to BASE
 
-    TO_GAME,
     TO_NUM,
 
     // Repeat keys
@@ -105,7 +103,7 @@ enum custom_keycodes {
 #define SC_TAB S(C(KC_TAB))
 
 #define LMOD OSL(_LMOD)
-#define RMOD OSL(_RMOD)
+#define RMOD MO(_RMOD)
 // #define NUM MO(_NUM)
 // #define TG_NUM TG(_NUM)
 // #define G_WNAV LM(_WNAV, MOD_LGUI)
