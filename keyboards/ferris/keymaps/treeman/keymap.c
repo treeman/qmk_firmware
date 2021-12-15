@@ -59,9 +59,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // Important that the symbols on the base layer have the same positions as these symbols
     [_LMOD] = LAYOUT(
-      C(SE_A), xxxxxxx, C(SE_W), C(SE_F), xxxxxxx,      xxxxxxx, SE_HASH, SE_AT,   CIRC,    SE_DOT,
-      C(SE_R), C(SE_S), C(SE_T), xxxxxxx, xxxxxxx,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, REPEAT,
-      C(SE_Z), C(SE_X), C(SE_C), C(SE_V), xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS,
+      C(SE_A), C(SE_C), C(SE_W), C(SE_F), C(SE_E),      xxxxxxx, SE_HASH, SE_AT,   CIRC,    SE_DOT,
+      C(SE_R), C(SE_S), C(SE_T), C(SE_H), xxxxxxx,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, REPEAT,
+      C(SE_X), C(SE_V), C(SE_G), C(SE_D), C(SE_B),      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS,
                                  _______, _______,      CLEAR,   FUN
     ),
     [_RMOD] = LAYOUT(
@@ -470,15 +470,19 @@ bool tap_hold(uint16_t keycode) {
         case SC:
         case CLOSE_WIN:
         case C(SE_A):
+        case C(SE_C):
         case C(SE_W):
         case C(SE_F):
+        case C(SE_E):
         case C(SE_R):
         case C(SE_S):
         case C(SE_T):
-        case C(SE_Z):
+        case C(SE_H):
         case C(SE_X):
-        case C(SE_C):
         case C(SE_V):
+        case C(SE_G):
+        case C(SE_D):
+        case C(SE_B):
             return true;
         default:
             return false;
@@ -566,6 +570,7 @@ void tap_hold_send_hold(uint16_t keycode) {
         case CLOSE_WIN:
             tap16_repeatable(S(G(SE_C)));
             return;
+        // FIXME if Z or Q in _LMOD, send Ctrl + Shift + key
         default:
             tap16_repeatable(S(keycode));
     }
@@ -609,6 +614,7 @@ void tap_hold_send_tap(uint16_t keycode) {
             tap_code(SE_Q);
             tap_code(KC_ENT);
             return;
+        // FIXME if Z or Q in _LMOD, send Ctrl + key
         default:
             tap16_repeatable(keycode);
     }
@@ -633,7 +639,7 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case SE_7:
         case G(SE_7):
         case C(SE_R):
-        case C(SE_Z):
+        case C(SE_X):
             return 135;
         // Ring
         case SE_J:
@@ -653,8 +659,9 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case G(SE_J):
         case G(SE_R):
         case C(SE_A):
+        case C(SE_C):
         case C(SE_S):
-        case C(SE_X):
+        case C(SE_V):
             return 105;
         // Middle
         case SE_Y:
@@ -671,11 +678,12 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case G(SE_1):
         case C(SE_W):
         case C(SE_T):
-        case C(SE_C):
+        case C(SE_G):
             return 100;
         // Slow index
         case SE_P:
         case SE_X:
+        case C(SE_E):
             return 105;
         // Index
         default:
