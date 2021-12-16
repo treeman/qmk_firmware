@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       SE_J,    SE_C,    SE_Y,    SE_F,    SE_P,         SE_X,    SE_W,    SE_U,    SE_O,    SE_DOT,
       SE_R,    SE_S,    SE_T,    SE_H,    SE_K,         SE_M,    SE_N,    SE_I,    SE_A,    REPEAT,
       SE_COMM, SE_V,    SE_G,    SE_D,    SE_B,         SE_SLSH, SE_L,    SE_LPRN, SE_RPRN, SE_UNDS,
-                                 LMOD,    MT_SPC,       SE_E,    RMOD
+                                 SHRT,    MT_SPC,       SE_E,    SPEC
     ),
     [_SWE] = LAYOUT(
       _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
@@ -52,29 +52,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, _______,      CANCEL,  _______
     ),
     [_NAV] = LAYOUT(
-      G(SE_J), C_TAB,   KC_UP,   KC_PGUP, KC_HOME,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), REV_REP,
+      G(SE_J), C_TAB,   KC_UP,   KC_PGUP, KC_HOME,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx,
       SC_TAB,  KC_LEFT, DN_CTRL, KC_RGHT, G(SE_K),      xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
       KC_ENT,  xxxxxxx, xxxxxxx, KC_PGDN, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
                                  _______, _______,      WNAV,    _______
     ),
     // Important that the symbols on the base layer have the same positions as these symbols
-    [_LMOD] = LAYOUT(
-      C(SE_A), C(SE_C), C(SE_W), C(SE_F), C(SE_E),      xxxxxxx, SE_HASH, SE_AT,   CIRC,    SE_DOT,
-      C(SE_R), C(SE_S), C(SE_T), C(SE_H), xxxxxxx,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, REPEAT,
-      C(SE_X), C(SE_V), C(SE_G), C(SE_D), C(SE_B),      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS,
-                                 _______, _______,      CLEAR,   FUN
+    [_SYM] = LAYOUT(
+      TILD,    SE_PLUS, SE_ASTR, SE_PERC, xxxxxxx,      xxxxxxx, SE_HASH, SE_AT,   CIRC,    SE_DOT,
+      SE_PIPE, SE_LCBR, SE_RCBR, SE_MINS, SE_BSLS,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, REPEAT,
+      SE_COMM, SE_LABK, SE_RABK, SE_EXLM, xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS,
+                                 _______, _______,      CANCEL,  _______
     ),
-    [_RMOD] = LAYOUT(
-      TILD,    SE_PLUS, SE_ASTR, SE_PERC, xxxxxxx,      xxxxxxx, xxxxxxx, xxxxxxx, OPT,     SPEC,
-      SE_PIPE, SE_LCBR, SE_RCBR, SE_MINS, SE_BSLS,      xxxxxxx, OS_GUI,  OS_CTRL, OS_SHFT, OS_ALT,
-      SE_COMM, SE_LABK, SE_RABK, SE_EXLM, xxxxxxx,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MY_RALT,
-                                 FUN,     _______,      CLEAR,  _______
+    [_MODS] = LAYOUT(
+      _______, _______, _______, _______, _______,      xxxxxxx, xxxxxxx, xxxxxxx, OPT,     xxxxxxx,
+      _______, _______, _______, _______, _______,      xxxxxxx, OS_GUI,  OS_CTRL, OS_SHFT, OS_ALT,
+      _______, _______, _______, _______, _______,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MY_RALT,
+                                 _______, _______,      _______,  _______
+    ),
+    [_SHRT] = LAYOUT(
+      C(SE_A), C(SE_C), C(SE_W), C(SE_F), C(SE_E),      _______, _______, _______, _______, _______,
+      C(SE_R), C(SE_S), C(SE_T), C(SE_H), xxxxxxx,      _______, _______, _______, _______, _______,
+      C(SE_X), C(SE_V), C(SE_G), C(SE_D), C(SE_B),      _______, _______, _______, _______, _______,
+                                 _______, _______,      _______, FUN
     ),
     [_WNAV] = LAYOUT(
       G(SE_J), G(SE_C), xxxxxxx, xxxxxxx, xxxxxxx,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx,
       G(SE_6), G(SE_4), G(SE_0), G(SE_2), G(SE_K),      xxxxxxx, G(SE_3), G(SE_1), G(SE_5), G(SE_7),
       xxxxxxx, xxxxxxx, xxxxxxx, G(SE_8), xxxxxxx,      xxxxxxx, G(SE_9), G(SE_H), G(SE_L), xxxxxxx,
-                                 _______, G(KC_SPC),    CLEAR,   _______
+                                 _______, G(KC_SPC),    _______, _______
     ),
     [_FUN] = LAYOUT(
       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
@@ -92,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       SE_TILD, _______, _______, _______, _______,      _______, _______, _______, SE_CIRC, SE_DIAE,
       _______, _______, _______, _______, SE_ACUT,      SE_GRV,  SYM_LFT, SYM_DWN, SYM_UP,  SYM_RHT,
       _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
-                                 _______, _______,      _______, _______
+                                 FUN,     _______,      _______, _______
     )
 };
 
@@ -343,8 +349,6 @@ void double_parens_left(uint16_t left, uint16_t right) {
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
         case CLEAR:
-        case LMOD:
-        case RMOD:
             return true;
         default:
             return false;
@@ -354,8 +358,6 @@ bool is_oneshot_cancel_key(uint16_t keycode) {
 bool is_oneshot_ignored_key(uint16_t keycode) {
     switch (keycode) {
         case CLEAR:
-        case LMOD:
-        case RMOD:
         case OS_CTRL_SHFT:
         case OS_SHFT:
         case OS_CTRL:
@@ -738,6 +740,11 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             layer_move(_BASE);
             return false;
+        case CANCEL:
+            layer_off(_NUM);
+            layer_off(_SYM);
+            //disable_gaming();
+            return false;
         case TILD:
             register_key_to_repeat(TILD);
             return tap_undead_key(record->event.pressed, SE_TILD);
@@ -779,12 +786,6 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 tap_code16(S(SE_G));
             }
-            return false;
-        case CANCEL:
-            layer_off(_NUM);
-            layer_off(_LMOD);
-            layer_off(_RMOD);
-            //disable_gaming();
             return false;
         // Workaround for taps only supporting standard keycodes
         case SCLN_MOD:

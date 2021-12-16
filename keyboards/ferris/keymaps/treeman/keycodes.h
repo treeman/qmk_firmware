@@ -12,11 +12,12 @@ enum layers {
     _NUM,
     _NAV,
     _WNAV,
-    _LMOD,
-    _RMOD,
-    _FUN,
+    _SYM,
+    _MODS,
+    _SHRT,
     _OPT,
-    _SPEC
+    _SPEC,
+    _FUN,
 };
 
 enum custom_keycodes {
@@ -99,18 +100,17 @@ enum custom_keycodes {
 // #define GUI OSM(MOD_LGUI)
 #define DN_CTRL LCTL_T(KC_DOWN)
 
-#define TAB_SYM LT(_LMOD, KC_TAB)
+#define TAB_SYM LT(_SYM, KC_TAB)
 #define ESC_CTRL LCTL_T(KC_ESC)
-#define SCLN_MOD LT(_RMOD, SE_SCLN)
+#define SCLN_MOD LT(_MODS, SE_SCLN)
 
 #define COLN_CTRL RCTL_T(SE_COLN)
-#define ENT_SYM LT(_RMOD, KC_ENT)
+#define ENT_SYM LT(_SYM, KC_ENT)
 
 #define C_TAB C(KC_TAB)
 #define SC_TAB S(C(KC_TAB))
 
-#define LMOD OSL(_LMOD)
-#define RMOD MO(_RMOD)
+#define SHRT OSL(_SHRT)
 // #define NUM MO(_NUM)
 // #define TG_NUM TG(_NUM)
 // #define G_WNAV LM(_WNAV, MOD_LGUI)
