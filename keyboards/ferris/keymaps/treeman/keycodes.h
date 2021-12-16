@@ -100,11 +100,11 @@ enum custom_keycodes {
 #define DN_CTRL LCTL_T(KC_DOWN)
 
 #define TAB_SYM LT(_LMOD, KC_TAB)
-#define ENT_SYM LT(_RMOD, KC_ENT)
 #define ESC_CTRL LCTL_T(KC_ESC)
-
 #define SCLN_MOD LT(_RMOD, SE_SCLN)
+
 #define COLN_CTRL RCTL_T(SE_COLN)
+#define ENT_SYM LT(_RMOD, KC_ENT)
 
 #define C_TAB C(KC_TAB)
 #define SC_TAB S(C(KC_TAB))
