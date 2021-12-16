@@ -11,13 +11,13 @@ COMB(wbacksp,           C(SE_W),        SE_W, SE_U, SE_O)
 COMB(rev_rep,           REV_REP,        SE_O, SE_DOT)
 
 // Left home row
-COMB(tab,               KC_TAB,         SE_S, SE_T)
-COMB(escape,            KC_ESC,         SE_T, SE_H)
+COMB(tab_sym,           TAB_SYM,        SE_S, SE_T)
+COMB(escape_ctrl,       ESC_CTRL,       SE_T, SE_H)
 COMB(dquo,              SE_DQUO,        SE_S, SE_H)
-COMB(scln,              SE_SCLN,        SE_S, SE_T, SE_H)
+COMB(scln_mod,          SCLN_MOD,       SE_S, SE_T, SE_H)
 // Right home row
-COMB(coln,              SE_COLN,        SE_N, SE_I)
-COMB(enter,             KC_ENT,         SE_I, SE_A)
+COMB(coln_ctrl,         COLN_CTRL,      SE_N, SE_I)
+COMB(enter_sym,         ENT_SYM,        SE_I, SE_A)
 COMB(quot,              SE_QUOT,        SE_N, SE_A)
 COMB(save_vim,          SAVE_VIM,       SE_N, SE_I, SE_A)
 // Mixed

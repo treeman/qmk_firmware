@@ -197,12 +197,12 @@ void double_tap_space(uint16_t keycode) {
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     switch (index) {
         // Home-row and other tight combos
-        case tab:
-        case escape:
-        case scln:
+        case tab_sym:
+        case escape_ctrl:
+        case scln_mod:
+        case coln_ctrl:
+        case enter_sym:
         case dquo:
-        case coln:
-        case enter:
         case quot:
         case dlr:
         case vsp:
@@ -258,6 +258,11 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case shift_combo_l:
         case shift_combo_r:
         case close_win:
+        case tab_sym:
+        case enter_sym:
+        case scln_mod:
+        case escape_ctrl:
+        case coln_ctrl:
             return false;
         default:
             return true;
@@ -356,6 +361,7 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
         case OS_CTRL:
         case OS_ALT:
         case OS_GUI:
+        case SCLN_MOD:
             return true;
         default:
             return false;
@@ -780,40 +786,54 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_off(_RMOD);
             //disable_gaming();
             return false;
+        // Workaround for taps only supporting standard keycodes
+        case SCLN_MOD:
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(SE_SCLN);
+                return false;
+            }
+            break;
+        case COLN_CTRL:
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(SE_COLN);
+                return false;
+            }
+            break;
+
         /* case TO_GAME: */
         /*     if (record->event.pressed) { */
         /*         enable_gaming(); */
         /*     } */
         /*     return false; */
-        case KC_TAB:
-            if (record->event.pressed) {
-                switch (get_highest_layer(layer_state)) {
-                    case _LMOD:
-                    case _RMOD:
-                        tap16_repeatable(C(S(KC_TAB)));
-                        break;
-                    case _NAV:
-                        tap16_repeatable(C(KC_TAB));
-                        break;
-                    default:
-                        tap16_repeatable(KC_TAB);
-                }
-            }
-            return false;
-        case KC_ENT:
-            if (record->event.pressed) {
-                switch (get_highest_layer(layer_state)) {
-                    case _NUM:
-                        tap16_repeatable(KC_PENT);
-                        break;
-                    case _WNAV:
-                        tap16_repeatable(G(KC_ENT));
-                        break;
-                    default:
-                        tap16_repeatable(KC_ENT);
-                }
-            }
-            return false;
+        /* case KC_TAB: */
+        /*     if (record->event.pressed) { */
+        /*         switch (get_highest_layer(layer_state)) { */
+        /*             case _LMOD: */
+        /*             case _RMOD: */
+        /*                 tap16_repeatable(C(S(KC_TAB))); */
+        /*                 break; */
+        /*             case _NAV: */
+        /*                 tap16_repeatable(C(KC_TAB)); */
+        /*                 break; */
+        /*             default: */
+        /*                 tap16_repeatable(KC_TAB); */
+        /*         } */
+        /*     } */
+        /*     return false; */
+        /* case KC_ENT: */
+        /*     if (record->event.pressed) { */
+        /*         switch (get_highest_layer(layer_state)) { */
+        /*             case _NUM: */
+        /*                 tap16_repeatable(KC_PENT); */
+        /*                 break; */
+        /*             case _WNAV: */
+        /*                 tap16_repeatable(G(KC_ENT)); */
+        /*                 break; */
+        /*             default: */
+        /*                 tap16_repeatable(KC_ENT); */
+        /*         } */
+        /*     } */
+        /*     return false; */
         case OS_CTRL_SHFT:
             process_ctrl_shift(record);
             return false;

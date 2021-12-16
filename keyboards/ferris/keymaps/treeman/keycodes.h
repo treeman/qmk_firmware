@@ -90,14 +90,21 @@ enum custom_keycodes {
 // #define HOME_LPINKY(kc)         (LALT_T(kc))
 // #define HOME_RPINKY(kc)         (LALT_T(kc))
 
-#define MT_BTN1 LGUI_T(KC_BTN1)
+// #define MT_BTN1 LGUI_T(KC_BTN1)
 #define MT_SPC LT(_NAV, KC_SPC)
-#define SFT OSM(MOD_LSFT)
-#define ALT OSM(MOD_LALT)
+// #define SFT OSM(MOD_LSFT)
+// #define ALT OSM(MOD_LALT)
 #define MY_RALT OSM(MOD_RALT)
-#define CTRL OSM(MOD_LCTL)
-#define GUI OSM(MOD_LGUI)
+// #define CTRL OSM(MOD_LCTL)
+// #define GUI OSM(MOD_LGUI)
 #define DN_CTRL LCTL_T(KC_DOWN)
+
+#define TAB_SYM LT(_LMOD, KC_TAB)
+#define ENT_SYM LT(_RMOD, KC_ENT)
+#define ESC_CTRL LCTL_T(KC_ESC)
+
+#define SCLN_MOD LT(_RMOD, SE_SCLN)
+#define COLN_CTRL RCTL_T(SE_COLN)
 
 #define C_TAB C(KC_TAB)
 #define SC_TAB S(C(KC_TAB))
