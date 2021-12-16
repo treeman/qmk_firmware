@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include <stdint.h>
 #include "quantum.h"
 #include QMK_KEYBOARD_H
 
@@ -24,6 +25,7 @@
 #include "tap_hold.h"
 #include "repeat.h"
 #include "roll.h"
+#include "leader.h"
 
 #include "keymap_swedish.h"
 #include "sendstring_swedish.h"
@@ -167,6 +169,10 @@ bool process_escape(bool key_down) {
 
 void tap_escape(void) {
     tap_code(swap_caps_escape ? KC_CAPS : KC_ESC);
+}
+
+void tap_caps_lock(void) {
+    tap_code(swap_caps_escape ? KC_ESC : KC_CAPS);
 }
 
 void enable_gaming(void) {
@@ -616,6 +622,14 @@ void tap_hold_send_tap(uint16_t keycode) {
         case SC:
             send_string("sc");
             return;
+        case SE_Q:
+        case SE_Z:
+            if (IS_LAYER_ON(_SHRT)) {
+                tap16_repeatable(C(keycode));
+            } else {
+                tap16_repeatable(keycode);
+            }
+            return;
         case CLOSE_WIN:
             tap_escape();
             tap_code16(SE_COLN);
@@ -699,7 +713,36 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
     }
 }
 
+// https://github.com/andrewjrae/kyria-keymap#userspace-leader-sequences
+void *leader_toggles_func(uint16_t keycode) {
+    switch (keycode) {
+        case KC_N:
+            layer_on(_NUM);
+            return NULL;
+        case KC_C:
+            swap_caps_esc();
+            return NULL;
+        default:
+            return NULL;
+    }
+}
+
+void *leader_start_func(uint16_t keycode) {
+    switch (keycode) {
+        case KC_T:
+            return leader_toggles_func;
+        case KC_C:
+            tap_caps_lock();
+            return NULL;
+        default:
+            return NULL;
+    }
+}
+
 bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_leader(keycode, record)) {
+        return false;
+    }
     if (!process_num_word(keycode, record)) {
         return false;
     }
@@ -720,7 +763,10 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
         case KC_ESC:
-            return process_escape(record->event.pressed);
+            if (record->tap.count) {
+                return process_escape(record->event.pressed);
+            }
+            break;
         case KC_CAPS:
             return process_caps(record->event.pressed);
         case TG_NIX:
@@ -800,39 +846,19 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
-
+        case ENT_SYM:
+            if (record->tap.count && record->event.pressed) {
+                if (IS_LAYER_ON(_NUM)) {
+                    tap16_repeatable(KC_PENT);
+                } else {
+                    tap16_repeatable(KC_ENT);
+                }
+                return false;
+            }
+            break;
         /* case TO_GAME: */
         /*     if (record->event.pressed) { */
         /*         enable_gaming(); */
-        /*     } */
-        /*     return false; */
-        /* case KC_TAB: */
-        /*     if (record->event.pressed) { */
-        /*         switch (get_highest_layer(layer_state)) { */
-        /*             case _LMOD: */
-        /*             case _RMOD: */
-        /*                 tap16_repeatable(C(S(KC_TAB))); */
-        /*                 break; */
-        /*             case _NAV: */
-        /*                 tap16_repeatable(C(KC_TAB)); */
-        /*                 break; */
-        /*             default: */
-        /*                 tap16_repeatable(KC_TAB); */
-        /*         } */
-        /*     } */
-        /*     return false; */
-        /* case KC_ENT: */
-        /*     if (record->event.pressed) { */
-        /*         switch (get_highest_layer(layer_state)) { */
-        /*             case _NUM: */
-        /*                 tap16_repeatable(KC_PENT); */
-        /*                 break; */
-        /*             case _WNAV: */
-        /*                 tap16_repeatable(G(KC_ENT)); */
-        /*                 break; */
-        /*             default: */
-        /*                 tap16_repeatable(KC_ENT); */
-        /*         } */
         /*     } */
         /*     return false; */
         case OS_CTRL_SHFT:

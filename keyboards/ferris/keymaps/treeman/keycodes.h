@@ -131,3 +131,6 @@ enum custom_keycodes {
 #define SYM_RDQ ALGR(S(SE_B)) // ” b
 #define SYM_LQO ALGR(S(SE_V)) // ‘ V
 #define SYM_RQO ALGR(S(SE_B)) // ’ B
+
+// This is actually a config, but we need to refer to ESC_CTRL
+#define LEADER_ESC_KEY ESC_CTRL
