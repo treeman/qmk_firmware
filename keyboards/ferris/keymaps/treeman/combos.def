@@ -32,7 +32,8 @@ COMB(shift_combo_l,     OS_SHFT,        SE_D, SE_B)
 COMB(shift_combo_r,     OS_SHFT,        SE_SLSH, SE_L)
 COMB(gui_combo_r,       OS_GUI,         SE_L, SE_LPRN)
 COMB(dlr,               SE_DLR,         SE_LPRN, SE_RPRN)
-COMB(swe,               TG(_SWE),       SE_L, SE_LPRN, SE_RPRN)
+COMB(leader,            LEADER,         SE_L, SE_RPRN)
+COMB(swe,               TG_SWE,         SE_L, SE_LPRN, SE_RPRN)
 
 // Left home bottom
 COMB(ctrl_combo_l,      OS_CTRL,        SE_T, SE_D)

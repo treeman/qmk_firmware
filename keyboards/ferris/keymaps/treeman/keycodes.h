@@ -35,7 +35,6 @@ enum custom_keycodes {
     // Multiple chars
     QU,
     SC,
-    REP_A,
 
     // Custom keycodes for instant processing for NUMWORD
     NUM_G,
@@ -61,6 +60,10 @@ enum custom_keycodes {
     CLEAR, // Clear all WORD, one-shots and reset to BASE
 
     TO_NUM,
+    TG_SWE,
+
+    // Instant leader key
+    LEADER,
 
     // Repeat keys
     REPEAT,
@@ -116,7 +119,8 @@ enum custom_keycodes {
 // #define G_WNAV LM(_WNAV, MOD_LGUI)
 #define WNAV MO(_WNAV)
 #define TG_WNAV TG(_WNAV)
-#define TG_SWE TG(_SWE)
+// #define TG_SWE
+// #define TG_SWE TG(_SWE)
 #define OPT OSL(_OPT)
 #define SPEC OSL(_SPEC)
 #define FUN OSL(_FUN)
@@ -131,6 +135,3 @@ enum custom_keycodes {
 #define SYM_RDQ ALGR(S(SE_B)) // ” b
 #define SYM_LQO ALGR(S(SE_V)) // ‘ V
 #define SYM_RQO ALGR(S(SE_B)) // ’ B
-
-// This is actually a config, but we need to refer to ESC_CTRL
-#define LEADER_ESC_KEY ESC_CTRL
