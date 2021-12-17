@@ -55,6 +55,7 @@ bool process_num_word(uint16_t keycode, const keyrecord_t *record) {
         case KC_X:
         case REPEAT:
         case REV_REP:
+        case KC_ENT:
         case xxxxxxx:
             // Don't disable for above keycodes
             break;

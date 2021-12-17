@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, _______,      CANCEL,  _______
     ),
     [_MODS] = LAYOUT(
-      _______, _______, _______, _______, _______,      xxxxxxx, xxxxxxx, xxxxxxx, OPT,     xxxxxxx,
+      _______, _______, _______, _______, _______,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
       _______, _______, _______, _______, _______,      xxxxxxx, OS_GUI,  OS_CTRL, OS_SHFT, OS_ALT,
       _______, _______, _______, _______, _______,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MY_RALT,
                                  _______, _______,      _______,  _______
@@ -90,12 +90,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       xxxxxxx, xxxxxxx, xxxxxxx, KC_F8,   xxxxxxx,      xxxxxxx, KC_F9,   xxxxxxx, xxxxxxx, xxxxxxx,
                                  _______, _______,      _______, _______
     ),
-    [_OPT] = LAYOUT(
-      _______, TG_CAPS, _______, _______, _______,      _______, TG_NIX,  _______, _______, _______,
-      _______, _______, KC_CAPS, _______, _______,      _______, TO_NUM,  _______, _______, _______,
-      _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
-                                 _______, _______,      _______, _______
-    ),
     [_SPEC] = LAYOUT(
       SE_TILD, _______, _______, _______, _______,      _______, _______, _______, SE_CIRC, SE_DIAE,
       _______, _______, _______, _______, SE_ACUT,      SE_GRV,  SYM_LFT, SYM_DWN, SYM_UP,  SYM_RHT,
@@ -105,6 +99,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // Keyboard utils
+
+static uint16_t last_key_up = KC_NO;
 
 static bool linux_mode = true;
 bool in_linux(void) {
@@ -556,7 +552,7 @@ void tap_hold_send_tap(uint16_t keycode) {
             return;
         case SE_Q:
         case SE_Z:
-            if (IS_LAYER_ON(_SHRT)) {
+            if (IS_LAYER_ON(_SHRT) || last_key_up == SHRT) {
                 tap16_repeatable(C(keycode));
             } else {
                 tap16_repeatable(keycode);
@@ -655,8 +651,7 @@ void tap_hold_send_hold(uint16_t keycode) {
             return;
         case SE_Q:
         case SE_Z:
-            // FIXME doesn't work for one-shot layers
-            if (IS_LAYER_ON(_SHRT)) {
+            if (IS_LAYER_ON(_SHRT) || get_oneshot_layer() == _SHRT) {
                 tap16_repeatable(S(C(keycode)));
             } else {
                 tap16_repeatable(S(keycode));
@@ -768,6 +763,10 @@ void *leader_start_func(uint16_t keycode) {
 }
 
 bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!record->event.pressed) {
+        last_key_up = keycode;
+    }
+
     if (!process_leader(keycode, record)) {
         return false;
     }
@@ -866,23 +865,28 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
         // Workaround for taps only supporting standard keycodes
         case SCLN_MOD:
             if (record->tap.count && record->event.pressed) {
-                tap_code16(SE_SCLN);
+                tap16_repeatable(SE_SCLN);
                 return false;
             }
             break;
         case COLN_CTRL:
             if (record->tap.count && record->event.pressed) {
-                tap_code16(SE_COLN);
+                tap16_repeatable(SE_COLN);
                 return false;
             }
             break;
         case ENT_SYM:
             if (record->tap.count && record->event.pressed) {
+                // Manually disable for enter.
+                // If we try to rely on `process_num_word` to disable NUMWORD,
+                // then it will be disabled before we reach this point preventing
+                // us from overriding.
                 if (IS_LAYER_ON(_NUM)) {
                     tap16_repeatable(KC_PENT);
                 } else {
                     tap16_repeatable(KC_ENT);
                 }
+                disable_num_word();
                 return false;
             }
             break;

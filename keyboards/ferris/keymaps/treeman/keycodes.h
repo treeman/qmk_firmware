@@ -15,7 +15,6 @@ enum layers {
     _SYM,
     _MODS,
     _SHRT,
-    _OPT,
     _SPEC,
     _FUN,
 };
