@@ -130,7 +130,7 @@ enum custom_keycodes {
 #define SYM_DWN ALGR(SE_U) // ↓ u
 #define SYM_RHT ALGR(SE_I) // → i
 #define SYM_UP ALGR(S(SE_U)) // ↑ U
-#define SYM_LDQ ALGR(S(SE_V)) // “ v
-#define SYM_RDQ ALGR(S(SE_B)) // ” b
+#define SYM_LDQ ALGR(SE_V) // “ v
+#define SYM_RDQ ALGR(SE_B) // ” b
 #define SYM_LQO ALGR(S(SE_V)) // ‘ V
 #define SYM_RQO ALGR(S(SE_B)) // ’ B
