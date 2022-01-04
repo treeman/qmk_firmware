@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "keymap_swedish.h"
-
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_DISABLE_KEYCODES
     #define RGBLIGHT_LAYERS
@@ -53,7 +51,8 @@
 #define DEFAULT_XCASE_SEPARATOR SE_MINS
 #define XCASE_DELIMITER_KEY SE_UNDS
 
-#define LEADER_ESC_KEY SE_E
+// Cannot import "keymap_swedish.h" as it sometimes generates extremely weird errors.
+#define LEADER_ESC_KEY KC_E
 
 // Not supported without flto
 #define NO_ACTION_MACRO

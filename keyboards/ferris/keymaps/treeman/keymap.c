@@ -36,8 +36,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * Base Layer: Modified RSTHD
     */
     [_BASE] = LAYOUT(
-      SE_J,    SE_C,    SE_Y,    SE_F,    SE_P,         SE_X,    SE_W,    SE_U,    SE_O,    SE_DOT,
-      SE_R,    SE_S,    SE_T,    SE_H,    SE_K,         SE_M,    SE_N,    SE_I,    SE_A,    REPEAT,
+      SE_J,    SE_C,    SE_Y,    SE_F,    SE_P,         SE_X,    SE_W,    SE_O,    SE_U,    SE_DOT,
+      SE_R,    SE_S,    SE_T,    SE_H,    SE_K,         SE_M,    SE_N,    SE_A,    SE_I,    REPEAT,
       SE_COMM, SE_V,    SE_G,    SE_D,    SE_B,         SE_SLSH, SE_L,    SE_LPRN, SE_RPRN, SE_UNDS,
                                  SHRT,    MT_SPC,       SE_E,    SPEC
     ),
@@ -260,17 +260,17 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case sc_comb:
         case z_comb:
         case num:
-        case sp_perc:
-        case sp_grv:
-        case sp_hash:
-        case sp_pipe:
-        case sp_ques:
-        case sp_exlm:
-        case sp_ampr:
-        case sp_labk:
-        case sp_rabk:
-        case sp_lcbr:
-        case sp_at:
+        case comb_perc:
+        case comb_grv:
+        case comb_hash:
+        case comb_pipe:
+        case comb_ques:
+        case comb_exlm:
+        case comb_ampr:
+        case comb_labk:
+        case comb_rabk:
+        case comb_lcbr:
+        case comb_at:
         case rev_rep:
         case lprn_arng:
         case rprn_adia:
@@ -673,7 +673,6 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         // Pinky
         case SE_R:
         case SE_COMM:
-        case SE_O:
         case SE_UNDS:
         case UNDS_ODIA:
         case SE_6:
@@ -688,8 +687,9 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case SE_C:
         case SE_S:
         case SE_V:
-        case SE_A:
+        case SE_U:
         case SE_DOT:
+        case SE_I:
         case SE_RPRN:
         case RPRN_ADIA:
         case SE_Q:
@@ -709,8 +709,8 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case SE_Y:
         case SE_T:
         case SE_G:
-        case SE_U:
-        case SE_I:
+        case SE_O:
+        case SE_A:
         case SE_LPRN:
         case LPRN_ARNG:
         case SE_Z:
