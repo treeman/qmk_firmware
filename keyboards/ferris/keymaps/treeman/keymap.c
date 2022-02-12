@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, _______,      _______, _______
     ),
     [_NUM] = LAYOUT(
-      SE_J,    SE_PLUS, SE_ASTR, SE_PERC, SE_P,         SE_X,    _______, _______, REPEAT,  _______,
+      SE_J,    SE_PLUS, SE_ASTR, SE_EXLM, SE_P,         SE_X,    _______, _______, REPEAT,  _______,
       SE_6,    SE_4,    SE_0,    SE_2,    SE_K,         _______, SE_3,    SE_1,    SE_5,    SE_7,
       SE_COMM, _______, NUM_G,   SE_8,    _______,      _______, SE_9,    SE_LPRN, SE_RPRN, SE_UNDS,
                                  _______, _______,      CANCEL,  _______
@@ -61,9 +61,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // Important that the symbols on the base layer have the same positions as these symbols
     [_SYM] = LAYOUT(
-      TILD,    SE_PLUS, SE_ASTR, SE_PERC, xxxxxxx,      xxxxxxx, SE_HASH, SE_AT,   CIRC,    SE_DOT,
+      TILD,    SE_PLUS, SE_ASTR, SE_EXLM, xxxxxxx,      xxxxxxx, SE_HASH, SE_AT,   CIRC,    SE_DOT,
       SE_PIPE, SE_LCBR, SE_RCBR, SE_MINS, SE_BSLS,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, REPEAT,
-      SE_COMM, SE_LABK, SE_RABK, SE_EXLM, xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS,
+      SE_COMM, SE_LABK, SE_RABK, SE_PERC, xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS,
                                  _______, _______,      CANCEL,  _______
     ),
     [_MODS] = LAYOUT(
@@ -224,11 +224,9 @@ uint16_t corresponding_swe_key(uint16_t keycode) {
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     switch (index) {
         // Home-row and other tight combos
-        case tab_sym:
-        case escape_ctrl:
-        case scln_mod:
-        case coln_ctrl:
-        case enter_sym:
+        case escape_sym:
+        case tab_mod:
+        case coln_sym:
         case dquo:
         case quot:
         case dlr:
@@ -241,7 +239,6 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
         case small_right_arrow:
         case pipe_to:
         case sp:
-        case sc_comb:
         case gt_eq:
             return COMBO_TERM + 55;
         // Regular combos, slightly relaxed
@@ -257,7 +254,6 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case wbacksp:
         case q_comb:
         case qu_comb:
-        case sc_comb:
         case z_comb:
         case num:
         case comb_perc:
@@ -272,9 +268,9 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case comb_lcbr:
         case comb_at:
         case rev_rep:
-        case lprn_arng:
-        case rprn_adia:
-        case unds_odia:
+        //case lprn_arng:
+        //case rprn_adia:
+        //case unds_odia:
         case eql:
         case gui_combo_l:
         case gui_combo_r:
@@ -285,11 +281,9 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case shift_combo_l:
         case shift_combo_r:
         case close_win:
-        case tab_sym:
-        case enter_sym:
-        case scln_mod:
-        case escape_ctrl:
-        case coln_ctrl:
+        case escape_sym:
+        case tab_mod:
+        case coln_sym:
             return false;
         default:
             return true;
@@ -383,7 +377,7 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
         case OS_CTRL:
         case OS_ALT:
         case OS_GUI:
-        case SCLN_MOD:
+        case TAB_MOD:
             return true;
         default:
             return false;
@@ -491,9 +485,9 @@ bool tap_hold(uint16_t keycode) {
         case SE_ARNG:
         case SE_ADIA:
         case SE_ODIA:
-        case LPRN_ARNG:
-        case RPRN_ADIA:
-        case UNDS_ODIA:
+        //case LPRN_ARNG:
+        //case RPRN_ADIA:
+        //case UNDS_ODIA:
         case QU:
         case SC:
         case CLOSE_WIN:
@@ -523,6 +517,7 @@ void tap_hold_send_tap(uint16_t keycode) {
             register_key_to_repeat(keycode);
             tap_undead_key(true, SE_GRV);
             return;
+        /*
         case LPRN_ARNG:
             if (IS_LAYER_ON(_SWE)) {
                 tap16_repeatable(SE_LPRN);
@@ -544,6 +539,7 @@ void tap_hold_send_tap(uint16_t keycode) {
                 tap16_repeatable(SE_ODIA);
             }
             return;
+            */
         case QU:
             send_string("qu");
             return;
@@ -619,6 +615,7 @@ void tap_hold_send_hold(uint16_t keycode) {
         case SE_LBRC:
             double_parens_left(keycode, SE_RBRC);
             return;
+            /*
         case LPRN_ARNG:
             if (IS_LAYER_ON(_SWE)) {
                 tap16_repeatable(SE_LPRN);
@@ -640,6 +637,7 @@ void tap_hold_send_hold(uint16_t keycode) {
                 tap16_repeatable(S(SE_ODIA));
             }
             return;
+            */
         case QU:
             send_string("Qu");
             return;
@@ -674,7 +672,7 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case SE_R:
         case SE_COMM:
         case SE_UNDS:
-        case UNDS_ODIA:
+        //case UNDS_ODIA:
         case SE_6:
         case G(SE_6):
         case SE_7:
@@ -691,7 +689,7 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case SE_DOT:
         case SE_I:
         case SE_RPRN:
-        case RPRN_ADIA:
+        //case RPRN_ADIA:
         case SE_Q:
         case QU:
         case SE_4:
@@ -712,7 +710,7 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case SE_O:
         case SE_A:
         case SE_LPRN:
-        case LPRN_ARNG:
+        //case LPRN_ARNG:
         case SE_Z:
         case SE_0:
         case G(SE_0):
@@ -789,7 +787,7 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case ESC_CTRL:
+        case ESC_SYM:
             if (record->tap.count && record->event.pressed) {
                 tap_escape();
                 return false;
@@ -863,33 +861,26 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         // Workaround for taps only supporting standard keycodes
-        case SCLN_MOD:
-            if (record->tap.count && record->event.pressed) {
-                tap16_repeatable(SE_SCLN);
-                return false;
-            }
-            break;
-        case COLN_CTRL:
+        /* case TAB_MOD: */
+        /*     if (record->tap.count && record->event.pressed) { */
+        /*         tap16_repeatable(KC_TAB); */
+        /*         return false; */
+        /*     } */
+        /*     break; */
+        case COLN_SYM:
             if (record->tap.count && record->event.pressed) {
                 tap16_repeatable(SE_COLN);
                 return false;
             }
             break;
-        case ENT_SYM:
-            if (record->tap.count && record->event.pressed) {
-                // Manually disable for enter.
-                // If we try to rely on `process_num_word` to disable NUMWORD,
-                // then it will be disabled before we reach this point preventing
-                // us from overriding.
-                if (IS_LAYER_ON(_NUM)) {
-                    tap16_repeatable(KC_PENT);
-                } else {
-                    tap16_repeatable(KC_ENT);
-                }
-                disable_num_word();
-                return false;
+        case KC_ENT:
+            if (IS_LAYER_ON(_NUM)) {
+                tap16_repeatable(KC_PENT);
+            } else {
+                tap16_repeatable(KC_ENT);
             }
-            break;
+            disable_num_word();
+            return false;
         /* case TO_GAME: */
         /*     if (record->event.pressed) { */
         /*         enable_gaming(); */

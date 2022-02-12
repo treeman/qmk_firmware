@@ -11,15 +11,16 @@ COMB(wbacksp,           C(SE_W),        SE_W, SE_O, SE_U)
 COMB(rev_rep,           REV_REP,        SE_U, SE_DOT)
 
 // Left home row
-COMB(tab_sym,           TAB_SYM,        SE_S, SE_T)
-COMB(escape_ctrl,       ESC_CTRL,       SE_T, SE_H)
+COMB(ctrl_combo_l,      OS_CTRL,        SE_S, SE_T)
+COMB(escape_sym,        ESC_SYM,        SE_T, SE_H)
 COMB(dquo,              SE_DQUO,        SE_S, SE_H)
-COMB(scln_mod,          SCLN_MOD,       SE_S, SE_T, SE_H)
+COMB(tab_mod,           TAB_MOD,        SE_S, SE_T, SE_H)
 // Right home row
-COMB(coln_ctrl,         COLN_CTRL,      SE_N, SE_A)
-COMB(enter_sym,         ENT_SYM,        SE_A, SE_I)
+COMB(coln_sym,          COLN_SYM,       SE_N, SE_A)
+COMB(ctrl_combo_r,      OS_CTRL,        SE_A, SE_I)
 COMB(quot,              SE_QUOT,        SE_N, SE_I)
-COMB(save_vim,          SAVE_VIM,       SE_N, SE_A, SE_I)
+COMB(enter,             KC_ENT,         SE_N, SE_A, SE_I)
+COMB(save_vim,          SAVE_VIM,       SE_N, SE_A, SE_I, REPEAT)
 // Mixed
 COMB(capsword,          CAPSWORD,       SE_T, SE_A)
 
@@ -36,14 +37,12 @@ COMB(leader,            LEADER,         SE_L, SE_RPRN)
 COMB(swe,               TG_SWE,         SE_L, SE_LPRN, SE_RPRN)
 
 // Left home bottom
-COMB(ctrl_combo_l,      OS_CTRL,        SE_T, SE_D)
+COMB(scln,              SE_SCLN,        SE_T, SE_D)
 COMB(ctrl_s_combo_l,    OS_CTRL_SHFT,   SE_S, SE_T, SE_D)
 // Right home bottom
-COMB(ctrl_combo_r,      OS_CTRL,        SE_L, SE_A)
 COMB(ctrl_s_combo_r,    OS_CTRL_SHFT,   SE_L, SE_A, SE_I)
 
 // Vertical top left
-COMB(sc_comb,           SC,             SE_C, SE_S)
 SUBS(small_left_arrow,  "<-",           SE_Y, SE_T)
 SUBS(lt_eq,             "<=",           SE_F, SE_H)
 // Vertical top right
@@ -57,59 +56,50 @@ SUBS(gt_eq,             ">=",           SE_H, SE_D)
 // Thumbs
 COMB(num,               NUMWORD,        MT_SPC, SE_E)
 
-// Numbers
-COMB(comb_6,            SE_6,           MT_SPC, SE_R)
-COMB(comb_4,            SE_4,           MT_SPC, SE_S)
-COMB(comb_0,            SE_0,           MT_SPC, SE_T)
-COMB(comb_2,            SE_2,           MT_SPC, SE_H)
-COMB(comb_8,            SE_8,           MT_SPC, SE_D)
+// Numbers with cross side thumb
+COMB(comb_6,            SE_6,           SE_E, SE_R)
+COMB(comb_4,            SE_4,           SE_E, SE_S)
+COMB(comb_0,            SE_0,           SE_E, SE_T)
+COMB(comb_2,            SE_2,           SE_E, SE_H)
+COMB(comb_8,            SE_8,           SE_E, SE_D)
 COMB(comb_9,            SE_9,           MT_SPC, SE_L)
 COMB(comb_3,            SE_3,           MT_SPC, SE_N)
 COMB(comb_1,            SE_1,           MT_SPC, SE_A)
 COMB(comb_5,            SE_5,           MT_SPC, SE_I)
 COMB(comb_7,            SE_7,           MT_SPC, REPEAT)
-COMB(comb_6_2,          SE_6,           SE_E, SE_R)
-COMB(comb_4_2,          SE_4,           SE_E, SE_S)
-COMB(comb_0_2,          SE_0,           SE_E, SE_T)
-COMB(comb_2_2,          SE_2,           SE_E, SE_H)
-COMB(comb_8_2,          SE_8,           SE_E, SE_D)
-COMB(comb_9_2,          SE_9,           SE_E, SE_L)
-COMB(comb_3_2,          SE_3,           SE_E, SE_N)
-COMB(comb_1_2,          SE_1,           SE_E, SE_A)
-COMB(comb_5_2,          SE_5,           SE_E, SE_I)
-COMB(comb_7_2,          SE_7,           SE_E, REPEAT)
 
-// Symbols with multi combo
+// Symbols with same side thumb
 // Upper
-COMB(comb_tild,         TILD,           SE_A, SE_I, SE_J)
-COMB(comb_plus,         SE_PLUS,        SE_A, SE_I, SE_C)
-COMB(comb_astr,         SE_ASTR,        SE_A, SE_I, SE_Y)
-COMB(comb_perc,         SE_PERC,        SE_A, SE_I, SE_F)
-COMB(comb_hash,         SE_HASH,        SE_S, SE_T, SE_W)
-COMB(comb_at,           SE_AT,          SE_S, SE_T, SE_O)
-COMB(comb_circ,         CIRC,           SE_S, SE_T, SE_U)
+COMB(comb_tild,         TILD,           SE_E, SE_J)
+COMB(comb_plus,         SE_PLUS,        SE_E, SE_C)
+COMB(comb_astr,         SE_ASTR,        SE_E, SE_Y)
+COMB(comb_exlm,         SE_EXLM,        SE_E, SE_F)
+COMB(comb_hash,         SE_HASH,        MT_SPC, SE_W)
+COMB(comb_at,           SE_AT,          MT_SPC, SE_O)
+COMB(comb_circ,         CIRC,           MT_SPC, SE_U)
 // Home-row
-COMB(comb_pipe,         SE_PIPE,        SE_A, SE_I, SE_R)
-COMB(comb_lcbr,         SE_LCBR,        SE_A, SE_I, SE_S)
-COMB(comb_rcbr,         SE_RCBR,        SE_A, SE_I, SE_T)
-COMB(comb_mins,         SE_MINS,        SE_A, SE_I, SE_H)
-COMB(comb_bsls,         SE_BSLS,        SE_A, SE_I, SE_K)
-COMB(comb_grv,          GRV,            SE_S, SE_T, SE_M)
-COMB(comb_ques,         SE_QUES,        SE_S, SE_T, SE_N)
-COMB(comb_lbrc,         SE_LBRC,        SE_S, SE_T, SE_A)
-COMB(comb_rbrc,         SE_RBRC,        SE_S, SE_T, SE_I)
+COMB(comb_pipe,         SE_PIPE,        SE_E, SE_R)
+COMB(comb_lcbr,         SE_LCBR,        SE_E, SE_S)
+COMB(comb_rcbr,         SE_RCBR,        SE_E, SE_T)
+COMB(comb_mins,         SE_MINS,        SE_E, SE_H)
+COMB(comb_bsls,         SE_BSLS,        SE_E, SE_K)
+COMB(comb_grv,          GRV,            MT_SPC, SE_M)
+COMB(comb_ques,         SE_QUES,        MT_SPC, SE_N)
+COMB(comb_lbrc,         SE_LBRC,        MT_SPC, SE_A)
+COMB(comb_rbrc,         SE_RBRC,        MT_SPC, SE_I)
 // Lower
-COMB(comb_labk,         SE_LABK,        SE_A, SE_I, SE_V)
-COMB(comb_rabk,         SE_RABK,        SE_A, SE_I, SE_G)
-COMB(comb_exlm,         SE_EXLM,        SE_A, SE_I, SE_D)
-COMB(comb_ampr,         SE_AMPR,        SE_S, SE_T, SE_L)
-COMB(comb_lprn,         SE_LPRN,        SE_S, SE_T, SE_LPRN)
-COMB(comb_rprn,         SE_RPRN,        SE_S, SE_T, SE_RPRN)
-COMB(comb_unds,         SE_UNDS,        SE_S, SE_T, SE_UNDS)
-// Faster swedish combos
-COMB(lprn_arng,         LPRN_ARNG,      MT_SPC, SE_LPRN)
-COMB(rprn_adia,         RPRN_ADIA,      MT_SPC, SE_RPRN)
-COMB(unds_odia,         UNDS_ODIA,      MT_SPC, SE_UNDS)
+COMB(comb_labk,         SE_LABK,        SE_E, SE_V)
+COMB(comb_rabk,         SE_RABK,        SE_E, SE_G)
+COMB(comb_perc,         SE_PERC,        SE_E, SE_D)
+COMB(comb_ampr,         SE_AMPR,        MT_SPC, SE_L)
+//COMB(lprn_arng,         LPRN_ARNG,      MT_SPC, SE_LPRN)
+//COMB(rprn_adia,         RPRN_ADIA,      MT_SPC, SE_RPRN)
+//COMB(unds_odia,         UNDS_ODIA,      MT_SPC, SE_UNDS)
+
+// Swedish letters with cross side thumb
+COMB(arng,              SE_ARNG,        MT_SPC, SE_LPRN)
+COMB(adia,              SE_ADIA,        MT_SPC, SE_RPRN)
+COMB(odia,              SE_ODIA,        MT_SPC, SE_UNDS)
 
 // Special symbols
 SUBS(https,             "https://",             MT_SPC, SE_SLSH)

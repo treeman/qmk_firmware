@@ -39,9 +39,9 @@ enum custom_keycodes {
     NUM_G,
 
     // ÅÄÖ or ()_ combos
-    LPRN_ARNG,
-    RPRN_ADIA,
-    UNDS_ODIA,
+    // LPRN_ARNG,
+    // RPRN_ADIA,
+    // UNDS_ODIA,
 
     // Instant oneshot mods
     OS_SHFT,
@@ -102,12 +102,10 @@ enum custom_keycodes {
 // #define GUI OSM(MOD_LGUI)
 #define DN_CTRL LCTL_T(KC_DOWN)
 
-#define TAB_SYM LT(_SYM, KC_TAB)
-#define ESC_CTRL LCTL_T(KC_ESC)
-#define SCLN_MOD LT(_MODS, SE_SCLN)
+#define ESC_SYM LT(_SYM, KC_ESC)
+#define TAB_MOD LT(_MODS, KC_TAB)
 
-#define COLN_CTRL RCTL_T(SE_COLN)
-#define ENT_SYM LT(_SYM, KC_ENT)
+#define COLN_SYM LT(_SYM, SE_COLN)
 
 #define C_TAB C(KC_TAB)
 #define SC_TAB S(C(KC_TAB))
