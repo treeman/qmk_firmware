@@ -874,12 +874,14 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case KC_ENT:
-            if (IS_LAYER_ON(_NUM)) {
-                tap16_repeatable(KC_PENT);
-            } else {
-                tap16_repeatable(KC_ENT);
+            if (record->event.pressed) {
+                if (IS_LAYER_ON(_NUM)) {
+                    tap16_repeatable(KC_PENT);
+                } else {
+                    tap16_repeatable(KC_ENT);
+                }
+                disable_num_word();
             }
-            disable_num_word();
             return false;
         /* case TO_GAME: */
         /*     if (record->event.pressed) { */
