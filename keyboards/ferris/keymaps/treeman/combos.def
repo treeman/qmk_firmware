@@ -38,9 +38,6 @@ COMB(swe,               TG_SWE,         SE_L, SE_LPRN, SE_RPRN)
 
 // Left home bottom
 COMB(scln,              SE_SCLN,        SE_T, SE_D)
-COMB(ctrl_s_combo_l,    OS_CTRL_SHFT,   SE_S, SE_T, SE_D)
-// Right home bottom
-COMB(ctrl_s_combo_r,    OS_CTRL_SHFT,   SE_L, SE_A, SE_I)
 
 // Vertical top left
 SUBS(small_left_arrow,  "<-",           SE_Y, SE_T)

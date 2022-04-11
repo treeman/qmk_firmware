@@ -48,7 +48,6 @@ enum custom_keycodes {
     OS_CTRL,
     OS_ALT,
     OS_GUI,
-    OS_CTRL_SHFT,
 
     // Smart caps lock and layers that turn off on certain keys
     CAPSWORD,

@@ -276,8 +276,6 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case gui_combo_r:
         case ctrl_combo_l:
         case ctrl_combo_r:
-        case ctrl_s_combo_l:
-        case ctrl_s_combo_r:
         case shift_combo_l:
         case shift_combo_r:
         case close_win:
@@ -372,7 +370,6 @@ bool is_oneshot_cancel_key(uint16_t keycode) {
 bool is_oneshot_ignored_key(uint16_t keycode) {
     switch (keycode) {
         case CLEAR:
-        case OS_CTRL_SHFT:
         case OS_SHFT:
         case OS_CTRL:
         case OS_ALT:
@@ -436,11 +433,6 @@ void process_oneshot_key(uint16_t keycode, keyrecord_t *record) {
         &os_ctrl_state, KC_LCTL, OS_CTRL,
         keycode, record
     );
-}
-
-void process_ctrl_shift(keyrecord_t *record) {
-    process_oneshot_key(OS_SHFT, record);
-    process_oneshot_key(OS_CTRL, record);
 }
 
 // Tap hold
@@ -888,9 +880,6 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
         /*         enable_gaming(); */
         /*     } */
         /*     return false; */
-        case OS_CTRL_SHFT:
-            process_ctrl_shift(record);
-            return false;
         case TG_SWE:
             if (record->event.pressed) {
                 uint16_t swe_key = corresponding_swe_key(last_key());
