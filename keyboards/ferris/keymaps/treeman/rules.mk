@@ -4,6 +4,9 @@ RGBLIGHT_ENABLE = no        # Keyboard RGB underglow
 # Easy definition of combos
 VPATH +=  keyboards/gboards/
 
+# Keylogging
+CONSOLE_ENABLE = yes
+
 # Extra features that are nice but takes space
 WPM_ENABLE = no
 EXTRAKEY_ENABLE = no        # For volume keys and similar
@@ -15,7 +18,6 @@ TAP_DANCE_ENABLE = no
 
 # Saves a bunch of memory
 EXTRAFLAGS += -flto
-CONSOLE_ENABLE = no
 VERBOSE = no
 DEBUG_MATRIX_SCAN_RATE  = no
 DEBUG_MATRIX = no

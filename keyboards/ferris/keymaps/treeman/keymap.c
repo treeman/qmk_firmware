@@ -17,6 +17,7 @@
 #include "quantum.h"
 #include QMK_KEYBOARD_H
 
+  // "Nu\nSh\nFn\n9\nx\nz\n4\n6\n2\nJ\n8\ny",
 #include "keycodes.h"
 #include "status.h"
 #include "oneshot.h"
@@ -30,6 +31,10 @@
 #include "keymap_swedish.h"
 #include "sendstring_swedish.h"
 #include "g/keymap_combo.h"
+
+#ifdef CONSOLE_ENABLE
+#include "print.h"
+#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
@@ -268,9 +273,9 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case comb_lcbr:
         case comb_at:
         case rev_rep:
-        //case lprn_arng:
-        //case rprn_adia:
-        //case unds_odia:
+        case arng:
+        case adia:
+        case odia:
         case eql:
         case gui_combo_l:
         case gui_combo_r:
@@ -477,9 +482,6 @@ bool tap_hold(uint16_t keycode) {
         case SE_ARNG:
         case SE_ADIA:
         case SE_ODIA:
-        //case LPRN_ARNG:
-        //case RPRN_ADIA:
-        //case UNDS_ODIA:
         case QU:
         case SC:
         case CLOSE_WIN:
@@ -509,29 +511,6 @@ void tap_hold_send_tap(uint16_t keycode) {
             register_key_to_repeat(keycode);
             tap_undead_key(true, SE_GRV);
             return;
-        /*
-        case LPRN_ARNG:
-            if (IS_LAYER_ON(_SWE)) {
-                tap16_repeatable(SE_LPRN);
-            } else {
-                tap16_repeatable(SE_ARNG);
-            }
-            return;
-        case RPRN_ADIA:
-            if (IS_LAYER_ON(_SWE)) {
-                tap16_repeatable(SE_RPRN);
-            } else {
-                tap16_repeatable(SE_ADIA);
-            }
-            return;
-        case UNDS_ODIA:
-            if (IS_LAYER_ON(_SWE)) {
-                tap16_repeatable(SE_UNDS);
-            } else {
-                tap16_repeatable(SE_ODIA);
-            }
-            return;
-            */
         case QU:
             send_string("qu");
             return;
@@ -607,29 +586,6 @@ void tap_hold_send_hold(uint16_t keycode) {
         case SE_LBRC:
             double_parens_left(keycode, SE_RBRC);
             return;
-            /*
-        case LPRN_ARNG:
-            if (IS_LAYER_ON(_SWE)) {
-                tap16_repeatable(SE_LPRN);
-            } else {
-                tap16_repeatable(S(SE_ARNG));
-            }
-            return;
-        case RPRN_ADIA:
-            if (IS_LAYER_ON(_SWE)) {
-                tap16_repeatable(SE_RPRN);
-            } else {
-                tap16_repeatable(S(SE_ADIA));
-            }
-            return;
-        case UNDS_ODIA:
-            if (IS_LAYER_ON(_SWE)) {
-                tap16_repeatable(SE_UNDS);
-            } else {
-                tap16_repeatable(S(SE_ODIA));
-            }
-            return;
-            */
         case QU:
             send_string("Qu");
             return;
@@ -753,6 +709,21 @@ void *leader_start_func(uint16_t keycode) {
 }
 
 bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
+    #ifdef CONSOLE_ENABLE
+        if (record->event.pressed) {
+            uprintf("0x%04X,%u,%u,%u,%b,0x%02X,0x%02X,%u\n",
+                 keycode,
+                 record->event.key.row,
+                 record->event.key.col,
+                 get_highest_layer(layer_state),
+                 record->event.pressed,
+                 get_mods(),
+                 get_oneshot_mods(),
+                 record->tap.count
+                 );
+        }
+    #endif
+
     if (!record->event.pressed) {
         last_key_up = keycode;
     }
