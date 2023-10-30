@@ -17,7 +17,6 @@
 #include "quantum.h"
 #include QMK_KEYBOARD_H
 
-// "Nu\nSh\nFn\n9\nx\nz\n4\n6\n2\nJ\n8\ny",
 #include "keycodes.h"
 #include "status.h"
 #include "oneshot.h"
@@ -40,15 +39,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
      * Base Layer: Modified RSTHD
      */
-    [_BASE] = LAYOUT(SE_J, SE_C, SE_Y, SE_F, SE_P, SE_X, SE_W, SE_O, SE_U, SE_DOT, SE_R, SE_S, SE_T, SE_H, SE_K, SE_M, SE_N, SE_A, SE_I, REPEAT, SE_COMM, SE_V, SE_G, SE_D, SE_B, SE_SLSH, SE_L, SE_LPRN, SE_RPRN, SE_UNDS, SHRT, MT_SPC, SE_E, SPEC),
-    [_SWE]  = LAYOUT(_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, SE_ARNG, SE_ADIA, SE_ODIA, _______, _______, _______, _______),
-    [_NUM]  = LAYOUT(SE_J, SE_PLUS, SE_ASTR, SE_EXLM, SE_P, SE_X, _______, AT_U, REPEAT, _______, SE_6, SE_4, SE_0, SE_2, SE_K, _______, SE_3, SE_1, SE_5, SE_7, SE_COMM, _______, NUM_G, SE_8, _______, SE_SLSH, SE_9, SE_LPRN, SE_RPRN, SE_UNDS, _______, _______, CANCEL, _______),
-    [_NAV]  = LAYOUT(G(SE_J), KC_LEFT, KC_UP, KC_RGHT, KC_HOME, xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx, KC_PGUP, SC_TAB, DN_CTRL, C_TAB, G(SE_K), xxxxxxx, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_ENT, xxxxxxx, xxxxxxx, KC_PGDN, KC_END, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, WNAV, _______),
-    [_WIN]  = LAYOUT(_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, S_TAB, _______, KC_TAB, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
+    [_BASE] = LAYOUT(
+      SE_J,    SE_C,    SE_Y,    SE_F,    SE_P,         SE_X,    SE_W,    SE_O,    SE_U,    SE_DOT,
+      SE_R,    SE_S,    SE_T,    SE_H,    SE_K,         SE_M,    SE_N,    SE_A,    SE_I,    REPEAT,
+      SE_COMM, SE_V,    SE_G,    SE_D,    SE_B,         SE_SLSH, SE_L,    SE_LPRN, SE_RPRN, SE_UNDS,
+                                 SHRT,    MT_SPC,       SE_E,    SPEC
+    ),
+    [_SWE]  = LAYOUT(
+      _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______,      _______, _______, SE_ARNG, SE_ADIA, SE_ODIA,
+                                 _______, _______,      _______, _______
+    ),
+    [_NUM]  = LAYOUT(
+      SE_J,    SE_PLUS, SE_ASTR, SE_EXLM, SE_P,         SE_X,    _______, AT_U,    REPEAT,  _______,
+      SE_6,    SE_4,    SE_0,    SE_2,    SE_K,         _______, SE_3,    SE_1,    SE_5,    SE_7,
+      SE_COMM, _______, NUM_G,   SE_8,    _______,      SE_SLSH, SE_9,    SE_LPRN, SE_RPRN, SE_UNDS,
+                                 _______, _______,      CANCEL,  _______
+    ),
+    [_NAV]  = LAYOUT(
+      G(SE_J), KC_LEFT, KC_UP, KC_RGHT, KC_HOME,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx,
+      KC_PGUP, SC_TAB, DN_CTRL, C_TAB, G(SE_K),       xxxxxxx, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,
+      KC_ENT, xxxxxxx, xxxxxxx, KC_PGDN, KC_END,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+                                _______, _______,     WNAV,    _______
+    ),
+    [_WIN]  = LAYOUT(
+      _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
+      _______, S_TAB,   _______, KC_TAB,  _______,      _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
+                                 _______, _______,      _______, _______
+    ),
     // Important that the symbols on the base layer have the same positions as these symbols
-    [_SYM]  = LAYOUT(TILD, SE_PLUS, SE_ASTR, SE_EXLM, xxxxxxx, xxxxxxx, SE_HASH, SE_AT, CIRC, SE_DOT, SE_PIPE, SE_LCBR, SE_RCBR, SE_MINS, SE_BSLS, GRV, SE_QUES, SE_LBRC, SE_RBRC, REPEAT, SE_COMM, SE_LABK, SE_RABK, SE_PERC, xxxxxxx, SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS, _______, _______, CANCEL, _______),
-    [_MODS] = LAYOUT(_______, _______, _______, _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx, OS_GUI, OS_CTRL, OS_SHFT, OS_ALT, _______, _______, _______, _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MY_RALT, _______, _______, _______, _______),
-    [_SHRT] = LAYOUT(C(SE_Q), C(SE_W), C(SE_E), C(SE_R), C(SE_T), _______, _______, _______, _______, _______, C(SE_A), C(SE_S), C(SE_D), C(SE_F), C(SE_G), _______, _______, _______, _______, _______, C(SE_Z), C(SE_X), C(SE_C), C(SE_V), C(SE_B), _______, _______, _______, _______, _______, _______, _______, _______, FUN),
+    [_SYM]  = LAYOUT(
+      TILD,    SE_PLUS, SE_ASTR, SE_EXLM, xxxxxxx,      xxxxxxx, SE_HASH, SE_AT,   CIRC,    SE_DOT,
+      SE_PIPE, SE_LCBR, SE_RCBR, SE_MINS, SE_BSLS,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, REPEAT,
+      SE_COMM, SE_LABK, SE_RABK, SE_PERC, xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS,
+                                 _______, _______,      CANCEL, _______
+    ),
+    [_MODS] = LAYOUT(
+      _______, _______, _______, _______, _______,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+      _______, _______, _______, _______, _______,      xxxxxxx, OS_GUI,  OS_CTRL, OS_SHFT, OS_ALT,
+      _______, _______, _______, _______, _______,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MY_RALT,
+                                 _______, _______,      _______, _______
+    ),
+    [_SHRT] = LAYOUT(
+      C(SE_Q), C(SE_W), C(SE_E), C(SE_R), C(SE_T),      _______, _______, _______, _______, _______,
+      C(SE_A), C(SE_S), C(SE_D), C(SE_F), C(SE_G),      _______, _______, _______, _______, _______,
+      C(SE_Z), C(SE_X), C(SE_C), C(SE_V), C(SE_B),      _______, _______, _______, _______, _______,
+                                 _______, _______,      _______, FUN
+    ),
     /*
     [_SHRT] = LAYOUT(
       C(SE_A), C(SE_C), C(SE_W), C(SE_F), C(SE_E),      _______, _______, _______, _______, _______,
@@ -57,9 +96,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, _______,      _______, FUN
     ),
     */
-    [_WNAV] = LAYOUT(G(SE_J), G(SE_C), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx, G(SE_6), G(SE_4), G(SE_0), G(SE_2), G(SE_K), xxxxxxx, G(SE_3), G(SE_1), G(SE_5), G(SE_7), xxxxxxx, xxxxxxx, xxxxxxx, G(SE_8), xxxxxxx, xxxxxxx, G(SE_9), G(SE_H), G(SE_L), xxxxxxx, _______, G(KC_SPC), _______, _______),
-    [_FUN]  = LAYOUT(xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_F6, KC_F4, KC_F10, KC_F2, KC_F12, KC_F11, KC_F3, KC_F1, KC_F5, KC_F7, xxxxxxx, xxxxxxx, xxxxxxx, KC_F8, xxxxxxx, xxxxxxx, KC_F9, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, _______),
-    [_SPEC] = LAYOUT(SE_TILD, SYM_LQO, _______, SYM_RQO, _______, _______, _______, _______, SE_CIRC, SE_DIAE, _______, SYM_LDQ, _______, SYM_RDQ, SE_ACUT, SE_GRV, SYM_LFT, SYM_DWN, SYM_UP, SYM_RHT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, FUN, _______, _______, _______)};
+    [_WNAV] = LAYOUT(
+      G(SE_J), G(SE_C), xxxxxxx, xxxxxxx, xxxxxxx,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx,
+      G(SE_6), G(SE_4), G(SE_0), G(SE_2), G(SE_K),      xxxxxxx, G(SE_3), G(SE_1), G(SE_5), G(SE_7),
+      xxxxxxx, xxxxxxx, xxxxxxx, G(SE_8), xxxxxxx,      xxxxxxx, G(SE_9), G(SE_H), G(SE_L), xxxxxxx,
+                                 _______, G(KC_SPC),    _______, _______
+    ),
+    [_FUN]  = LAYOUT(
+      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+      KC_F6,   KC_F4,   KC_F10,  KC_F2,   KC_F12,       KC_F11,  KC_F3,   KC_F1,   KC_F5,   KC_F7,
+      xxxxxxx, xxxxxxx, xxxxxxx, KC_F8,   xxxxxxx,      xxxxxxx, KC_F9,   xxxxxxx, xxxxxxx, xxxxxxx,
+                                 _______, _______,      _______, _______
+    ),
+    [_SPEC] = LAYOUT(
+      SE_TILD, SYM_LQO, _______, SYM_RQO, _______,      _______, _______, _______, SE_CIRC, SE_DIAE,
+      _______, SYM_LDQ, _______, SYM_RDQ, SE_ACUT,      SE_GRV,  SYM_LFT, SYM_DWN, SYM_UP,  SYM_RHT,
+      _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
+                                 FUN,     _______,      _______, _______
+    )
+};
 
 // Keyboard utils
 
@@ -67,12 +122,12 @@ static uint16_t last_key_down = KC_NO;
 static uint16_t last_key_up   = KC_NO;
 
 static bool linux_mode = true;
-bool        in_linux(void) {
+bool in_linux(void) {
     return linux_mode;
 }
 
 static bool swap_caps_escape = false;
-bool        is_caps_swapped(void) {
+bool is_caps_swapped(void) {
     return swap_caps_escape;
 }
 
