@@ -11,9 +11,9 @@ import json
 from time import sleep
 
 
-UF2_MAGIC_START0 = 0x0A324655 # "UF2\n"
-UF2_MAGIC_START1 = 0x9E5D5157 # Randomly selected
-UF2_MAGIC_END    = 0x0AB16F30 # Ditto
+UF2_MAGIC_START0 = 0x0A324655  # "UF2\n"
+UF2_MAGIC_START1 = 0x9E5D5157  # Randomly selected
+UF2_MAGIC_END = 0x0AB16F30  # Ditto
 
 INFO_FILE = "/INFO_UF2.TXT"
 
@@ -25,6 +25,7 @@ def is_uf2(buf):
     w = struct.unpack("<II", buf[0:8])
     return w[0] == UF2_MAGIC_START0 and w[1] == UF2_MAGIC_START1
 
+
 def is_hex(buf):
     try:
         w = buf[0:30].decode("utf-8")
@@ -33,6 +34,7 @@ def is_hex(buf):
     if w[0] == ':' and re.match(rb"^[:0-9a-fA-F\r\n]+$", buf):
         return True
     return False
+
 
 def convert_from_uf2(buf):
     global appstartaddr
@@ -76,7 +78,7 @@ def convert_from_uf2(buf):
             padding -= 4
             outp.append(b"\x00\x00\x00\x00")
         if familyid == 0x0 or ((hd[2] & 0x2000) and familyid == hd[7]):
-            outp.append(block[32 : 32 + datalen])
+            outp.append(block[32: 32 + datalen])
         curraddr = newaddr + datalen
         if hd[2] & 0x2000:
             if hd[7] in families_found.keys():
@@ -96,10 +98,13 @@ def convert_from_uf2(buf):
                 for name, value in families.items():
                     if value == family_hex:
                         family_short_name = name
-                print("Family ID is {:s}, hex value is 0x{:08x}".format(family_short_name,family_hex))
-                print("Target Address is 0x{:08x}".format(families_found[family_hex]))
+                print("Family ID is {:s}, hex value is 0x{:08x}".format(
+                    family_short_name, family_hex))
+                print("Target Address is 0x{:08x}".format(
+                    families_found[family_hex]))
             if all_flags_same:
-                print("All block flag values consistent, 0x{:04x}".format(hd[2]))
+                print(
+                    "All block flag values consistent, 0x{:04x}".format(hd[2]))
             else:
                 print("Flags were not all the same")
             print("----------------------------")
@@ -107,6 +112,7 @@ def convert_from_uf2(buf):
                 outp = []
                 appstartaddr = 0x0
     return b"".join(outp)
+
 
 def convert_to_carray(file_content):
     outp = "const unsigned long bindata_len = %d;\n" % len(file_content)
@@ -117,6 +123,7 @@ def convert_to_carray(file_content):
         outp += "0x%02x, " % file_content[i]
     outp += "\n};\n"
     return bytes(outp, "utf-8")
+
 
 def convert_to_uf2(file_content):
     global familyid
@@ -132,14 +139,15 @@ def convert_to_uf2(file_content):
         if familyid:
             flags |= 0x2000
         hd = struct.pack(b"<IIIIIIII",
-            UF2_MAGIC_START0, UF2_MAGIC_START1,
-            flags, ptr + appstartaddr, 256, blockno, numblocks, familyid)
+                         UF2_MAGIC_START0, UF2_MAGIC_START1,
+                         flags, ptr + appstartaddr, 256, blockno, numblocks, familyid)
         while len(chunk) < 256:
             chunk += b"\x00"
         block = hd + chunk + datapadding + struct.pack(b"<I", UF2_MAGIC_END)
         assert len(block) == 512
         outp.append(block)
     return b"".join(outp)
+
 
 class Block:
     def __init__(self, addr):
@@ -154,8 +162,8 @@ class Block:
         if devicetype:
             flags |= 0x8000
         hd = struct.pack("<IIIIIIII",
-            UF2_MAGIC_START0, UF2_MAGIC_START1,
-            flags, self.addr, 256, blockno, numblocks, familyid)
+                         UF2_MAGIC_START0, UF2_MAGIC_START1,
+                         flags, self.addr, 256, blockno, numblocks, familyid)
         hd += self.bytes[0:256]
         if devicetype:
             hd += bytearray(b'\x08\x29\xa7\xc8')
@@ -164,6 +172,7 @@ class Block:
             hd += b"\x00"
         hd += struct.pack("<I", UF2_MAGIC_END)
         return hd
+
 
 def convert_from_hex_to_uf2(buf):
     global appstartaddr
@@ -204,8 +213,10 @@ def convert_from_hex_to_uf2(buf):
         resfile += blocks[i].encode(i, numblocks)
     return resfile
 
+
 def to_str(b):
     return b.decode("utf-8")
+
 
 def get_drives():
     drives = []
@@ -222,14 +233,14 @@ def get_drives():
         if sys.platform == "darwin":
             searchpaths = ["/Volumes"]
         elif sys.platform == "linux":
-            searchpaths += ["/media/" + os.environ["USER"], '/run/media/' + os.environ["USER"]]
+            searchpaths += ["/media/" + os.environ["USER"],
+                            '/run/media/' + os.environ["USER"]]
 
         for rootpath in searchpaths:
             if os.path.isdir(rootpath):
                 for d in os.listdir(rootpath):
                     if os.path.isdir(rootpath):
                         drives.append(os.path.join(rootpath, d))
-
 
     def has_info(d):
         try:
@@ -262,7 +273,8 @@ def load_families():
     # directory as this script. Make a path that works using `__file__`
     # which contains the full path to this script.
     filename = "uf2families.json"
-    pathname = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
+    pathname = os.path.join(os.path.dirname(
+        os.path.abspath(__file__)), filename)
     with open(pathname) as f:
         raw_families = json.load(f)
 
@@ -275,10 +287,12 @@ def load_families():
 
 def main():
     global appstartaddr, familyid
+
     def error(msg):
         print(msg, file=sys.stderr)
         sys.exit(1)
-    parser = argparse.ArgumentParser(description='Convert to UF2 or flash directly.')
+    parser = argparse.ArgumentParser(
+        description='Convert to UF2 or flash directly.')
     parser.add_argument('input', metavar='INPUT', type=str, nargs='?',
                         help='input file (HEX, BIN or UF2)')
     parser.add_argument('-b', '--base', dest='base', type=str,
@@ -287,7 +301,7 @@ def main():
     parser.add_argument('-f', '--family', dest='family', type=str,
                         default="0x0",
                         help='specify familyID - number or name (default: 0x0)')
-    parser.add_argument('-t' , '--device-type', dest='devicetype', type=str,
+    parser.add_argument('-t', '--device-type', dest='devicetype', type=str,
                         help='specify deviceTypeID extension tag - number')
     parser.add_argument('-o', '--output', metavar="FILE", dest='output', type=str,
                         help='write output to named file; defaults to "flash.uf2" or "flash.bin" where sensible')
@@ -316,7 +330,8 @@ def main():
         try:
             familyid = int(args.family, 0)
         except ValueError:
-            error("Family ID needs to be a number or one of: " + ", ".join(families.keys()))
+            error("Family ID needs to be a number or one of: " +
+                  ", ".join(families.keys()))
 
     global devicetype
     devicetype = int(args.devicetype, 0) if args.devicetype else None
