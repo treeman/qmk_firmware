@@ -26,7 +26,7 @@
 #define SPLIT_POINTING_ENABLE
 #define POINTING_DEVICE_RIGHT
 // Important to test different values to find something that works well
-#define PMW33XX_LIFTOFF_DISTANCE 0x10
+#define PMW33XX_LIFTOFF_DISTANCE 0x06
 // Sets the mouse resolution, up to 16000
 #define PMW33XX_CPI 1600
 // Reorganize
