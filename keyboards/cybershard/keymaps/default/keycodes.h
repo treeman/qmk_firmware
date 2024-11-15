@@ -6,7 +6,6 @@
 #include "quantum.h"
 #include "quantum/action.h"
 #include "quantum/quantum_keycodes.h"
-// #include "oneshot.h"
 
 enum layers {
     _BASE = 0,
@@ -18,7 +17,6 @@ enum layers {
     _WIN,
     _SYM,
     _MODS,
-    _SHRT,
     _SPEC,
     _FUN,
 };
@@ -64,6 +62,9 @@ enum custom_keycodes {
     UP_DPI,
     DN_DPI,
 
+    // Precision mode for trackball
+    M_PREC,
+
     // Layer management
     CLEAR,
 
@@ -83,9 +84,6 @@ enum custom_keycodes {
 #define MY_RALT OSM(MOD_RALT)
 #define DN_CTRL LCTL_T(KC_DOWN)
 
-#define LB_MOUSE KC_BTN1
-#define RB_MOUSE LT(_MOUSE, KC_BTN2)
-
 #define ESC_SYM LT(_SYM, KC_ESC)
 #define TAB_MOD LT(_MODS, KC_TAB)
 
@@ -103,10 +101,6 @@ enum custom_keycodes {
 #define OPT OSL(_OPT)
 #define SPEC OSL(_SPEC)
 #define FUN OSL(_FUN)
-
-#define FUN_CLR LT(_FUN, CLEAR)
-
-// #define GAME2 OSL(_GAME2)
 
 // #define SYM_LFT ALGR(SE_Y)    // ← y
 // #define SYM_DWN ALGR(SE_U)    // ↓ u
