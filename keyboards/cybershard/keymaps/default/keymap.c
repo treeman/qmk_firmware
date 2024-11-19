@@ -61,8 +61,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV]  = LAYOUT(
       G(SE_J), KC_LEFT, KC_UP,   KC_RGHT, KC_HOME,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx,
       KC_PGUP, SC_TAB,  DN_CTRL, C_TAB,   G(SE_K),      xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-      WIN_ALT, xxxxxxx, xxxxxxx, KC_PGDN, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-               KC_BTN4, KC_BTN5,
+      WIN_ALT, KC_BTN4, KC_BTN5, KC_PGDN, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+               _______, _______,
                                  _______, MT_SPC,       WNAV
     ),
     [_WIN]  = LAYOUT(
@@ -722,6 +722,11 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
+        case MT_SPC:
+            if (record->event.pressed) {
+                auto_mouse_layer_off();
+            }
+            return true;
         case KC_CAPS:
             return process_caps(record->event.pressed);
         case CLEAR:
@@ -928,9 +933,9 @@ float speed_accumulated_y = 0;
 layer_state_t layer_state_set_user(layer_state_t state) {
     scrolling_mode = IS_LAYER_ON_STATE(state, _SYM);
     speed_mode     = IS_LAYER_ON_STATE(state, _MODS);
-    if (IS_LAYER_ON_STATE(state, _NAV) && IS_LAYER_ON_STATE(state, _MOUSE)) {
-        auto_mouse_layer_off();
-    }
+    // if (IS_LAYER_ON_STATE(state, _NAV) && IS_LAYER_ON_STATE(state, _MOUSE)) {
+    //     auto_mouse_layer_off();
+    // }
     return state;
 }
 
