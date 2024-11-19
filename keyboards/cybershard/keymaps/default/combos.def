@@ -124,6 +124,10 @@ COMB(comb_f1,           KC_F1,          FUN, SE_A)
 COMB(comb_f5,           KC_F5,          FUN, SE_I)
 COMB(comb_f7,           KC_F7,          FUN, REPEAT)
 
+// Mouse
+COMB(mbutton,           KC_BTN3,          KC_BTN1, KC_BTN2)
+
+
 // Boot
 COMB(comb_boot_l,       QK_BOOT,        SE_COMM, SE_V, SE_G, SE_D, MT_SPC)
 COMB(comb_boot_r,       QK_BOOT,        SE_E, SE_L, SE_LPRN, SE_RPRN, SE_UNDS)

@@ -30,11 +30,11 @@
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
+    [_BASE] = LAYOUT(
       SE_J,    SE_C,    SE_Y,    SE_F,    SE_P,         SE_X,    SE_W,    SE_O,    SE_U,    SE_DOT,
       SE_R,    SE_S,    SE_T,    SE_H,    SE_K,         SE_M,    SE_N,    SE_A,    SE_I,    REPEAT,
       SE_COMM, SE_V,    SE_G,    SE_D,    SE_B,         SE_SLSH, SE_L,    SE_LPRN, SE_RPRN, SE_UNDS,
-               xxxxxxx, xxxxxxx,
+               KC_BTN2, KC_BTN1,
                                  FUN,     MT_SPC,       SE_E
     ),
     [_SWE]  = LAYOUT(
@@ -44,26 +44,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                _______, _______,
                                  _______, _______,      _______
     ),
+    [_MOUSE]  = LAYOUT(
+      C(SE_A), C(SE_C), _______, _______, C(SE_X),      _______, _______, _______, _______, _______,
+      DN_DPI,  _______, _______, M_PREC,  _______,      _______, _______, _______, _______, _______,
+      _______, C(SE_V), _______, UP_DPI,  _______,      _______, _______, _______, _______, _______,
+               _______, _______,
+                                 _______, _______,      _______
+    ),
     [_NUM]  = LAYOUT(
-      SE_J,    SE_PLUS, SE_ASTR, SE_EXLM, SE_P,         SE_X,    _______, AT_U,    REPEAT,  _______,
+      SE_J,    SE_PLUS, SE_ASTR, SE_EXLM, SE_P,         SE_X,    _______, AT_U,    REPEAT,  SE_DOT,
       SE_6,    SE_4,    SE_0,    SE_2,    SE_K,         _______, SE_3,    SE_1,    SE_5,    SE_7,
       SE_COMM, _______, NUM_G,   SE_8,    _______,      SE_SLSH, SE_9,    SE_LPRN, SE_RPRN, SE_UNDS,
                _______, _______,
-                                 _______, _______,      _______
+                                 _______, MT_SPC,       _______
     ),
     [_NAV]  = LAYOUT(
       G(SE_J), KC_LEFT, KC_UP,   KC_RGHT, KC_HOME,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx,
       KC_PGUP, SC_TAB,  DN_CTRL, C_TAB,   G(SE_K),      xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-      KC_ENT, xxxxxxx,  xxxxxxx, KC_PGDN, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-               _______, _______,
-                                 _______, _______,      WNAV
-    ),
-    [_MOUSE]  = LAYOUT(
-      C(SE_A), C(SE_C), _______, _______, C(SE_X),      _______, _______, _______, _______, _______,
-      _______, KC_BTN2, KC_BTN3, M_PREC,  _______,      _______, _______, _______, _______, _______,
-      _______, C(SE_V), _______, _______, _______,      _______, _______, _______, _______, _______,
-               DN_DPI,  UP_DPI,
-                                 _______, KC_BTN1,      _______
+      WIN_ALT, xxxxxxx, xxxxxxx, KC_PGDN, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+               KC_BTN4, KC_BTN5,
+                                 _______, MT_SPC,       WNAV
     ),
     [_WIN]  = LAYOUT(
       _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       SE_PIPE, SE_LCBR, SE_RCBR, SE_MINS, SE_BSLS,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, REPEAT,
       SE_COMM, SE_LABK, SE_RABK, SE_PERC, xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS,
                _______, _______,
-                                 _______, _______,      _______
+                                 _______, _______,       _______
     ),
     [_MODS] = LAYOUT(
       _______, _______, _______, _______, _______,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
@@ -92,14 +92,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       G(SE_6), G(SE_4), G(SE_0), G(SE_2), G(SE_K),      xxxxxxx, G(SE_3), G(SE_1), G(SE_5), G(SE_7),
       xxxxxxx, xxxxxxx, xxxxxxx, G(SE_8), xxxxxxx,      xxxxxxx, G(SE_9), G(SE_H), G(SE_L), xxxxxxx,
                _______, _______,
-                                 _______, G(KC_SPC),    _______
+                                 _______, G(KC_SPC),    WNAV
     ),
     [_FUN]  = LAYOUT(
       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
       KC_F6,   KC_F4,   KC_F10,  KC_F2,   KC_F12,       KC_F11,  KC_F3,   KC_F1,   KC_F5,   KC_F7,
       xxxxxxx, xxxxxxx, xxxxxxx, KC_F8,   xxxxxxx,      xxxxxxx, KC_F9,   xxxxxxx, xxxxxxx, xxxxxxx,
                _______, _______,
-                                 _______, _______,      _______
+                                 FUN,     _______,      _______
     ),
     [_SPEC] = LAYOUT(
       SE_TILD, _______, _______, _______, _______,      _______, _______, _______, SE_CIRC, SE_DIAE,
@@ -928,6 +928,9 @@ float speed_accumulated_y = 0;
 layer_state_t layer_state_set_user(layer_state_t state) {
     scrolling_mode = IS_LAYER_ON_STATE(state, _SYM);
     speed_mode     = IS_LAYER_ON_STATE(state, _MODS);
+    if (IS_LAYER_ON_STATE(state, _NAV) && IS_LAYER_ON_STATE(state, _MOUSE)) {
+        auto_mouse_layer_off();
+    }
     return state;
 }
 
