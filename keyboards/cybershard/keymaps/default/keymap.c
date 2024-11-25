@@ -767,6 +767,7 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             register_key_to_repeat(CIRC);
             return tap_undead_key(record->event.pressed, SE_CIRC);
         case NUMWORD:
+            register_key_to_repeat(NUMWORD);
             process_num_word_activation(record);
             return false;
         case CAPSWORD:

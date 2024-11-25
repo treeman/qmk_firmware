@@ -1,6 +1,7 @@
 #include "repeat.h"
 #include "keymap_swedish.h"
 #include "keycodes.h"
+#include "layermodes.h"
 
 uint16_t last_keycode = KC_NO;
 
@@ -49,6 +50,9 @@ void update_repeat_key(keyrecord_t *record) {
             break;
         case CIRC:
             tap_undead_key(record->event.pressed, SE_CIRC);
+            break;
+        case NUMWORD:
+            process_num_word_activation(record);
             break;
         default:
             update_key(last_keycode, record);
