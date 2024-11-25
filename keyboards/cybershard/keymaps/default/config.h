@@ -34,6 +34,7 @@
 #define POINTING_DEVICE_INVERT_X 1
 
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
+#define MOUSE_LAYER_ACTIVE_TIMEOUT 1000
 
 // Combos
 #undef COMBO_TERM
@@ -48,6 +49,8 @@
 
 // Cant import "keymap_swedish.h" as it sometimes generates extremely weird errors.
 #define LEADER_ESC_KEY KC_E
+
+#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX
 
 // Not supported without flto
 #define NO_ACTION_MACRO

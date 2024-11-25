@@ -8,8 +8,9 @@ COMB(clear,             CLEAR,          SE_F, SE_P)
 SUBS(el_str_int,        "#{}"SS_TAP(X_LEFT),  SE_X, SE_W)
 COMB(eql,               SE_EQL,         SE_W, SE_O)
 COMB(backsp,            KC_BSPC,        SE_O, SE_U)
+COMB(win_alt,           WIN_ALT,        SE_W, SE_U)
 COMB(ctrl_w2,           C(SE_W),        SE_W, SE_O, SE_U)
-COMB(rev_rep,           REV_REP,        SE_U, SE_DOT)
+// COMB(rev_rep,           REV_REP,        SE_U, SE_DOT)
 
 // Left home row
 COMB(ctrl_combo_l,      OS_CTRL,        SE_S, SE_T)
@@ -25,6 +26,7 @@ COMB(ent,               KC_ENT,         SE_N, SE_A, SE_I)
 COMB(save_vim,          SAVE_VIM,       SE_N, SE_A, SE_I, REPEAT)
 // Mixed
 COMB(capsword,          CAPSWORD,       SE_T, SE_A)
+COMB(specials,          SPEC,           SE_S, SE_I)
 
 // Left bottom row
 COMB(vsp,               VIM_VS,         SE_V, SE_G)
@@ -41,7 +43,7 @@ COMB(swe,               TG_SWE,         SE_L, SE_LPRN, SE_RPRN)
 
 // Mixed home row + other
 COMB(scln,              SE_SCLN,        SE_T, SE_D)
-COMB(win_alt,           WIN_ALT,        SE_L, SE_A)
+COMB(mins_2,            SE_MINS,        SE_L, SE_A)
 
 // Vertical top left
 SUBS(small_left_arrow,  "<-",           SE_Y, SE_T)
@@ -76,7 +78,6 @@ COMB(comb_e_acut,       E_ACUT,         SE_E, SE_K)
 COMB(comb_tild,         TILD,           MT_SPC, SE_J)
 COMB(comb_plus,         SE_PLUS,        MT_SPC, SE_C)
 COMB(comb_astr,         SE_ASTR,        MT_SPC, SE_Y)
-COMB(comb_exlm,         SE_EXLM,        MT_SPC, SE_F)
 COMB(comb_hash,         SE_HASH,        SE_E, SE_W)
 COMB(comb_at,           SE_AT,          SE_E, SE_O)
 COMB(comb_circ,         CIRC,           SE_E, SE_U)
@@ -84,7 +85,7 @@ COMB(comb_circ,         CIRC,           SE_E, SE_U)
 COMB(comb_pipe,         SE_PIPE,        MT_SPC, SE_R)
 COMB(comb_lcbr,         SE_LCBR,        MT_SPC, SE_S)
 COMB(comb_rcbr,         SE_RCBR,        MT_SPC, SE_T)
-COMB(comb_mins,         SE_MINS,        MT_SPC, SE_H)
+COMB(comb_perc,         SE_PERC,        MT_SPC, SE_H)
 COMB(comb_bsls,         SE_BSLS,        MT_SPC, SE_K)
 COMB(comb_grv,          GRV,            SE_E, SE_M)
 COMB(comb_ques,         SE_QUES,        SE_E, SE_N)
@@ -93,7 +94,7 @@ COMB(comb_rbrc,         SE_RBRC,        SE_E, SE_I)
 // Lower
 COMB(comb_labk,         SE_LABK,        MT_SPC, SE_V)
 COMB(comb_rabk,         SE_RABK,        MT_SPC, SE_G)
-COMB(comb_perc,         SE_PERC,        MT_SPC, SE_D)
+COMB(comb_exlm,         SE_EXLM,        MT_SPC, SE_D)
 COMB(comb_ampr,         SE_AMPR,        SE_E, SE_L)
 COMB(comb_lprn,         SE_LPRN,        SE_E, SE_LPRN)
 COMB(comb_rprn,         SE_RPRN,        SE_E, SE_RPRN)
@@ -103,9 +104,6 @@ COMB(comb_unds,         SE_UNDS,        SE_E, SE_UNDS)
 COMB(arng,              SE_ARNG,        MT_SPC, SE_LPRN)
 COMB(adia,              SE_ADIA,        MT_SPC, SE_RPRN)
 COMB(odia,              SE_ODIA,        MT_SPC, SE_UNDS)
-
-// Right mouse buttons
-COMB(comb_btn3,         KC_BTN3,        KC_BTN1, KC_BTN2)
 
 // Specials
 SUBS(https,             "https://",     MT_SPC, SE_SLSH)
@@ -125,8 +123,7 @@ COMB(comb_f5,           KC_F5,          FUN, SE_I)
 COMB(comb_f7,           KC_F7,          FUN, REPEAT)
 
 // Mouse
-COMB(mbutton,           KC_BTN3,          KC_BTN1, KC_BTN2)
-
+//COMB(mbutton,           KC_BTN3,          KC_BTN1, KC_BTN2)
 
 // Boot
 COMB(comb_boot_l,       QK_BOOT,        SE_COMM, SE_V, SE_G, SE_D, MT_SPC)

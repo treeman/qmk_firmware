@@ -6,6 +6,7 @@
 #include "sendstring_swedish.h"
 #include "g/keymap_combo.h"
 #include "print.h"
+#include "timer.h"
 
 #include "keycodes.h"
 #include "oneshot.h"
@@ -34,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       SE_J,    SE_C,    SE_Y,    SE_F,    SE_P,         SE_X,    SE_W,    SE_O,    SE_U,    SE_DOT,
       SE_R,    SE_S,    SE_T,    SE_H,    SE_K,         SE_M,    SE_N,    SE_A,    SE_I,    REPEAT,
       SE_COMM, SE_V,    SE_G,    SE_D,    SE_B,         SE_SLSH, SE_L,    SE_LPRN, SE_RPRN, SE_UNDS,
-               KC_BTN2, KC_BTN1,
+               KC_F2,   KC_F12,
                                  FUN,     MT_SPC,       SE_E
     ),
     [_SWE]  = LAYOUT(
@@ -42,26 +43,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______,      _______, _______, SE_ARNG, SE_ADIA, SE_ODIA,
                _______, _______,
-                                 _______, _______,      _______
-    ),
-    [_MOUSE]  = LAYOUT(
-      C(SE_A), C(SE_C), _______, _______, C(SE_X),      _______, _______, _______, _______, _______,
-      DN_DPI,  _______, _______, M_PREC,  _______,      _______, _______, _______, _______, _______,
-      _______, C(SE_V), _______, UP_DPI,  _______,      _______, _______, _______, _______, _______,
-               _______, _______,
-                                 _______, _______,      _______
-    ),
-    [_NUM]  = LAYOUT(
-      SE_J,    SE_PLUS, SE_ASTR, SE_EXLM, SE_P,         SE_X,    _______, AT_U,    REPEAT,  SE_DOT,
-      SE_6,    SE_4,    SE_0,    SE_2,    SE_K,         _______, SE_3,    SE_1,    SE_5,    SE_7,
-      SE_COMM, _______, NUM_G,   SE_8,    _______,      SE_SLSH, SE_9,    SE_LPRN, SE_RPRN, SE_UNDS,
-               _______, _______,
-                                 _______, MT_SPC,       _______
+                                _______, _______,      _______
     ),
     [_NAV]  = LAYOUT(
       G(SE_J), KC_LEFT, KC_UP,   KC_RGHT, KC_HOME,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx,
       KC_PGUP, SC_TAB,  DN_CTRL, C_TAB,   G(SE_K),      xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-      WIN_ALT, KC_BTN4, KC_BTN5, KC_PGDN, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+      _______, KC_BTN4, KC_BTN5, KC_PGDN, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
                _______, _______,
                                  _______, MT_SPC,       WNAV
     ),
@@ -72,11 +59,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                _______, _______,
                                  _______, _______,      _______
     ),
+    [_MOUSE]  = LAYOUT(
+      xxxxxxx, C(SE_C), xxxxxxx, xxxxxxx, xxxxxxx,      _______, _______, _______, _______, _______,
+      SFT_CA,  KC_BTN2, KC_BTN3, KC_BTN1, xxxxxxx,      _______, _______, _______, _______, _______,
+      C(SE_X), KC_BTN4, KC_BTN5, xxxxxxx, xxxxxxx,      _______, _______, _______, _______, _______,
+               DN_DPI,  UP_DPI,
+                                 _______, MT_SPC,       _______
+    ),
+    [_NUM]  = LAYOUT(
+      SE_J,    SE_PLUS, SE_ASTR, SE_F,    SE_P,         SE_X,    SE_W,    AT_U,    REPEAT,  SE_DOT,
+      SE_6,    SE_4,    SE_0,    SE_2,    SE_K,         SE_M,    SE_3,    SE_1,    SE_5,    SE_7,
+      SE_COMM, SE_V,    NUM_G,   SE_8,    SE_B,         SE_SLSH, SE_9,    SE_LPRN, SE_RPRN, SE_UNDS,
+               _______, _______,
+                                 _______, MT_SPC,       _______
+    ),
     // Important that the symbols on the base layer have the same positions as these symbols
     [_SYM]  = LAYOUT(
-      TILD,    SE_PLUS, SE_ASTR, SE_EXLM, xxxxxxx,      xxxxxxx, SE_HASH, SE_AT,   CIRC,    SE_DOT,
-      SE_PIPE, SE_LCBR, SE_RCBR, SE_MINS, SE_BSLS,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, REPEAT,
-      SE_COMM, SE_LABK, SE_RABK, SE_PERC, xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS,
+      TILD,    SE_PLUS, SE_ASTR, xxxxxxx, xxxxxxx,      xxxxxxx, SE_HASH, SE_AT,   CIRC,    SE_DOT,
+      SE_PIPE, SE_LCBR, SE_RCBR, SE_PERC, SE_BSLS,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, REPEAT,
+      SE_COMM, SE_LABK, SE_RABK, SE_EXLM, xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS,
                _______, _______,
                                  _______, _______,       _______
     ),
@@ -102,11 +103,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  FUN,     _______,      _______
     ),
     [_SPEC] = LAYOUT(
-      SE_TILD, _______, _______, _______, _______,      _______, _______, _______, SE_CIRC, SE_DIAE,
-      _______, _______, _______, _______, SE_ACUT,      SE_GRV,  _______, _______, _______, _______,
+      SE_TILD, SYM_COP, _______, _______, _______,      _______, _______, _______, SE_CIRC, SE_DIAE,
+      _______, _______, SYM_TM,  _______, SE_ACUT,      SE_GRV,  _______, _______, _______, _______,
       _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
                _______, _______,
-                                 _______, _______,      _______
+                                 _______, _______,      SYM_EUR
     )
 };
 // clang-format on
@@ -115,11 +116,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static bool scrolling_mode = false;
 static bool speed_mode     = false;
+static bool precision_mode = false;
 
 static uint16_t last_key_down = KC_NO;
 static uint16_t last_key_up   = KC_NO;
 
 static bool swap_caps_escape = false;
+
+static uint16_t mouse_move_timer;
 
 bool is_caps_swapped(void) {
     return swap_caps_escape;
@@ -208,13 +212,13 @@ static uint16_t current_dpi = 1600;
 
 void set_dpi(uint16_t dpi) {
     pointing_device_set_cpi(dpi);
-    dprintf("Set DPI: %u\n", dpi);
 }
 
 void up_dpi(void) {
     if (current_dpi <= 15900) {
         current_dpi += 100;
     }
+    dprintf("Set DPI: %u\n", current_dpi);
     set_dpi(current_dpi);
 }
 
@@ -222,6 +226,7 @@ void down_dpi(void) {
     if (current_dpi >= 200) {
         current_dpi -= 100;
     }
+    dprintf("Set DPI: %u\n", current_dpi);
     set_dpi(current_dpi);
 }
 
@@ -281,7 +286,7 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case comb_at:
         case comb_0:
         case comb_e_acut:
-        case rev_rep:
+        // case rev_rep:
         case arng:
         case adia:
         case odia:
@@ -298,6 +303,7 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case coln_sym:
         case dquo:
         case lalt:
+        // case mbutton:
         case win_alt:
             return false;
         default:
@@ -722,9 +728,23 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
+        case WNAV:
+            if (record->event.pressed && IS_LAYER_ON(_MOUSE)) {
+                printf("Disable mouse layer\n");
+                layer_off(_MOUSE);
+            }
+            return true;
         case MT_SPC:
             if (record->event.pressed) {
-                auto_mouse_layer_off();
+                if (!IS_LAYER_ON(_MOUSE) && timer_elapsed(mouse_move_timer) <= MOUSE_LAYER_ACTIVE_TIMEOUT) {
+                    printf("Enable mouse layer: %u\n", timer_elapsed(mouse_move_timer));
+                    layer_on(_MOUSE);
+                }
+            } else {
+                if (IS_LAYER_ON(_MOUSE)) {
+                    printf("Disable mouse layer\n");
+                    layer_off(_MOUSE);
+                }
             }
             return true;
         case KC_CAPS:
@@ -737,10 +757,8 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             stop_leading();
             layer_off(_NUM);
             layer_off(_SYM);
+            layer_off(_MOUSE);
             layer_move(_BASE);
-            scrolling_mode = false;
-            speed_mode     = false;
-            auto_mouse_layer_off();
             return false;
         case TILD:
             register_key_to_repeat(TILD);
@@ -846,13 +864,14 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 down_dpi();
             }
             return false;
-        case M_PREC:
-            if (record->event.pressed) {
-                set_dpi(current_dpi / 2);
-            } else {
-                set_dpi(current_dpi);
+        case SFT_CA:
+            // Workaround for LSFT_T only supporting standard keycodes.
+            if (record->tap.count && record->event.pressed) {
+                // Send C(A) on tap
+                tap_code16(C(SE_A));
+                return false;
             }
-            return false;
+            return true;
     }
 
     return true;
@@ -896,11 +915,12 @@ void keyboard_post_init_user(void) {
     // debug_matrix=true;
     // debug_keyboard=true;
     debug_mouse = true;
+    timer_init();
 }
 
 void pointing_device_init_user(void) {
-    set_auto_mouse_layer(_MOUSE);
-    set_auto_mouse_enable(true);
+    // set_auto_mouse_layer(_MOUSE);
+    // set_auto_mouse_enable(true);
 }
 
 bool is_mouse_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -930,16 +950,31 @@ float scroll_accumulated_v = 0;
 float speed_accumulated_x = 0;
 float speed_accumulated_y = 0;
 
+#define PRECISION_DIVISOR_X 2.0
+#define PRECISION_DIVISOR_Y 2.0
+
+float precision_accumulated_x = 0;
+float precision_accumulated_y = 0;
+
 layer_state_t layer_state_set_user(layer_state_t state) {
     scrolling_mode = IS_LAYER_ON_STATE(state, _SYM);
     speed_mode     = IS_LAYER_ON_STATE(state, _MODS);
-    // if (IS_LAYER_ON_STATE(state, _NAV) && IS_LAYER_ON_STATE(state, _MOUSE)) {
-    //     auto_mouse_layer_off();
-    // }
+    precision_mode = IS_LAYER_ON_STATE(state, _MOUSE);
     return state;
 }
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    // printf("Timer: %u\n", timer_elapsed(mouse_move_timer));
+    if (!IS_LAYER_ON(_MOUSE) && (mouse_report.x != 0 || mouse_report.y != 0)) {
+        if (IS_LAYER_ON(_NAV)) {
+            printf("Enable mouse layer\n");
+            layer_on(_MOUSE);
+        } else {
+            mouse_move_timer = timer_read();
+            // printf("Update mouse timer\n");
+        }
+    }
+
     if (speed_mode) {
         speed_accumulated_x += (float)mouse_report.x * SPEED_MULTIPLIER_X;
         speed_accumulated_y += (float)mouse_report.y * SPEED_MULTIPLIER_Y;
@@ -949,6 +984,15 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
         speed_accumulated_x -= (int8_t)speed_accumulated_x;
         speed_accumulated_y -= (int8_t)speed_accumulated_y;
+    } else if (precision_mode) {
+        precision_accumulated_x += (float)mouse_report.x / PRECISION_DIVISOR_X;
+        precision_accumulated_y += (float)mouse_report.y / PRECISION_DIVISOR_Y;
+
+        mouse_report.x = (int8_t)precision_accumulated_x;
+        mouse_report.y = (int8_t)precision_accumulated_y;
+
+        precision_accumulated_x -= (int8_t)precision_accumulated_x;
+        precision_accumulated_y -= (int8_t)precision_accumulated_y;
     }
     if (scrolling_mode) {
         scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;

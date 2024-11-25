@@ -1,5 +1,6 @@
 COMBO_ENABLE = yes
 MOUSEKEY_ENABLE = yes
+UNICODE_ENABLE = yes
 
 # Easy definition of combos
 VPATH +=  keyboards/gboards/

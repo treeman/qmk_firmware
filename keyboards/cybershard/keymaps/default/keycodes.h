@@ -13,6 +13,7 @@ enum layers {
     _NUM,
     _NAV,
     _WNAV,
+    _AUTO_MOUSE,
     _MOUSE,
     _WIN,
     _SYM,
@@ -47,6 +48,9 @@ enum custom_keycodes {
     // Custom Win + Alt for window toggling on Windows
     WIN_ALT,
 
+    // Shift on hold, Ctrl + A on tap
+    // SFT_CA,
+
     // TODO why use these?
     // Instant oneshot mods
     OS_SHFT,
@@ -63,7 +67,7 @@ enum custom_keycodes {
     DN_DPI,
 
     // Precision mode for trackball
-    M_PREC,
+    // M_PREC,
 
     // Layer management
     CLEAR,
@@ -92,6 +96,7 @@ enum custom_keycodes {
 #define C_TAB C(KC_TAB)
 #define S_TAB S(KC_TAB)
 #define SC_TAB S(C(KC_TAB))
+#define SFT_CA LSFT_T(C(SE_A))
 
 #define MY_LALT OSM(MOD_LALT)
 
@@ -102,11 +107,6 @@ enum custom_keycodes {
 #define SPEC OSL(_SPEC)
 #define FUN OSL(_FUN)
 
-// #define SYM_LFT ALGR(SE_Y)    // ← y
-// #define SYM_DWN ALGR(SE_U)    // ↓ u
-// #define SYM_RHT ALGR(SE_I)    // → i
-// #define SYM_UP ALGR(S(SE_U))  // ↑ U
-// #define SYM_LDQ ALGR(SE_V)    // “ v
-// #define SYM_RDQ ALGR(SE_B)    // ” b
-// #define SYM_LQO ALGR(S(SE_V)) // ‘ V
-// #define SYM_RQO ALGR(S(SE_B)) // ’ B
+#define SYM_TM UC(0x2122)
+#define SYM_EUR ALGR(SE_E)
+#define SYM_COP C(ALGR(SE_C))
