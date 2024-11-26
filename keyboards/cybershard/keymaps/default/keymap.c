@@ -16,13 +16,6 @@
 #include "repeat.h"
 #include "leader.h"
 
-// TODO
-// Shift hold on mid mbutton when held
-// Ctrl + A in NAV (hold on some key)
-// Ctrl + X in NAV (hold on some key)
-// Ctrl + C in NAV (hold on some key)
-// Ctrl + V in NAV (hold on some key)
-
 // Maybe use built-in QMK implementations:
 // - Repeat
 // - Reverse repeat
