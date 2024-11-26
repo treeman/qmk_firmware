@@ -80,6 +80,16 @@ enum custom_keycodes {
     // Repeat keys
     REPEAT,
     REV_REP,
+
+    // XCASE things
+    XCASE_MINS,
+    XCASE_SHFT,
+    XCASE_UNDS,
+
+    // - and _ swappable keys
+    UNDS_MINS,
+    MINS_UNDS,
+    SWAP_UNDS_MINS,
 };
 
 #define xxxxxxx KC_NO

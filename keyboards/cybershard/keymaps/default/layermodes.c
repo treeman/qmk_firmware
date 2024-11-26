@@ -8,11 +8,15 @@ bool        num_word_enabled(void) {
     return _num_word_enabled;
 }
 void enable_num_word(void) {
-    _num_word_enabled = true;
+    if (!_num_word_enabled) {
+        _num_word_enabled = true;
+    }
     layer_on(_NUM);
 }
 void disable_num_word(void) {
-    printf("Disable NUMWORD\n");
+    if (_num_word_enabled) {
+        printf("Disable NUMWORD\n");
+    }
     _num_word_enabled = false;
     layer_off(_NUM);
 }

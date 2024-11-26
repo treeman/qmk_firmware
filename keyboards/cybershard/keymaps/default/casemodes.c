@@ -61,19 +61,28 @@ bool caps_word_enabled(void) {
     return caps_word_on;
 }
 
+bool is_caps_lock_on(void);
+void tap_caps_lock(void);
+
 // Enable caps word
 void enable_caps_word(void) {
+    if (!caps_word_on) {
+        printf("Enable CAPSWORD\n");
+    }
     caps_word_on = true;
-    if (!host_keyboard_led_state().caps_lock) {
-        tap_code(is_caps_swapped() ? KC_ESC : KC_CAPS);
+    if (!is_caps_lock_on()) {
+        tap_caps_lock();
     }
 }
 
 // Disable caps word
 void disable_caps_word(void) {
+    if (caps_word_on) {
+        printf("Disable CAPSWORD\n");
+    }
     caps_word_on = false;
-    if (host_keyboard_led_state().caps_lock) {
-        tap_code(is_caps_swapped() ? KC_ESC : KC_CAPS);
+    if (is_caps_lock_on()) {
+        tap_caps_lock();
     }
 }
 
@@ -81,6 +90,22 @@ void disable_caps_word(void) {
 void toggle_caps_word(void) {
     if (caps_word_on) {
         disable_caps_word();
+    } else {
+        enable_caps_word();
+    }
+}
+
+void process_caps_word_activation(const keyrecord_t *record) {
+    if (!record->event.pressed) {
+        return;
+    }
+
+    if (caps_word_enabled()) {
+        printf("Set CAPS LOCK\n");
+        caps_word_on = false;
+    } else if (is_caps_lock_on()) {
+        printf("Turn off CAPS LOCK\n");
+        tap_code(is_caps_swapped() ? KC_ESC : KC_CAPS);
     } else {
         enable_caps_word();
     }
@@ -103,12 +128,16 @@ void enable_xcase(void) {
 
 // Enable xcase with the specified delimiter
 void enable_xcase_with(uint16_t delimiter) {
+    printf("Enable xcase with custom delimiter\n");
     xcase_state     = XCASE_ON;
     xcase_delimiter = delimiter;
 }
 
 // Disable xcase
 void disable_xcase(void) {
+    if (xcase_state != XCASE_OFF) {
+        printf("Disable xcase\n");
+    }
     xcase_state = XCASE_OFF;
 }
 
@@ -194,6 +223,16 @@ bool process_case_modes(uint16_t keycode, const keyrecord_t *record) {
     }
 
     if (caps_word_on || xcase_state) {
+        if (record->event.pressed) {
+            // check if the case modes have been terminated
+            if (terminate_case_modes(keycode, record)) {
+                disable_caps_word();
+                disable_xcase();
+                clear_oneshot_mods();
+                reset_oneshot_layer();
+            }
+        }
+
         // Get the base keycode of a mod or layer tap key
         switch (keycode) {
             case QK_MOD_TAP ... QK_MOD_TAP_MAX:
@@ -215,14 +254,8 @@ bool process_case_modes(uint16_t keycode, const keyrecord_t *record) {
                     place_delimiter();
                     return false;
                 }
-            } // end XCASE_ON
-
-            // check if the case modes have been terminated
-            if (terminate_case_modes(keycode, record)) {
-                disable_caps_word();
-                disable_xcase();
             }
-        } // end if event.pressed
+        }
 
         return true;
     }

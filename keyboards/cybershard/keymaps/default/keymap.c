@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
       SE_J,    SE_C,    SE_Y,    SE_F,    SE_P,         SE_X,    SE_W,    SE_O,    SE_U,    SE_DOT,
       SE_R,    SE_S,    SE_T,    SE_H,    SE_K,         SE_M,    SE_N,    SE_A,    SE_I,    REPEAT,
-      SE_COMM, SE_V,    SE_G,    SE_D,    SE_B,         SE_SLSH, SE_L,    SE_LPRN, SE_RPRN, SE_UNDS,
+      SE_COMM, SE_V,    SE_G,    SE_D,    SE_B,         SE_SLSH, SE_L,    SE_LPRN, SE_RPRN, UNDS_MINS,
                KC_F2,   KC_F12,
                                  FUN,     MT_SPC,       SE_E
     ),
@@ -69,15 +69,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUM]  = LAYOUT(
       SE_J,    SE_PLUS, SE_ASTR, SE_F,    SE_P,         SE_X,    SE_W,    AT_U,    REPEAT,  SE_DOT,
       SE_6,    SE_4,    SE_0,    SE_2,    SE_K,         SE_M,    SE_3,    SE_1,    SE_5,    SE_7,
-      SE_COMM, SE_V,    NUM_G,   SE_8,    SE_B,         SE_SLSH, SE_9,    SE_LPRN, SE_RPRN, SE_UNDS,
+      SE_COMM, SE_V,    NUM_G,   SE_8,    SE_B,         SE_SLSH, SE_9,    SE_LPRN, SE_RPRN, UNDS_MINS,
                _______, _______,
                                  _______, MT_SPC,       _______
     ),
     // Important that the symbols on the base layer have the same positions as these symbols
     [_SYM]  = LAYOUT(
       TILD,    SE_PLUS, SE_ASTR, xxxxxxx, xxxxxxx,      xxxxxxx, SE_HASH, SE_AT,   CIRC,    SE_DOT,
-      SE_PIPE, SE_LCBR, SE_RCBR, SE_PERC, SE_BSLS,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, REPEAT,
-      SE_COMM, SE_LABK, SE_RABK, SE_EXLM, xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS,
+      SE_PIPE, SE_LCBR, SE_RCBR, SE_MINS, SE_BSLS,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, REPEAT,
+      SE_COMM, SE_LABK, SE_RABK, SE_EXLM, xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, UNDS_MINS,
                _______, _______,
                                  _______, _______,       _______
     ),
@@ -122,6 +122,7 @@ static uint16_t last_key_down = KC_NO;
 static uint16_t last_key_up   = KC_NO;
 
 static bool swap_caps_escape = false;
+static bool swap_unds_mins   = false;
 
 static uint16_t mouse_move_timer;
 
@@ -162,6 +163,10 @@ void tap_escape(void) {
     tap_code(swap_caps_escape ? KC_CAPS : KC_ESC);
 }
 
+bool is_caps_lock_on(void) {
+    return host_keyboard_led_state().caps_lock;
+}
+
 void tap_caps_lock(void) {
     tap_code(swap_caps_escape ? KC_ESC : KC_CAPS);
 }
@@ -189,6 +194,14 @@ void triple_tap(uint16_t keycode) {
     tap_code16(keycode);
 }
 
+uint16_t unds_mins_key(void) {
+    return swap_unds_mins ? SE_MINS : SE_UNDS;
+}
+
+uint16_t mins_unds_key(void) {
+    return swap_unds_mins ? SE_UNDS : SE_MINS;
+}
+
 uint16_t corresponding_swe_key(uint16_t keycode) {
     switch (keycode) {
         case SE_LPRN:
@@ -199,10 +212,10 @@ uint16_t corresponding_swe_key(uint16_t keycode) {
             return SE_ADIA;
         case SE_ADIA:
             return SE_RPRN;
-        case SE_UNDS:
+        case UNDS_MINS:
             return SE_ODIA;
         case SE_ODIA:
-            return SE_UNDS;
+            return unds_mins_key();
         default:
             return KC_NO;
     }
@@ -272,7 +285,8 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case qu_comb:
         case z_comb:
         case num:
-        case comb_perc:
+        // case comb_perc:
+        case perc:
         case comb_grv:
         case comb_hash:
         case comb_pipe:
@@ -304,6 +318,7 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case dquo:
         case lalt:
         // case mbutton:
+        case comb_unds_mins:
         case win_alt:
             return false;
         default:
@@ -334,10 +349,18 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
     switch (keycode) {
-        // Keycodes to ignore (don't disable caps word)
         case REPEAT:
+        // Note that xcase strips mod taps and layer taps
+        // case KC_SPC:
+        // Only for xcase but broken for capsword.....
+        // case MT_SPC:
+        // printf("Check space\n");
+        // if () {
+        //     return record->event.pressed && last_key_up == MT_SPC;
+        // } el
+        case CAPSWORD:
+        case NUMWORD:
         case REV_REP:
-            return false;
         case SE_A ... SE_Z:
         case SE_1 ... SE_0:
         case SE_ARNG:
@@ -347,19 +370,23 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
         case SC:
         case SE_MINS:
         case SE_UNDS:
+        case UNDS_MINS:
+        case MINS_UNDS:
+        case SWAP_UNDS_MINS:
+        case SE_LPRN:
+        case SE_RPRN:
         case KC_BSPC:
+        case C(SE_W):
+        case KC_DEL:
             // If mod chording disable the mods
             if (record->event.pressed && (get_mods() != 0)) {
                 return true;
+            } else {
+                return false;
             }
-            break;
         default:
-            if (record->event.pressed) {
-                return true;
-            }
-            break;
+            return record->event.pressed;
     }
-    return false;
 }
 
 // One-shot mods
@@ -432,6 +459,8 @@ bool tap_hold(uint16_t keycode) {
         case SE_LBRC:
         case SE_EQL:
         case SE_UNDS:
+        case UNDS_MINS:
+        case MINS_UNDS:
         case SE_0:
         case G(SE_0):
         case G(SE_1):
@@ -502,6 +531,12 @@ void tap_hold_send_tap(uint16_t keycode) {
             tap_code16(SE_ACUT);
             tap_code16(SE_E);
             return;
+        case UNDS_MINS:
+            tap16_repeatable(unds_mins_key());
+            return;
+        case MINS_UNDS:
+            tap16_repeatable(mins_unds_key());
+            return;
         case CLOSE_WIN:
             tap_code16(C(SE_W));
             tap_code(SE_Q);
@@ -520,6 +555,12 @@ void tap_hold_send_hold(uint16_t keycode) {
         case SE_UNDS:
             // FIXME should be repeatable
             double_tap(keycode);
+            return;
+        case UNDS_MINS:
+            double_tap(unds_mins_key());
+            return;
+        case MINS_UNDS:
+            double_tap(mins_unds_key());
             return;
         case SE_DQUO:
         case SE_DOT:
@@ -608,6 +649,7 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case SE_R:
         case SE_COMM:
         case SE_UNDS:
+        case UNDS_MINS:
         case SE_6:
         case G(SE_6):
         case SE_7:
@@ -668,15 +710,19 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
 void *leader_toggles_func(uint16_t keycode) {
     switch (keycode) {
         case KC_N:
+            printf("Invert NUM\n");
             layer_invert(_NUM);
             return NULL;
         case KC_S:
+            printf("Invert SYM\n");
             layer_invert(_SYM);
             return NULL;
         case KC_F:
+            printf("Invert FUN\n");
             layer_invert(_FUN);
             return NULL;
         case KC_C:
+            printf("Swap CAPS/ESC\n");
             swap_caps_esc();
             return NULL;
         default:
@@ -689,12 +735,15 @@ void *leader_start_func(uint16_t keycode) {
         case KC_T:
             return leader_toggles_func;
         case KC_C:
+            printf("Tap CAPS LOCK\n");
             tap_caps_lock();
             return NULL;
         case KC_S:
+            printf("Ctrl + Gui + Space\n");
             tap_code16(C(G(KC_SPACE)));
             return NULL;
         case ESC_SYM:
+            printf("Ctrl + Shift + Escape\n");
             tap_code16(C(S(KC_ESC)));
             return NULL;
         default:
@@ -744,6 +793,8 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (IS_LAYER_ON(_MOUSE)) {
                     printf("Disable mouse layer\n");
                     layer_off(_MOUSE);
+                    // Reset the timer so we have to move the trackball again before the mouse layer can activate.
+                    mouse_move_timer = 0;
                 }
             }
             return true;
@@ -754,6 +805,10 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (get_oneshot_layer() != 0) {
                 clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
             }
+            if (is_caps_lock_on()) {
+                tap_caps_lock();
+            }
+            swap_unds_mins = false;
             stop_leading();
             layer_off(_NUM);
             layer_off(_SYM);
@@ -771,9 +826,8 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             process_num_word_activation(record);
             return false;
         case CAPSWORD:
-            if (record->event.pressed) {
-                enable_caps_word();
-            }
+            register_key_to_repeat(CAPSWORD);
+            process_caps_word_activation(record);
             return false;
         case SAVE_VIM:
             if (record->event.pressed) {
@@ -873,6 +927,36 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             return true;
+        // case XCASE_MINS:
+        //     if (record->event.pressed) {
+        //         enable_xcase_with(SE_MINS);
+        //     }
+        //     return false;
+        // case XCASE_UNDS:
+        //     if (record->event.pressed) {
+        //         enable_xcase_with(SE_UNDS);
+        //     }
+        //     return false;
+        // case XCASE_SHFT:
+        //     if (record->event.pressed) {
+        //         enable_xcase_with(OSM(MOD_LSFT));
+        //     }
+        //     return false;
+        case SWAP_UNDS_MINS:
+            if (record->event.pressed) {
+                swap_unds_mins = !swap_unds_mins;
+            }
+            return false;
+        case UNDS_MINS:
+            if (record->event.pressed) {
+                tap16_repeatable(unds_mins_key());
+            }
+            return false;
+        case MINS_UNDS:
+            if (record->event.pressed) {
+                tap16_repeatable(mins_unds_key());
+            }
+            return false;
     }
 
     return true;
@@ -881,7 +965,7 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     process_oneshot_pre(keycode, record);
 
-    // If `false` was returned, then we did something special and should register that manually.
+    // If `false` was returned, then we did something special KC_SPCand should register that manually.
     // Otherwise register keyrepeat here by default.
     bool res = _process_record_user(keycode, record);
 

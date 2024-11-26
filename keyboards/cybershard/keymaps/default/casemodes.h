@@ -10,6 +10,8 @@ void enable_caps_word(void);
 void disable_caps_word(void);
 // Toggle caps word
 void toggle_caps_word(void);
+// Process activation
+void process_caps_word_activation(const keyrecord_t *record);
 
 // Check whether xcase is on
 bool xcase_enabled(void);

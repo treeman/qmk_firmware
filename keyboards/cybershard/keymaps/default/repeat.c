@@ -1,4 +1,5 @@
 #include "repeat.h"
+#include "casemodes.h"
 #include "keymap_swedish.h"
 #include "keycodes.h"
 #include "layermodes.h"
@@ -53,6 +54,9 @@ void update_repeat_key(keyrecord_t *record) {
             break;
         case NUMWORD:
             process_num_word_activation(record);
+            break;
+        case CAPSWORD:
+            process_caps_word_activation(record);
             break;
         default:
             update_key(last_keycode, record);

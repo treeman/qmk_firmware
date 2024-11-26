@@ -27,6 +27,11 @@ COMB(save_vim,          SAVE_VIM,       SE_N, SE_A, SE_I, REPEAT)
 // Mixed
 COMB(capsword,          CAPSWORD,       SE_T, SE_A)
 COMB(specials,          SPEC,           SE_S, SE_I)
+COMB(swap_unds_mins_c,  SWAP_UNDS_MINS, SE_H, SE_N)
+
+// COMB(xcase_mins,        XCASE_MINS,     SE_N, SE_H)
+// COMB(xcase_shft,        XCASE_SHFT,     SE_N, SE_T)
+// COMB(xcase_unds,        XCASE_UNDS,     SE_N, SE_S)
 
 // Left bottom row
 COMB(vsp,               VIM_VS,         SE_V, SE_G)
@@ -43,7 +48,7 @@ COMB(swe,               TG_SWE,         SE_L, SE_LPRN, SE_RPRN)
 
 // Mixed home row + other
 COMB(scln,              SE_SCLN,        SE_T, SE_D)
-COMB(mins_2,            SE_MINS,        SE_L, SE_A)
+COMB(perc,              SE_PERC,        SE_L, SE_A)
 
 // Vertical top left
 SUBS(small_left_arrow,  "<-",           SE_Y, SE_T)
@@ -85,7 +90,7 @@ COMB(comb_circ,         CIRC,           SE_E, SE_U)
 COMB(comb_pipe,         SE_PIPE,        MT_SPC, SE_R)
 COMB(comb_lcbr,         SE_LCBR,        MT_SPC, SE_S)
 COMB(comb_rcbr,         SE_RCBR,        MT_SPC, SE_T)
-COMB(comb_perc,         SE_PERC,        MT_SPC, SE_H)
+COMB(comb_unds_mins,    MINS_UNDS,      MT_SPC, SE_H)
 COMB(comb_bsls,         SE_BSLS,        MT_SPC, SE_K)
 COMB(comb_grv,          GRV,            SE_E, SE_M)
 COMB(comb_ques,         SE_QUES,        SE_E, SE_N)
@@ -98,12 +103,12 @@ COMB(comb_exlm,         SE_EXLM,        MT_SPC, SE_D)
 COMB(comb_ampr,         SE_AMPR,        SE_E, SE_L)
 COMB(comb_lprn,         SE_LPRN,        SE_E, SE_LPRN)
 COMB(comb_rprn,         SE_RPRN,        SE_E, SE_RPRN)
-COMB(comb_unds,         SE_UNDS,        SE_E, SE_UNDS)
+COMB(comb_unds,         UNDS_MINS,      SE_E, UNDS_MINS)
 
 // Swedish letters with cross side thumb
 COMB(arng,              SE_ARNG,        MT_SPC, SE_LPRN)
 COMB(adia,              SE_ADIA,        MT_SPC, SE_RPRN)
-COMB(odia,              SE_ODIA,        MT_SPC, SE_UNDS)
+COMB(odia,              SE_ODIA,        MT_SPC, UNDS_MINS)
 
 // Specials
 SUBS(https,             "https://",     MT_SPC, SE_SLSH)
@@ -127,5 +132,5 @@ COMB(comb_f7,           KC_F7,          FUN, REPEAT)
 
 // Boot
 COMB(comb_boot_l,       QK_BOOT,        SE_COMM, SE_V, SE_G, SE_D, MT_SPC)
-COMB(comb_boot_r,       QK_BOOT,        SE_E, SE_L, SE_LPRN, SE_RPRN, SE_UNDS)
+COMB(comb_boot_r,       QK_BOOT,        SE_E, SE_L, SE_LPRN, SE_RPRN, UNDS_MINS)
 

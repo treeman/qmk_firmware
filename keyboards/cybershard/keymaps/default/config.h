@@ -45,7 +45,8 @@
 #define COMBO_ONLY_FROM_LAYER 0
 
 #define DEFAULT_XCASE_SEPARATOR SE_MINS
-#define XCASE_DELIMITER_KEY SE_UNDS
+// #define XCASE_DELIMITER_KEY MT_SPC
+#define XCASE_DELIMITER_KEY KC_SPC
 
 // Cant import "keymap_swedish.h" as it sometimes generates extremely weird errors.
 #define LEADER_ESC_KEY KC_E
