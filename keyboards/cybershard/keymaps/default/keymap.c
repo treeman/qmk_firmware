@@ -17,11 +17,11 @@
 #include "leader.h"
 
 // TODO
-// Both:
-// - ` (hold left bottom + spc) ' (hold right bottom + spc) ~ (hold spc + j) ^ (hold e + u) diracts
-// Left:
-// - Better way of doing Ctrl + arrows?
-//   Use combo hold with T to enable layer together with ctrl
+// Shift hold on mid mbutton when held
+// Ctrl + A in NAV (hold on some key)
+// Ctrl + X in NAV (hold on some key)
+// Ctrl + C in NAV (hold on some key)
+// Ctrl + V in NAV (hold on some key)
 
 // Maybe use built-in QMK implementations:
 // - Repeat
@@ -29,12 +29,20 @@
 // - One shot mods
 // - CAPSWORD
 
+// [_MOUSE]  = LAYOUT(
+//   xxxxxxx, C(SE_C), xxxxxxx, xxxxxxx, xxxxxxx,      _______, _______, _______, _______, _______,
+//   SFT_CA,  KC_BTN2, KC_BTN3, KC_BTN1, xxxxxxx,      _______, _______, _______, _______, _______,
+//   C(SE_X), KC_BTN4, KC_BTN5, xxxxxxx, xxxxxxx,      _______, _______, _______, _______, _______,
+//            DN_DPI,  UP_DPI,
+//                              _______, MT_SPC,       _______
+// ),
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
       SE_J,    SE_C,    SE_Y,    SE_F,    SE_P,         SE_X,    SE_W,    SE_O,    SE_U,    SE_DOT,
       SE_R,    SE_S,    SE_T,    SE_H,    SE_K,         SE_M,    SE_N,    SE_A,    SE_I,    REPEAT,
-      SE_COMM, SE_V,    SE_G,    SE_D,    SE_B,         SE_SLSH, SE_L,    SE_LPRN, SE_RPRN, UNDS_MINS,
+      COMM_AR, SE_V,    SE_G,    SE_D,    SE_B,         SE_SLSH, SE_L,    SE_LPRN, SE_RPRN, UND_MIN,
                KC_F2,   KC_F12,
                                  FUN,     MT_SPC,       SE_E
     ),
@@ -46,11 +54,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 _______, _______,      _______
     ),
     [_NAV]  = LAYOUT(
-      G(SE_J), KC_LEFT, KC_UP,   KC_RGHT, KC_HOME,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx,
-      KC_PGUP, SC_TAB,  DN_CTRL, C_TAB,   G(SE_K),      xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-      _______, KC_BTN4, KC_BTN5, KC_PGDN, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-               _______, _______,
+      G(SE_J), PGDN_CC, KC_UP,   KC_PGUP, HOME_CX,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx,
+      C(SE_A), SC_TAB,  DN_CTRL, C_TAB,   G(SE_K),      xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
+      KC_LSFT, BTN3_CV, KC_BTN2, KC_BTN1, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+               KC_BTN4, KC_BTN5,
                                  _______, MT_SPC,       WNAV
+    ),
+    [_ARROW]  = LAYOUT(
+      _______, KC_PGDN, KC_UP,   KC_PGUP, _______,      _______, _______, _______, _______, _______,
+      _______, KC_LEFT, KC_DOWN, KC_RGHT, _______,      _______, _______, _______, _______, _______,
+      COMM_AR, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
+               _______, _______,
+                                _______, _______,      _______
     ),
     [_WIN]  = LAYOUT(
       _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
@@ -59,25 +74,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                _______, _______,
                                  _______, _______,      _______
     ),
-    [_MOUSE]  = LAYOUT(
-      xxxxxxx, C(SE_C), xxxxxxx, xxxxxxx, xxxxxxx,      _______, _______, _______, _______, _______,
-      SFT_CA,  KC_BTN2, KC_BTN3, KC_BTN1, xxxxxxx,      _______, _______, _______, _______, _______,
-      C(SE_X), KC_BTN4, KC_BTN5, xxxxxxx, xxxxxxx,      _______, _______, _______, _______, _______,
-               DN_DPI,  UP_DPI,
-                                 _______, MT_SPC,       _______
-    ),
     [_NUM]  = LAYOUT(
       SE_J,    SE_PLUS, SE_ASTR, SE_F,    SE_P,         SE_X,    SE_W,    AT_U,    REPEAT,  SE_DOT,
       SE_6,    SE_4,    SE_0,    SE_2,    SE_K,         SE_M,    SE_3,    SE_1,    SE_5,    SE_7,
-      SE_COMM, SE_V,    NUM_G,   SE_8,    SE_B,         SE_SLSH, SE_9,    SE_LPRN, SE_RPRN, UNDS_MINS,
+      SE_COMM, SE_V,    NUM_G,   SE_8,    SE_B,         SE_SLSH, SE_9,    SE_LPRN, SE_RPRN, UND_MIN,
                _______, _______,
                                  _______, MT_SPC,       _______
     ),
     // Important that the symbols on the base layer have the same positions as these symbols
     [_SYM]  = LAYOUT(
       TILD,    SE_PLUS, SE_ASTR, xxxxxxx, xxxxxxx,      xxxxxxx, SE_HASH, SE_AT,   CIRC,    SE_DOT,
-      SE_PIPE, SE_LCBR, SE_RCBR, SE_MINS, SE_BSLS,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, REPEAT,
-      SE_COMM, SE_LABK, SE_RABK, SE_EXLM, xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, UNDS_MINS,
+      SE_PIPE, SE_LCBR, SE_RCBR, MIN_UND, SE_BSLS,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, REPEAT,
+      SE_COMM, SE_LABK, SE_RABK, SE_EXLM, xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, UND_MIN,
                _______, _______,
                                  _______, _______,       _______
     ),
@@ -99,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
       KC_F6,   KC_F4,   KC_F10,  KC_F2,   KC_F12,       KC_F11,  KC_F3,   KC_F1,   KC_F5,   KC_F7,
       xxxxxxx, xxxxxxx, xxxxxxx, KC_F8,   xxxxxxx,      xxxxxxx, KC_F9,   xxxxxxx, xxxxxxx, xxxxxxx,
-               _______, _______,
+               DN_DPI,  UP_DPI,
                                  FUN,     _______,      _______
     ),
     [_SPEC] = LAYOUT(
@@ -124,7 +132,7 @@ static uint16_t last_key_up   = KC_NO;
 static bool swap_caps_escape = false;
 static bool swap_unds_mins   = false;
 
-static uint16_t mouse_move_timer;
+// static uint16_t mouse_move_timer;
 
 bool is_caps_swapped(void) {
     return swap_caps_escape;
@@ -212,7 +220,7 @@ uint16_t corresponding_swe_key(uint16_t keycode) {
             return SE_ADIA;
         case SE_ADIA:
             return SE_RPRN;
-        case UNDS_MINS:
+        case UND_MIN:
             return SE_ODIA;
         case SE_ODIA:
             return unds_mins_key();
@@ -370,9 +378,9 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
         case SC:
         case SE_MINS:
         case SE_UNDS:
-        case UNDS_MINS:
-        case MINS_UNDS:
-        case SWAP_UNDS_MINS:
+        case UND_MIN:
+        case MIN_UND:
+        case SWAP_UND_MIN:
         case SE_LPRN:
         case SE_RPRN:
         case KC_BSPC:
@@ -459,8 +467,8 @@ bool tap_hold(uint16_t keycode) {
         case SE_LBRC:
         case SE_EQL:
         case SE_UNDS:
-        case UNDS_MINS:
-        case MINS_UNDS:
+        case UND_MIN:
+        case MIN_UND:
         case SE_0:
         case G(SE_0):
         case G(SE_1):
@@ -500,6 +508,10 @@ bool tap_hold(uint16_t keycode) {
         case C(SE_G):
         case C(SE_D):
         case C(SE_B):
+        case PGUP_CA:
+        case PGDN_CC:
+        case BTN3_CV:
+        case HOME_CX:
             return true;
         default:
             return false;
@@ -531,15 +543,27 @@ void tap_hold_send_tap(uint16_t keycode) {
             tap_code16(SE_ACUT);
             tap_code16(SE_E);
             return;
-        case UNDS_MINS:
+        case UND_MIN:
             tap16_repeatable(unds_mins_key());
             return;
-        case MINS_UNDS:
+        case MIN_UND:
             tap16_repeatable(mins_unds_key());
             return;
         case CLOSE_WIN:
             tap_code16(C(SE_W));
             tap_code(SE_Q);
+            return;
+        case PGUP_CA:
+            tap16_repeatable(KC_PGUP);
+            return;
+        case PGDN_CC:
+            tap16_repeatable(KC_PGDN);
+            return;
+        case BTN3_CV:
+            tap16_repeatable(KC_BTN3);
+            return;
+        case HOME_CX:
+            tap16_repeatable(KC_HOME);
             return;
         default:
             tap16_repeatable(keycode);
@@ -556,10 +580,10 @@ void tap_hold_send_hold(uint16_t keycode) {
             // FIXME should be repeatable
             double_tap(keycode);
             return;
-        case UNDS_MINS:
+        case UND_MIN:
             double_tap(unds_mins_key());
             return;
-        case MINS_UNDS:
+        case MIN_UND:
             double_tap(mins_unds_key());
             return;
         case SE_DQUO:
@@ -624,6 +648,18 @@ void tap_hold_send_hold(uint16_t keycode) {
             // }
             tap16_repeatable(S(keycode));
             return;
+        case PGUP_CA:
+            tap16_repeatable(C(SE_A));
+            return;
+        case PGDN_CC:
+            tap16_repeatable(C(SE_C));
+            return;
+        case BTN3_CV:
+            tap16_repeatable(C(SE_V));
+            return;
+        case HOME_CX:
+            tap16_repeatable(C(SE_X));
+            return;
         default:
             tap16_repeatable(S(keycode));
     }
@@ -649,7 +685,7 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case SE_R:
         case SE_COMM:
         case SE_UNDS:
-        case UNDS_MINS:
+        case UND_MIN:
         case SE_6:
         case G(SE_6):
         case SE_7:
@@ -777,27 +813,27 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
-        case WNAV:
-            if (record->event.pressed && IS_LAYER_ON(_MOUSE)) {
-                printf("Disable mouse layer\n");
-                layer_off(_MOUSE);
-            }
-            return true;
-        case MT_SPC:
-            if (record->event.pressed) {
-                if (!IS_LAYER_ON(_MOUSE) && timer_elapsed(mouse_move_timer) <= MOUSE_LAYER_ACTIVE_TIMEOUT) {
-                    printf("Enable mouse layer: %u\n", timer_elapsed(mouse_move_timer));
-                    layer_on(_MOUSE);
-                }
-            } else {
-                if (IS_LAYER_ON(_MOUSE)) {
-                    printf("Disable mouse layer\n");
-                    layer_off(_MOUSE);
-                    // Reset the timer so we have to move the trackball again before the mouse layer can activate.
-                    mouse_move_timer = 0;
-                }
-            }
-            return true;
+        // case WNAV:
+        //     if (record->event.pressed && IS_LAYER_ON(_MOUSE)) {
+        //         printf("Disable mouse layer\n");
+        //         layer_off(_MOUSE);
+        //     }
+        //     return true;
+        // case MT_SPC:
+        //     if (record->event.pressed) {
+        //         if (!IS_LAYER_ON(_MOUSE) && timer_elapsed(mouse_move_timer) <= MOUSE_LAYER_ACTIVE_TIMEOUT) {
+        //             printf("Enable mouse layer: %u\n", timer_elapsed(mouse_move_timer));
+        //             layer_on(_MOUSE);
+        //         }
+        //     } else {
+        //         if (IS_LAYER_ON(_MOUSE)) {
+        //             printf("Disable mouse layer\n");
+        //             layer_off(_MOUSE);
+        //             // Reset the timer so we have to move the trackball again before the mouse layer can activate.
+        //             mouse_move_timer = 0;
+        //         }
+        //     }
+        //     return true;
         case KC_CAPS:
             return process_caps(record->event.pressed);
         case CLEAR:
@@ -812,7 +848,7 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             stop_leading();
             layer_off(_NUM);
             layer_off(_SYM);
-            layer_off(_MOUSE);
+            // layer_off(_MOUSE);
             layer_move(_BASE);
             return false;
         case TILD:
@@ -919,14 +955,14 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 down_dpi();
             }
             return false;
-        case SFT_CA:
-            // Workaround for LSFT_T only supporting standard keycodes.
-            if (record->tap.count && record->event.pressed) {
-                // Send C(A) on tap
-                tap_code16(C(SE_A));
-                return false;
-            }
-            return true;
+        // case SFT_CA:
+        //     // Workaround for LSFT_T only supporting standard keycodes.
+        //     if (record->tap.count && record->event.pressed) {
+        //         // Send C(A) on tap
+        //         tap_code16(C(SE_A));
+        //         return false;
+        //     }
+        //     return true;
         // case XCASE_MINS:
         //     if (record->event.pressed) {
         //         enable_xcase_with(SE_MINS);
@@ -942,17 +978,17 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
         //         enable_xcase_with(OSM(MOD_LSFT));
         //     }
         //     return false;
-        case SWAP_UNDS_MINS:
+        case SWAP_UND_MIN:
             if (record->event.pressed) {
                 swap_unds_mins = !swap_unds_mins;
             }
             return false;
-        case UNDS_MINS:
+        case UND_MIN:
             if (record->event.pressed) {
                 tap16_repeatable(unds_mins_key());
             }
             return false;
-        case MINS_UNDS:
+        case MIN_UND:
             if (record->event.pressed) {
                 tap16_repeatable(mins_unds_key());
             }
@@ -1044,21 +1080,21 @@ float precision_accumulated_y = 0;
 layer_state_t layer_state_set_user(layer_state_t state) {
     scrolling_mode = IS_LAYER_ON_STATE(state, _SYM);
     speed_mode     = IS_LAYER_ON_STATE(state, _MODS);
-    precision_mode = IS_LAYER_ON_STATE(state, _MOUSE);
+    precision_mode = IS_LAYER_ON_STATE(state, _NAV);
     return state;
 }
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     // printf("Timer: %u\n", timer_elapsed(mouse_move_timer));
-    if (!IS_LAYER_ON(_MOUSE) && (mouse_report.x != 0 || mouse_report.y != 0)) {
-        if (IS_LAYER_ON(_NAV)) {
-            printf("Enable mouse layer\n");
-            layer_on(_MOUSE);
-        } else {
-            mouse_move_timer = timer_read();
-            // printf("Update mouse timer\n");
-        }
-    }
+    // if (!IS_LAYER_ON(_MOUSE) && (mouse_report.x != 0 || mouse_report.y != 0)) {
+    //     if (IS_LAYER_ON(_NAV)) {
+    //         printf("Enable mouse layer\n");
+    //         layer_on(_MOUSE);
+    //     } else {
+    //         mouse_move_timer = timer_read();
+    //         // printf("Update mouse timer\n");
+    //     }
+    // }
 
     if (speed_mode) {
         speed_accumulated_x += (float)mouse_report.x * SPEED_MULTIPLIER_X;

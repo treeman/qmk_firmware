@@ -10,16 +10,17 @@
 enum layers {
     _BASE = 0,
     _SWE,
-    _NUM,
     _NAV,
-    _WNAV,
-    _AUTO_MOUSE,
-    _MOUSE,
+    _ARROW,
     _WIN,
+    _NUM,
     _SYM,
     _MODS,
-    _SPEC,
+    _WNAV,
+    // _AUTO_MOUSE,
+    // _MOUSE,
     _FUN,
+    _SPEC,
 };
 
 enum custom_keycodes {
@@ -50,6 +51,12 @@ enum custom_keycodes {
 
     // Shift on hold, Ctrl + A on tap
     // SFT_CA,
+
+    // Mix Ctrl + key on hold, regular key on tap
+    PGUP_CA,
+    PGDN_CC,
+    BTN3_CV,
+    HOME_CX,
 
     // TODO why use these?
     // Instant oneshot mods
@@ -82,14 +89,14 @@ enum custom_keycodes {
     REV_REP,
 
     // XCASE things
-    XCASE_MINS,
-    XCASE_SHFT,
-    XCASE_UNDS,
+    // XCASE_MINS,
+    // XCASE_SHFT,
+    // XCASE_UNDS,
 
     // - and _ swappable keys
-    UNDS_MINS,
-    MINS_UNDS,
-    SWAP_UNDS_MINS,
+    UND_MIN,
+    MIN_UND,
+    SWAP_UND_MIN,
 };
 
 #define xxxxxxx KC_NO
@@ -101,6 +108,7 @@ enum custom_keycodes {
 #define ESC_SYM LT(_SYM, KC_ESC)
 #define TAB_MOD LT(_MODS, KC_TAB)
 
+#define COMM_AR LT(_ARROW, SE_COMM)
 #define COLN_SYM LT(_SYM, SE_COLN)
 
 #define C_TAB C(KC_TAB)
