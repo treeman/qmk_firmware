@@ -10,17 +10,15 @@
 enum layers {
     _BASE = 0,
     _SWE,
-    _NAV,
-    _ARROW,
-    _WIN,
     _NUM,
     _SYM,
     _MODS,
-    _WNAV,
-    // _AUTO_MOUSE,
-    // _MOUSE,
     _FUN,
     _SPEC,
+    _WIN,
+    _NAV,
+    _WNAV,
+    _ARROW,
 };
 
 enum custom_keycodes {

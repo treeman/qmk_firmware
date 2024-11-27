@@ -1,12 +1,8 @@
-# cybershard
+# Cybershard
 
-![cybershard](imgur.com image replace me!)
+![The Cybershard keyboard](https://www.jonashietala.se/images/cosmos/cybershard.jpg)
 
-*A short description of the keyboard/project*
-
-* Keyboard Maintainer: [Jonas Hietala](https://github.com/Jonas Hietala)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+See [this blog post](https://www.jonashietala.se/blog/2024/11/26/building_my_ultimate_keyboard/) for the build log and more information about the keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
