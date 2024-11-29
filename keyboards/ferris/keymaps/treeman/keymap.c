@@ -55,13 +55,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       SE_J,    SE_PLUS, SE_ASTR, SE_EXLM, SE_P,         SE_X,    _______, AT_U,    REPEAT,  _______,
       SE_6,    SE_4,    SE_0,    SE_2,    SE_K,         _______, SE_3,    SE_1,    SE_5,    SE_7,
       SE_COMM, _______, NUM_G,   SE_8,    _______,      SE_SLSH, SE_9,    SE_LPRN, SE_RPRN, SE_UNDS,
-                                 _______, _______,      CANCEL,  _______
+                                 _______, MT_SPC,       CANCEL,  _______
     ),
     [_NAV]  = LAYOUT(
       G(SE_J), KC_LEFT, KC_UP, KC_RGHT, KC_HOME,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx,
       KC_PGUP, SC_TAB, DN_CTRL, C_TAB, G(SE_K),       xxxxxxx, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,
       KC_ENT, xxxxxxx, xxxxxxx, KC_PGDN, KC_END,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-                                _______, _______,     WNAV,    _______
+                                _______, MT_SPC,      WNAV,    _______
     ),
     [_WIN]  = LAYOUT(
       _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
@@ -86,33 +86,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       C(SE_Q), C(SE_W), C(SE_E), C(SE_R), C(SE_T),      _______, _______, _______, _______, _______,
       C(SE_A), C(SE_S), C(SE_D), C(SE_F), C(SE_G),      _______, _______, _______, _______, _______,
       C(SE_Z), C(SE_X), C(SE_C), C(SE_V), C(SE_B),      _______, _______, _______, _______, _______,
-                                 _______, _______,      _______, FUN
+                                 SHRT,    _______,      _______, FUN
     ),
-    /*
-    [_SHRT] = LAYOUT(
-      C(SE_A), C(SE_C), C(SE_W), C(SE_F), C(SE_E),      _______, _______, _______, _______, _______,
-      C(SE_R), C(SE_S), C(SE_T), C(SE_H), xxxxxxx,      _______, _______, _______, _______, _______,
-      C(SE_X), C(SE_V), C(SE_G), C(SE_D), C(SE_B),      _______, _______, _______, _______, _______,
-                                 _______, _______,      _______, FUN
-    ),
-    */
     [_WNAV] = LAYOUT(
       G(SE_J), G(SE_C), xxxxxxx, xxxxxxx, xxxxxxx,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx,
       G(SE_6), G(SE_4), G(SE_0), G(SE_2), G(SE_K),      xxxxxxx, G(SE_3), G(SE_1), G(SE_5), G(SE_7),
       xxxxxxx, xxxxxxx, xxxxxxx, G(SE_8), xxxxxxx,      xxxxxxx, G(SE_9), G(SE_H), G(SE_L), xxxxxxx,
-                                 _______, G(KC_SPC),    _______, _______
+                                 _______, G(KC_SPC),    WNAV,    _______
     ),
     [_FUN]  = LAYOUT(
       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
       KC_F6,   KC_F4,   KC_F10,  KC_F2,   KC_F12,       KC_F11,  KC_F3,   KC_F1,   KC_F5,   KC_F7,
       xxxxxxx, xxxxxxx, xxxxxxx, KC_F8,   xxxxxxx,      xxxxxxx, KC_F9,   xxxxxxx, xxxxxxx, xxxxxxx,
-                                 _______, _______,      _______, _______
+                                 SHRT,    _______,      _______, SPEC
     ),
     [_SPEC] = LAYOUT(
       SE_TILD, SYM_LQO, _______, SYM_RQO, _______,      _______, _______, _______, SE_CIRC, SE_DIAE,
       _______, SYM_LDQ, _______, SYM_RDQ, SE_ACUT,      SE_GRV,  SYM_LFT, SYM_DWN, SYM_UP,  SYM_RHT,
       _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
-                                 FUN,     _______,      _______, _______
+                                 FUN,     _______,      _______, SPEC
     )
 };
 

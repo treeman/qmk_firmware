@@ -9,16 +9,17 @@
 
 enum layers {
     _BASE = 0,
-    _SWE,
+    _SECOND,
+    // _SWE,
     _NUM,
-    _SYM,
-    _MODS,
-    _FUN,
-    _SPEC,
-    _WIN,
-    _NAV,
-    _WNAV,
-    _ARROW,
+    // _SYM,
+    // _MODS,
+    // _FUN,
+    // _SPEC,
+    // _WIN,
+    // _NAV,
+    // _WNAV,
+    // _ARROW,
 };
 
 enum custom_keycodes {
@@ -99,7 +100,7 @@ enum custom_keycodes {
 
 #define PGUP_S MT(MOD_LSFT, KC_PGUP)
 
-#define MT_SPC LT(_NAV, KC_SPC)
+#define MT_SPC LT(_SECOND, KC_SPC)
 #define MY_RALT OSM(MOD_RALT)
 #define DN_CTRL LCTL_T(KC_DOWN)
 
@@ -113,7 +114,6 @@ enum custom_keycodes {
 #define C_C_TAB LCTL_T(C(KC_TAB))
 #define S_TAB S(KC_TAB)
 #define SC_TAB S(C(KC_TAB))
-// #define C_SC_TB LCTL_T(S(C(KC_TAB)))
 // #define SFT_CA LSFT_T(C(SE_A))
 
 #define MY_LALT OSM(MOD_LALT)

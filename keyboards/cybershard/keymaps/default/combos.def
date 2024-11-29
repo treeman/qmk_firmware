@@ -61,6 +61,7 @@ SUBS(small_right_arrow, "->",           SE_O, SE_A)
 SUBS(pipe_to,           "|>",           SE_U, SE_I)
 // Vertical bottom left
 COMB(sp,                VIM_SP,         SE_S, SE_V)
+COMB(mbutton3,          KC_BTN3,        SE_T, SE_G)
 SUBS(gt_eq,             ">=",           SE_H, SE_D)
 
 // Thumbs

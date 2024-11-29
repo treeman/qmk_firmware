@@ -16,106 +16,38 @@
 #include "repeat.h"
 #include "leader.h"
 
-// Maybe use built-in QMK implementations:
-// - Repeat
-// - Reverse repeat
-// - One shot mods
-// - CAPSWORD
-
-// [_MOUSE]  = LAYOUT(
-//   xxxxxxx, C(SE_C), xxxxxxx, xxxxxxx, xxxxxxx,      _______, _______, _______, _______, _______,
-//   SFT_CA,  KC_BTN2, KC_BTN3, KC_BTN1, xxxxxxx,      _______, _______, _______, _______, _______,
-//   C(SE_X), KC_BTN4, KC_BTN5, xxxxxxx, xxxxxxx,      _______, _______, _______, _______, _______,
-//            DN_DPI,  UP_DPI,
-//                              _______, MT_SPC,       _______
-// ),
-// [_NAV]  = LAYOUT(
-//   G(SE_J), PGDN_CC, KC_UP,   KC_PGUP, HOME_CX,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx,
-//   C(SE_A), SC_TAB,  DN_CTRL, C_TAB,   G(SE_K),      xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-//   KC_LSFT, BTN3_CV, KC_BTN2, KC_BTN1, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-//            KC_BTN4, KC_BTN5,
-//                              _______, MT_SPC,       WNAV
-// ),
+// NUMWORD activate on combo
+// CAPSWORD + auto shift
+// Enter, Backspace, Delete, Tab on combos
+// Ctrl, Alt on combos
+// z and q on combos ?
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT(
-      SE_J,    SE_C,    SE_Y,    SE_F,    SE_P,         SE_X,    SE_W,    SE_O,    SE_U,    SE_DOT,
-      SE_R,    SE_S,    SE_T,    SE_H,    SE_K,         SE_M,    SE_N,    SE_A,    SE_I,    REPEAT,
-      COMM_AR, SE_V,    SE_G,    SE_D,    SE_B,         SE_SLSH, SE_L,    SE_LPRN, SE_RPRN, UND_MIN,
-               KC_F2,   KC_F12,
-                                 FUN,     MT_SPC,       SE_E
-    ),
-    [_SWE]  = LAYOUT(
-      _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______,      _______, _______, SE_ARNG, SE_ADIA, SE_ODIA,
+    // 15 keys per layer
+    [_BASE] = LAYOUT_left(
+      SE_P,    SE_W,    SE_R,    SE_A,    SE_F,
+      SE_D,    SE_T,    SE_H,    SE_E,    SE_O,
+      SE_Y,    SE_S,    SE_N,    SE_I,    SE_U,
                _______, _______,
-                                _______, _______,      _______
+                                 NAV,     MT_SPC
     ),
-    [_NAV]  = LAYOUT(
-      G(SE_J), DOWN_CC, KC_UP,   _______, HOME_CX,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx,
-      PGUP_S,  SC_TAB,  C_C_TAB, KC_BTN1, G(SE_K),      xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-      C(SE_A), C(SE_V), KC_BTN2, KC_PGDN, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-               KC_BTN4, KC_BTN5,
-                                 _______, MT_SPC,       WNAV
-    ),
-    [_ARROW]  = LAYOUT(
-      _______, KC_PGUP, KC_UP,   KC_PGDN, _______,      _______, _______, _______, _______, _______,
-      _______, KC_LEFT, KC_DOWN, KC_RGHT, _______,      _______, _______, _______, _______, _______,
-      COMM_AR, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
+    // åäö?
+    // x y b
+    // kj?
+    [_SECOND] = LAYOUT_left(
+      SE_J,    SE_M,    SE_B,    SE_COMM, SE_TAB,
+      SE_V,    SE_C,    SE_L,    _______, _______,
+      _______, SE_G,    SE_K,    _______, _______,
                _______, _______,
-                                _______, _______,      _______
+                                 _______, _______
     ),
-    [_WIN]  = LAYOUT(
-      _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
-      _______, S_TAB,   _______, KC_TAB,  _______,      _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
+    [_NUM] = LAYOUT_left(
+      _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______,
                _______, _______,
-                                 _______, _______,      _______
-    ),
-    [_NUM]  = LAYOUT(
-      SE_J,    SE_PLUS, SE_ASTR, SE_F,    SE_P,         SE_X,    SE_W,    AT_U,    REPEAT,  SE_DOT,
-      SE_6,    SE_4,    SE_0,    SE_2,    SE_K,         SE_M,    SE_3,    SE_1,    SE_5,    SE_7,
-      SE_COMM, SE_V,    NUM_G,   SE_8,    SE_B,         SE_SLSH, SE_9,    SE_LPRN, SE_RPRN, UND_MIN,
-               _______, _______,
-                                 _______, MT_SPC,       _______
-    ),
-    // Important that the symbols on the base layer have the same positions as these symbols
-    [_SYM]  = LAYOUT(
-      TILD,    SE_PLUS, SE_ASTR, xxxxxxx, xxxxxxx,      xxxxxxx, SE_HASH, SE_AT,   CIRC,    SE_DOT,
-      SE_PIPE, SE_LCBR, SE_RCBR, MIN_UND, SE_BSLS,      GRV,     SE_QUES, SE_LBRC, SE_RBRC, REPEAT,
-      SE_COMM, SE_LABK, SE_RABK, SE_EXLM, xxxxxxx,      SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, UND_MIN,
-               _______, _______,
-                                 _______, _______,       _______
-    ),
-    [_MODS] = LAYOUT(
-      _______, _______, _______, _______, _______,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-      _______, _______, _______, _______, _______,      xxxxxxx, OS_GUI,  OS_CTRL, OS_SHFT, OS_ALT,
-      _______, _______, _______, _______, _______,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MY_RALT,
-               _______, _______,
-                                 _______, _______,      _______
-    ),
-    [_WNAV] = LAYOUT(
-      G(SE_J), G(SE_C), xxxxxxx, xxxxxxx, xxxxxxx,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx,
-      G(SE_6), G(SE_4), G(SE_0), G(SE_2), G(SE_K),      xxxxxxx, G(SE_3), G(SE_1), G(SE_5), G(SE_7),
-      xxxxxxx, xxxxxxx, xxxxxxx, G(SE_8), xxxxxxx,      xxxxxxx, G(SE_9), G(SE_H), G(SE_L), xxxxxxx,
-               _______, _______,
-                                 _______, G(KC_SPC),    WNAV
-    ),
-    [_FUN]  = LAYOUT(
-      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-      KC_F6,   KC_F4,   KC_F10,  KC_F2,   KC_F12,       KC_F11,  KC_F3,   KC_F1,   KC_F5,   KC_F7,
-      xxxxxxx, xxxxxxx, xxxxxxx, KC_F8,   xxxxxxx,      xxxxxxx, KC_F9,   xxxxxxx, xxxxxxx, xxxxxxx,
-               DN_DPI,  UP_DPI,
-                                 FUN,     _______,      _______
-    ),
-    [_SPEC] = LAYOUT(
-      SE_TILD, SYM_COP, _______, _______, _______,      _______, _______, _______, SE_CIRC, SE_DIAE,
-      _______, _______, SYM_TM,  _______, SE_ACUT,      SE_GRV,  _______, _______, _______, _______,
-      _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
-               _______, _______,
-                                 _______, _______,      SYM_EUR
+                                 _______, _______
     )
 };
 // clang-format on
@@ -967,13 +899,6 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             return true;
-        // case C_SC_TB:
-        //     // Workaround for LCTL_T only supporting standard keycodes.
-        //     if (record->tap.count && record->event.pressed) {
-        //         tap_code16(S(C(KC_TAB)));
-        //         return false;
-        //     }
-        //     return true;
         // case SFT_CA:
         //     // Workaround for LSFT_T only supporting standard keycodes.
         //     if (record->tap.count && record->event.pressed) {
@@ -1054,98 +979,5 @@ void keyboard_post_init_user(void) {
     debug_enable = true;
     // debug_matrix=true;
     // debug_keyboard=true;
-    debug_mouse = true;
     timer_init();
-}
-
-void pointing_device_init_user(void) {
-    // set_auto_mouse_layer(_MOUSE);
-    // set_auto_mouse_enable(true);
-}
-
-bool is_mouse_record_kb(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case C(SE_A):
-        case C(SE_C):
-        case C(SE_X):
-        case C(SE_V):
-        case DN_DPI:
-        case UP_DPI:
-            return true;
-        default:
-            return false;
-    }
-    return is_mouse_record_user(keycode, record);
-}
-
-#define SCROLL_DIVISOR_H 10.0
-#define SCROLL_DIVISOR_V 10.0
-
-float scroll_accumulated_h = 0;
-float scroll_accumulated_v = 0;
-
-#define SPEED_MULTIPLIER_X 2.0
-#define SPEED_MULTIPLIER_Y 2.0
-
-float speed_accumulated_x = 0;
-float speed_accumulated_y = 0;
-
-#define PRECISION_DIVISOR_X 2.0
-#define PRECISION_DIVISOR_Y 2.0
-
-float precision_accumulated_x = 0;
-float precision_accumulated_y = 0;
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    scrolling_mode = IS_LAYER_ON_STATE(state, _SYM);
-    speed_mode     = IS_LAYER_ON_STATE(state, _MODS);
-    precision_mode = IS_LAYER_ON_STATE(state, _NAV);
-    return state;
-}
-
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    // printf("Timer: %u\n", timer_elapsed(mouse_move_timer));
-    // if (!IS_LAYER_ON(_MOUSE) && (mouse_report.x != 0 || mouse_report.y != 0)) {
-    //     if (IS_LAYER_ON(_NAV)) {
-    //         printf("Enable mouse layer\n");
-    //         layer_on(_MOUSE);
-    //     } else {
-    //         mouse_move_timer = timer_read();
-    //         // printf("Update mouse timer\n");
-    //     }
-    // }
-
-    if (speed_mode) {
-        speed_accumulated_x += (float)mouse_report.x * SPEED_MULTIPLIER_X;
-        speed_accumulated_y += (float)mouse_report.y * SPEED_MULTIPLIER_Y;
-
-        mouse_report.x = (int8_t)speed_accumulated_x;
-        mouse_report.y = (int8_t)speed_accumulated_y;
-
-        speed_accumulated_x -= (int8_t)speed_accumulated_x;
-        speed_accumulated_y -= (int8_t)speed_accumulated_y;
-    } else if (precision_mode) {
-        precision_accumulated_x += (float)mouse_report.x / PRECISION_DIVISOR_X;
-        precision_accumulated_y += (float)mouse_report.y / PRECISION_DIVISOR_Y;
-
-        mouse_report.x = (int8_t)precision_accumulated_x;
-        mouse_report.y = (int8_t)precision_accumulated_y;
-
-        precision_accumulated_x -= (int8_t)precision_accumulated_x;
-        precision_accumulated_y -= (int8_t)precision_accumulated_y;
-    }
-    if (scrolling_mode) {
-        scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
-        scroll_accumulated_v -= (float)mouse_report.y / SCROLL_DIVISOR_V;
-
-        mouse_report.h = (int8_t)scroll_accumulated_h;
-        mouse_report.v = (int8_t)scroll_accumulated_v;
-
-        scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
-        scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
-
-        mouse_report.x = 0;
-        mouse_report.y = 0;
-    }
-    return mouse_report;
 }
