@@ -18,13 +18,45 @@
 
 // NUMWORD activate on combo
 // CAPSWORD + auto shift
-// Enter, Backspace, Delete, Tab on combos
-// Ctrl, Alt on combos
-// z and q on combos ?
+//
+// Backspace: top left
+// delete: top right
+// Esc: mid + index
+// Enter: 3 home-row
+// Tab: ring + mid (or maybe move?)
+// Ctrl: Vertical bottom mid
+//
+// Alt: Vertical bottom ring (not often used, can be moved)
+
+//   g o   u
+// e t a h i n s r
+//   y   k   w c j
+//       d   x v
+//       b   m
+//       f   l
+//       p
+//
+// hands-down
+// e o q
+// a u
+// i y
+//
+// frogpad:
+// SE_P,    SE_W,    SE_R,    SE_A,    SE_F,
+// SE_D,    SE_T,    SE_H,    SE_E,    SE_O,
+// SE_Y,    SE_S,    SE_N,    SE_I,    SE_U,
+//
+// SE_J,    SE_M,    SE_B,    SE_COMM, KC_TAB,
+// SE_V,    SE_C,    SE_L,    _______, _______,
+// _______, SE_G,    SE_K,    _______, _______,
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // 15 keys per layer
+    // Most common: e t a o i n s r h l
+    // th inward roll plz ty
+    // e t a o i n s r h l
+    // c u m w f (maybe switch?)
     [_BASE] = LAYOUT_left(
       SE_P,    SE_W,    SE_R,    SE_A,    SE_F,
       SE_D,    SE_T,    SE_H,    SE_E,    SE_O,
@@ -32,17 +64,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                _______, _______,
                                  NAV,     MT_SPC
     ),
+    // g y p b v k j x q z
+    //
     // åäö?
     // x y b
     // kj?
     [_SECOND] = LAYOUT_left(
-      SE_J,    SE_M,    SE_B,    SE_COMM, SE_TAB,
+      SE_J,    SE_M,    SE_B,    SE_COMM, KC_TAB,
       SE_V,    SE_C,    SE_L,    _______, _______,
       _______, SE_G,    SE_K,    _______, _______,
                _______, _______,
                                  _______, _______
     ),
     [_NUM] = LAYOUT_left(
+      _______, SE_7,    SE_8,    SE_9,    _______,
+      SE_3,    SE_1,    SE_0,    SE_2,    _______,
+      _______, SE_5,    SE_6,    SE_4,    _______,
+               _______, _______,
+                                 _______, _______
+    ),
+    [_NAV] = LAYOUT_left(
+      _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______,
+               _______, _______,
+                                 _______, _______
+    ),
+    [_WNAV] = LAYOUT_left(
+      _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______,
+               _______, _______,
+                                 _______, _______
+    ),
+    [_FUN] = LAYOUT_left(
       _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______,
