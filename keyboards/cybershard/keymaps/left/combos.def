@@ -5,32 +5,32 @@ COMB(del,               KC_DEL,         SE_E, SE_T)
 COMB(backsp,            KC_BSPC,        SE_T, SE_A)
 COMB(tab,               KC_TAB,         SE_A, SE_O)
 COMB(ctrl_w,            C(SE_W),        SE_T, SE_A, SE_O)
-COMB(ctrl_w,            SE_COLN,        SE_O, SE_I)
+COMB(ctrl_w,            SE_V,           SE_O, SE_I)
 // Home-row
-COMB(dot,               SE_DOT,         SE_S, SE_R)
+COMB(dot,               SE_G,           SE_S, SE_R)
 COMB(esc,               KC_ESC,         SE_R, SE_H)
-COMB(combo_v,           SE_V,           SE_H, SE_L)
+COMB(combo_v,           SE_F,           SE_H, SE_L)
 COMB(ent,               KC_ENT,         SE_S, SE_R, SE_H)
 COMB(save_vim,          SAVE_VIM,       SE_N, SE_S, SE_R, SE_H)
 COMB(dquo,              SE_DQUO,        SE_S, SE_H)
 // Bottom row
-COMB(combo_x,           SE_COMM,        SE_U, SE_M)
-COMB(combo_q,           SE_Q,           SE_M, SE_W)
-COMB(ctrl_w,            SE_SLSH,        SE_W, SE_F)
+COMB(combo_x,           SE_P,           SE_U, SE_M)
+COMB(combo_q,           SE_Y,           SE_M, SE_W)
+COMB(ctrl_w,            SE_B,           SE_W, SE_F)
 COMB(ctrl_w,            SE_EQL,         SE_U, SE_M, SE_W)
 COMB(leader,            LEADER,         SE_U, SE_W)
 // Very bottom
-COMB(combo_z,           SE_Z,           SE_Q, SE_X)
+COMB(combo_z,           SE_X,           SE_COMM, SE_DOT)
 
 // Mixed
 COMB(scln,              SE_SCLN,        SE_R, SE_W)
 COMB(perc,              SE_PERC,        SE_S, SE_W)
 
 // Vertical
-COMB(combo_v,           SE_V,         SE_T, SE_S)
-COMB(combo_x,           SE_X,         SE_S, SE_U)
-COMB(combo_p,           SE_P,         SE_A, SE_R)
-COMB(combo_b,           SE_B,         SE_R, SE_M)
+COMB(combo_z,           SE_Z,         SE_T, SE_S)
+COMB(combo_slsh,        SE_SLSH,      SE_S, SE_U)
+COMB(combo_q,           SE_Q,         SE_A, SE_R)
+COMB(combo_coln,        SE_COLN,      SE_R, SE_M)
 COMB(combo_k,           SE_K,         SE_O, SE_H)
 COMB(combo_j,           SE_J,         SE_H, SE_W)
 

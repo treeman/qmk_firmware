@@ -28,6 +28,7 @@
 //
 // Alt: Vertical bottom ring (not often used, can be moved)
 
+// cybershard (columns)
 //   g o   u
 // e t a h i n s r
 //   y   k   w c j
@@ -36,10 +37,46 @@
 //       f   l
 //       p
 //
-// hands-down
-// e o q
-// a u
-// i y
+// hands-down (columns)
+// w  f  m  p  v     /  .  q  "  '  z
+// r  s  n  t  b     ,  a  e  i  h  j
+// x  c  l  d  g     -  u  o  y  k
+//
+// index (8 pure)
+// n
+// k
+// j
+// h
+// l
+// w
+// m
+// c
+//
+// middle (5 pure)
+// i
+// a
+// u
+// .
+// q
+//
+//
+// ring (6 pure)
+// r
+// s
+// t
+// d
+// ,
+// z
+//
+// pinky (2)
+// e
+// o
+//
+// ring-middle (3 + del bscp)
+// g p x
+//
+// middle-index (3-4 + esc tab)
+// f y b v
 //
 // frogpad:
 // SE_P,    SE_W,    SE_R,    SE_A,    SE_F,
@@ -52,60 +89,24 @@
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    // 15 keys per layer
-    // Most common: e t a o i n s r h l
-    // th inward roll plz ty
-    // e t a o i n s r h l
-    // c u m w f (maybe switch?)
-    [_BASE] = LAYOUT_left(
+    [_BASE_REF] = LAYOUT_left(
       SE_E,    SE_T,    SE_A,    SE_O,    SE_I,
       SE_N,    SE_S,    SE_R,    SE_H,    SE_L,
       SE_C,    SE_U,    SE_M,    SE_W,    SE_F,
-               SE_Q,    SE_X,
+               SE_COMM, SE_DOT,
                                  SYM,     MT_SPC
     ),
+    // e t a o i n s r h l
+    // c u m w f
     // g y p b v k j x q z
-    //
-    // åäö?
-    // x y b
-    // kj?
-    //
-    // x q z shouldn't be prioritized over symbols
+    [_BASE] = LAYOUT_left(
+      SE_D,    SE_S,    SE_I,    SE_C,    SE_W,
+      SE_E,    SE_T,    SE_A,    SE_N,    SE_L,
+      SE_O,    SE_R,    SE_U,    SE_H,    SE_M,
+               SE_COMM, SE_DOT,
+                                 SYM,     MT_SPC
+    ),
     // y : . / , " x ( $ ) ' q [ - _ % z = }
-    //
-    //   capsword
-    //   numword
-    //   clear
-    //   leader
-    //
-    //   : combo
-    //   . combo
-    //   / combo
-    //   , combo
-    //   " split combo
-    //   ' split combo (hold)
-    //   ( ) layer
-    //   $ combo
-    //   [ ] layer
-    //   - combo
-    //   _ combo
-    //   % combo?
-    //   = combo
-    //   { } layer
-    //   *
-    //   < > layer
-    //   #
-    //   ?
-    //   ; combo?
-    //   ~
-    //   !
-    //   \ (hold /)
-    //   +
-    //   @
-    //   &
-    //   |
-    //   `
-    //   ^
     [_SYM] = LAYOUT_left(
       TILD,    CIRC,    SE_LABK, SE_RABK, _______,
       SE_LCBR, SE_RCBR, SE_LPRN, SE_RPRN, GRV,
