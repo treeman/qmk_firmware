@@ -1,0 +1,75 @@
+//// Base
+
+// Top row
+COMB(del,               KC_DEL,         SE_E, SE_T)
+COMB(backsp,            KC_BSPC,        SE_T, SE_A)
+COMB(tab,               KC_TAB,         SE_A, SE_O)
+COMB(ctrl_w,            C(SE_W),        SE_T, SE_A, SE_O)
+COMB(ctrl_w,            SE_COLN,        SE_O, SE_I)
+// Home-row
+COMB(dot,               SE_DOT,         SE_S, SE_R)
+COMB(esc,               KC_ESC,         SE_R, SE_H)
+COMB(combo_v,           SE_V,           SE_H, SE_L)
+COMB(ent,               KC_ENT,         SE_S, SE_R, SE_H)
+COMB(save_vim,          SAVE_VIM,       SE_N, SE_S, SE_R, SE_H)
+COMB(dquo,              SE_DQUO,        SE_S, SE_H)
+// Bottom row
+COMB(combo_x,           SE_COMM,        SE_U, SE_M)
+COMB(combo_q,           SE_Q,           SE_M, SE_W)
+COMB(ctrl_w,            SE_SLSH,        SE_W, SE_F)
+COMB(ctrl_w,            SE_EQL,         SE_U, SE_M, SE_W)
+COMB(leader,            LEADER,         SE_U, SE_W)
+// Very bottom
+COMB(combo_z,           SE_Z,           SE_Q, SE_X)
+
+// Mixed
+COMB(scln,              SE_SCLN,        SE_R, SE_W)
+COMB(perc,              SE_PERC,        SE_S, SE_W)
+
+// Vertical
+COMB(combo_v,           SE_V,         SE_T, SE_S)
+COMB(combo_x,           SE_X,         SE_S, SE_U)
+COMB(combo_p,           SE_P,         SE_A, SE_R)
+COMB(combo_b,           SE_B,         SE_R, SE_M)
+COMB(combo_k,           SE_K,         SE_O, SE_H)
+COMB(combo_j,           SE_J,         SE_H, SE_W)
+
+////  Space combos
+
+// Top row
+COMB(spc6,              SE_DLR,       MT_SPC, SE_E)
+COMB(spc6,              SE_PLUS,      MT_SPC, SE_T)
+COMB(spc6,              SE_ASTR,      MT_SPC, SE_A)
+COMB(spc6,              SE_AT,        MT_SPC, SE_O)
+
+// Home row
+COMB(spc1,              SE_UNDS,      MT_SPC, SE_S)
+COMB(spc2,              SE_0,         MT_SPC, SE_R)
+COMB(spc3,              SE_MINS,      MT_SPC, SE_H)
+COMB(spc5,              SE_PIPE,      MT_SPC, SE_N)
+COMB(spc5,              SE_QUES,      MT_SPC, SE_L)
+COMB(numword,           NUMWORD,      MT_SPC, SE_S, SE_R)
+COMB(capsword,          CAPSWORD,     MT_SPC, SE_R, SE_H)
+COMB(comb_clear,        CLEAR,        MT_SPC, SE_S, SE_R, SE_H, SE_N)
+
+// Bottom row
+COMB(spc5,              SE_ARNG,         MT_SPC, SE_C)
+COMB(spc5,              SE_ADIA,         MT_SPC, SE_U)
+COMB(spc5,              SE_ODIA,         MT_SPC, SE_M)
+COMB(spc5,              SE_EXLM,         MT_SPC, SE_W)
+COMB(comb_boot,         QK_BOOT,      MT_SPC, SE_C, SE_U, SE_M, SE_W)
+
+//// Symbol
+
+// Vertical
+// |> -> =>
+//    <= >=
+
+//// Nav
+
+// Vertical
+// vsplit
+
+// Horizintal
+// hsplit
+
