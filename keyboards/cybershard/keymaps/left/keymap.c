@@ -58,23 +58,60 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // e t a o i n s r h l
     // c u m w f (maybe switch?)
     [_BASE] = LAYOUT_left(
-      SE_P,    SE_W,    SE_R,    SE_A,    SE_F,
-      SE_D,    SE_T,    SE_H,    SE_E,    SE_O,
-      SE_Y,    SE_S,    SE_N,    SE_I,    SE_U,
-               _______, _______,
-                                 NAV,     MT_SPC
+      SE_E,    SE_T,    SE_A,    SE_O,    SE_I,
+      SE_N,    SE_S,    SE_R,    SE_H,    SE_L,
+      SE_C,    SE_U,    SE_M,    SE_W,    SE_F,
+               SE_Q,    SE_X,
+                                 SYM,     MT_SPC
     ),
     // g y p b v k j x q z
     //
     // åäö?
     // x y b
     // kj?
-    [_SECOND] = LAYOUT_left(
-      SE_J,    SE_M,    SE_B,    SE_COMM, KC_TAB,
-      SE_V,    SE_C,    SE_L,    _______, _______,
-      _______, SE_G,    SE_K,    _______, _______,
+    //
+    // x q z shouldn't be prioritized over symbols
+    // y : . / , " x ( $ ) ' q [ - _ % z = }
+    //
+    //   capsword
+    //   numword
+    //   clear
+    //   leader
+    //
+    //   : combo
+    //   . combo
+    //   / combo
+    //   , combo
+    //   " split combo
+    //   ' split combo (hold)
+    //   ( ) layer
+    //   $ combo
+    //   [ ] layer
+    //   - combo
+    //   _ combo
+    //   % combo?
+    //   = combo
+    //   { } layer
+    //   *
+    //   < > layer
+    //   #
+    //   ?
+    //   ; combo?
+    //   ~
+    //   !
+    //   \ (hold /)
+    //   +
+    //   @
+    //   &
+    //   |
+    //   `
+    //   ^
+    [_SYM] = LAYOUT_left(
+      TILD,    CIRC,    SE_LABK, SE_RABK, _______,
+      SE_LCBR, SE_RCBR, SE_LPRN, SE_RPRN, GRV,
+      SE_AMPR, SE_HASH, SE_LBRC, SE_RBRC, _______,
                _______, _______,
-                                 _______, _______
+                                 SYM,     _______
     ),
     [_NUM] = LAYOUT_left(
       _______, SE_7,    SE_8,    SE_9,    _______,
@@ -84,20 +121,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, _______
     ),
     [_NAV] = LAYOUT_left(
-      _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______,
+      G(SE_J), KC_LEFT, KC_UP,   KC_RGHT, KC_HOME,
+      PGUP_C,  SC_TAB,  KC_DOWN, C_TAB,   G(SE_K),
+      OS_ALT,  OS_GUI,  KC_LSFT, KC_PGUP, KC_END,
                _______, _______,
-                                 _______, _______
+                                 _______, MT_SPC
     ),
     [_WNAV] = LAYOUT_left(
       _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______,
                _______, _______,
-                                 _______, _______
+                                 SYM,     MT_SPC
     ),
     [_FUN] = LAYOUT_left(
+      _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______,
+               _______, _______,
+                                 _______, _______
+    ),
+    [_BLANK] = LAYOUT_left(
       _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______,
