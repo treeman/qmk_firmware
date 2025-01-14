@@ -43,6 +43,7 @@
 #define COMBO_TERM_PER_COMBO
 // All combos are specified from the base layer
 #define COMBO_ONLY_FROM_LAYER 0
+#define COMBO_PROCESS_KEY_RELEASE
 
 #define DEFAULT_XCASE_SEPARATOR SE_MINS
 // #define XCASE_DELIMITER_KEY MT_SPC

@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
       SE_J,    SE_C,    SE_Y,    SE_F,    SE_P,         SE_X,    SE_W,    SE_O,    SE_U,    SE_DOT,
       SE_R,    SE_S,    SE_T,    SE_H,    SE_K,         SE_M,    SE_N,    SE_A,    SE_I,    REPEAT,
-      COMM_AR, SE_V,    SE_G,    SE_D,    SE_B,         SE_SLSH, SE_L,    SE_LPRN, SE_RPRN, UND_MIN,
+      COMM_AR, SE_V,    SE_G,    SE_D,    SE_B,         SE_SLSH, SE_L,    SE_LPRN, SE_RPRN, UND_MIN_MOUSE,
                KC_F2,   KC_F12,
                                  FUN,     MT_SPC,       SE_E
     ),
@@ -54,16 +54,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 _______, _______,      _______
     ),
     [_NAV]  = LAYOUT(
-      G(SE_J), DOWN_CC, KC_UP,   _______, HOME_CX,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx,
-      PGUP_S,  SC_TAB,  C_C_TAB, KC_BTN1, G(SE_K),      xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-      C(SE_A), C(SE_V), KC_BTN2, KC_PGDN, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+      G(SE_J), C(SE_C), xxxxxxx, C(SE_F), END_CX,       KC_HOME, G(SE_W), G(SE_E), G(SE_R), G(SE_DOT),
+      SFT_CA,  SC_TAB,  C_C_TAB, KC_BTN1, G(SE_K),      xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
+    G(SE_COMM),C(SE_V), KC_BTN2, KC_PGDN, C(SE_D),      C(SE_U), KC_PGUP, xxxxxxx, xxxxxxx, xxxxxxx,
                KC_BTN4, KC_BTN5,
                                  _______, MT_SPC,       WNAV
     ),
     [_ARROW]  = LAYOUT(
-      _______, KC_PGUP, KC_UP,   KC_PGDN, _______,      _______, _______, _______, _______, _______,
-      _______, KC_LEFT, KC_DOWN, KC_RGHT, _______,      _______, _______, _______, _______, _______,
-      COMM_AR, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
+      _______, KC_PGUP, KC_UP,   KC_PGDN, KC_END,       KC_HOME, _______, _______, _______, _______,
+      _______, KC_LEFT, KC_DOWN, KC_RGHT, _______,      _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
+      COMM_AR, _______, _______, KC_PGDN, _______,      _______, KC_PGUP, _______, _______, _______,
+               _______, _______,
+                                _______, _______,      _______
+    ),
+    [_MOUSE]  = LAYOUT(
+      _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______,      KC_BTN3, KC_BTN1, KC_BTN2, _______, UND_MIN_MOUSE,
                _______, _______,
                                 _______, _______,      _______
     ),
@@ -221,6 +228,7 @@ uint16_t corresponding_swe_key(uint16_t keycode) {
         case SE_ADIA:
             return SE_RPRN;
         case UND_MIN:
+        case UND_MIN_MOUSE:
             return SE_ODIA;
         case SE_ODIA:
             return unds_mins_key();
@@ -283,6 +291,12 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
         default:
             return COMBO_TERM + 25;
     }
+}
+
+bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) {
+    // Meh, it's not perfect but it's good enough.
+    uprintf("COMBO,NA,NA,0,0,0,0,%u\n", combo_index);
+    return false;
 }
 
 bool get_combo_must_tap(uint16_t index, combo_t *combo) {
@@ -379,6 +393,7 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
         case SE_MINS:
         case SE_UNDS:
         case UND_MIN:
+        case UND_MIN_MOUSE:
         case MIN_UND:
         case SWAP_UND_MIN:
         case SE_LPRN:
@@ -512,7 +527,9 @@ bool tap_hold(uint16_t keycode) {
         case PGDN_CC:
         case BTN3_CV:
         case HOME_CX:
+        case END_CX:
         case DOWN_CC:
+        case LR_MOUSE:
             return true;
         default:
             return false;
@@ -568,6 +585,12 @@ void tap_hold_send_tap(uint16_t keycode) {
             return;
         case HOME_CX:
             tap16_repeatable(KC_HOME);
+            return;
+        case END_CX:
+            tap16_repeatable(KC_END);
+            return;
+        case LR_MOUSE:
+            tap16_repeatable(KC_BTN1);
             return;
         default:
             tap16_repeatable(keycode);
@@ -663,7 +686,13 @@ void tap_hold_send_hold(uint16_t keycode) {
             tap16_repeatable(C(SE_V));
             return;
         case HOME_CX:
+        case END_CX:
             tap16_repeatable(C(SE_X));
+            return;
+            tap16_repeatable(C(SE_X));
+            return;
+        case LR_MOUSE:
+            tap16_repeatable(KC_BTN2);
             return;
         default:
             tap16_repeatable(S(keycode));
@@ -793,6 +822,21 @@ void *leader_start_func(uint16_t keycode) {
 }
 
 bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
+    const bool is_combo = record->event.type == COMBO_EVENT;
+    // clang-format off
+    if (!is_combo) {
+    uprintf("0x%04X,%u,%u,%u,%u,0x%02X,0x%02X,%u\n",
+        keycode,
+        record->event.key.row,
+        record->event.key.col,
+        get_highest_layer(layer_state),
+        record->event.pressed,
+        get_mods(),
+        get_oneshot_mods(),
+        record->tap.count
+    );
+    }
+
     if (!process_leader(keycode, record)) {
         return false;
     }
@@ -967,6 +1011,13 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             return true;
+        case CA_AR:
+            // Workaround for LT only supporting standard keycodes.
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(C(SE_A));
+                return false;
+            }
+            return true;
         // case C_SC_TB:
         //     // Workaround for LCTL_T only supporting standard keycodes.
         //     if (record->tap.count && record->event.pressed) {
@@ -974,14 +1025,14 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
         //         return false;
         //     }
         //     return true;
-        // case SFT_CA:
-        //     // Workaround for LSFT_T only supporting standard keycodes.
-        //     if (record->tap.count && record->event.pressed) {
-        //         // Send C(A) on tap
-        //         tap_code16(C(SE_A));
-        //         return false;
-        //     }
-        //     return true;
+        case SFT_CA:
+            // Workaround for LSFT_T only supporting standard keycodes.
+            if (record->tap.count && record->event.pressed) {
+                // Send C(A) on tap
+                tap_code16(C(SE_A));
+                return false;
+            }
+            return true;
         // case XCASE_MINS:
         //     if (record->event.pressed) {
         //         enable_xcase_with(SE_MINS);
@@ -1002,9 +1053,17 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 swap_unds_mins = !swap_unds_mins;
             }
             return false;
-        case UND_MIN:
-            if (record->event.pressed) {
-                tap16_repeatable(unds_mins_key());
+        case UND_MIN_MOUSE:
+            if (record->tap.count) {
+                if (record->event.pressed) {
+                    tap16_repeatable(unds_mins_key());
+                }
+            } else {
+                if (record->event.pressed) {
+                    layer_on(_MOUSE);
+                } else {
+                    layer_off(_MOUSE);
+                }
             }
             return false;
         case MIN_UND:
@@ -1099,7 +1158,7 @@ float precision_accumulated_y = 0;
 layer_state_t layer_state_set_user(layer_state_t state) {
     scrolling_mode = IS_LAYER_ON_STATE(state, _SYM);
     speed_mode     = IS_LAYER_ON_STATE(state, _MODS);
-    precision_mode = IS_LAYER_ON_STATE(state, _NAV);
+    precision_mode = IS_LAYER_ON_STATE(state, _NAV) || IS_LAYER_ON_STATE(state, _MOUSE);
     return state;
 }
 

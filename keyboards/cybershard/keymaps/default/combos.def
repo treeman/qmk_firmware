@@ -40,7 +40,7 @@ COMB(gui_combo_l,       OS_GUI,         SE_G, SE_D)
 COMB(close_win,         CLOSE_WIN,      SE_V, SE_G, SE_D)
 COMB(shift_combo_l,     KC_LSFT,        SE_D, SE_B)
 // Right bottom row
-COMB(shift_combo_r,     KC_RSFT,        SE_SLSH, SE_L)
+COMB(shift_combo_r,     OS_SHFT,        SE_SLSH, SE_L)
 COMB(gui_combo_r,       OS_GUI,         SE_L, SE_LPRN)
 COMB(dlr,               SE_DLR,         SE_LPRN, SE_RPRN)
 COMB(leader,            LEADER,         SE_L, SE_RPRN)
@@ -106,12 +106,12 @@ COMB(comb_exlm,         SE_EXLM,        MT_SPC, SE_D)
 COMB(comb_ampr,         SE_AMPR,        SE_E, SE_L)
 COMB(comb_lprn,         SE_LPRN,        SE_E, SE_LPRN)
 COMB(comb_rprn,         SE_RPRN,        SE_E, SE_RPRN)
-COMB(comb_unds,         UND_MIN,        SE_E, UND_MIN)
+COMB(comb_unds,         UND_MIN,        SE_E, UND_MIN_MOUSE)
 
 // Swedish letters with cross side thumb
 COMB(arng,              SE_ARNG,        MT_SPC, SE_LPRN)
 COMB(adia,              SE_ADIA,        MT_SPC, SE_RPRN)
-COMB(odia,              SE_ODIA,        MT_SPC, UND_MIN)
+COMB(odia,              SE_ODIA,        MT_SPC, UND_MIN_MOUSE)
 
 // Specials
 SUBS(https,             "https://",     MT_SPC, SE_SLSH)
@@ -135,5 +135,5 @@ COMB(comb_f7,           KC_F7,          FUN, REPEAT)
 
 // Boot
 COMB(comb_boot_l,       QK_BOOT,        COMM_AR, SE_V, SE_G, SE_D, MT_SPC)
-COMB(comb_boot_r,       QK_BOOT,        SE_E, SE_L, SE_LPRN, SE_RPRN, UND_MIN)
+COMB(comb_boot_r,       QK_BOOT,        SE_E, SE_L, SE_LPRN, SE_RPRN, UND_MIN_MOUSE)
 

@@ -7,6 +7,7 @@
 #include "quantum/action.h"
 #include "quantum/quantum_keycodes.h"
 
+// clang-format off
 enum layers {
     _BASE = 0,
     _SWE,
@@ -19,6 +20,7 @@ enum layers {
     _NAV,
     _WNAV,
     _ARROW,
+    _MOUSE
 };
 
 enum custom_keycodes {
@@ -50,10 +52,14 @@ enum custom_keycodes {
     // Shift on hold, Ctrl + A on tap
     // SFT_CA,
 
+    // Left on tap right on hold.
+    LR_MOUSE,
+
     // Mix Ctrl + key on hold, regular key on tap
     PGUP_CA,
     PGDN_CC,
     BTN3_CV,
+    END_CX,
     HOME_CX,
     DOWN_CC,
 
@@ -107,6 +113,7 @@ enum custom_keycodes {
 #define TAB_MOD LT(_MODS, KC_TAB)
 
 #define COMM_AR LT(_ARROW, SE_COMM)
+#define CA_AR LT(_ARROW, C(SE_A))
 #define COLN_SYM LT(_SYM, SE_COLN)
 
 // #define C_TAB C(KC_TAB)
@@ -114,7 +121,9 @@ enum custom_keycodes {
 #define S_TAB S(KC_TAB)
 #define SC_TAB S(C(KC_TAB))
 // #define C_SC_TB LCTL_T(S(C(KC_TAB)))
-// #define SFT_CA LSFT_T(C(SE_A))
+#define SFT_CA LSFT_T(C(SE_A))
+
+#define UND_MIN_MOUSE LT(_MOUSE, UND_MIN)
 
 #define MY_LALT OSM(MOD_LALT)
 
