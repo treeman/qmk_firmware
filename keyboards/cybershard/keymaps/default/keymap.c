@@ -22,21 +22,6 @@
 // - One shot mods
 // - CAPSWORD
 
-// [_MOUSE]  = LAYOUT(
-//   xxxxxxx, C(SE_C), xxxxxxx, xxxxxxx, xxxxxxx,      _______, _______, _______, _______, _______,
-//   SFT_CA,  KC_BTN2, KC_BTN3, KC_BTN1, xxxxxxx,      _______, _______, _______, _______, _______,
-//   C(SE_X), KC_BTN4, KC_BTN5, xxxxxxx, xxxxxxx,      _______, _______, _______, _______, _______,
-//            DN_DPI,  UP_DPI,
-//                              _______, MT_SPC,       _______
-// ),
-// [_NAV]  = LAYOUT(
-//   G(SE_J), PGDN_CC, KC_UP,   KC_PGUP, HOME_CX,      xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx,
-//   C(SE_A), SC_TAB,  DN_CTRL, C_TAB,   G(SE_K),      xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-//   KC_LSFT, BTN3_CV, KC_BTN2, KC_BTN1, KC_END,       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-//            KC_BTN4, KC_BTN5,
-//                              _______, MT_SPC,       WNAV
-// ),
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
@@ -123,7 +108,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,
                _______, _______,
                                  _______, _______,      SYM_EUR
-    )
+    ),
+    [_GAME]  = LAYOUT(
+      SE_2,    SE_Q,    SE_W,    SE_E,    SE_R,         _______, _______, _______, _______, _______,
+      KC_LSFT, SE_A,    SE_S,    SE_D,    SE_F,         _______, _______, _______, _______, _______,
+      KC_LCTL, SE_Z,    SE_X,    SE_C,    SE_V,         _______, _______, _______, _______, _______,
+               SE_1,    SE_0,
+                                _______, KC_SPC,        _______
+    ),
 };
 // clang-format on
 
@@ -791,6 +783,10 @@ void *leader_toggles_func(uint16_t keycode) {
             printf("Invert FUN\n");
             layer_invert(_FUN);
             return NULL;
+        case KC_G:
+            printf("Invert GAME\n");
+            layer_invert(_GAME);
+            return NULL;
         case KC_C:
             printf("Swap CAPS/ESC\n");
             swap_caps_esc();
@@ -840,19 +836,21 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_leader(keycode, record)) {
         return false;
     }
-    if (!process_num_word(keycode, record)) {
-        return false;
-    }
-    if (!process_case_modes(keycode, record)) {
-        return false;
-    }
-    if (!process_tap_hold(keycode, record)) {
-        // Extra register here to allow fast rolls without waiting for tap hold,
-        // (which will also overwrite this).
-        if (record->event.pressed) {
-            register_key_to_repeat(keycode);
+    if (!IS_LAYER_ON(_GAME)) {
+        if (!process_num_word(keycode, record)) {
+            return false;
         }
-        return false;
+        if (!process_case_modes(keycode, record)) {
+            return false;
+        }
+        if (!process_tap_hold(keycode, record)) {
+            // Extra register here to allow fast rolls without waiting for tap hold,
+            // (which will also overwrite this).
+            if (record->event.pressed) {
+                register_key_to_repeat(keycode);
+            }
+            return false;
+        }
     }
 
     switch (keycode) {
@@ -897,6 +895,7 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             stop_leading();
             layer_off(_NUM);
             layer_off(_SYM);
+            layer_off(_GAME);
             // layer_off(_MOUSE);
             layer_move(_BASE);
             return false;

@@ -20,7 +20,8 @@ enum layers {
     _NAV,
     _WNAV,
     _ARROW,
-    _MOUSE
+    _MOUSE,
+    _GAME
 };
 
 enum custom_keycodes {
